@@ -7,29 +7,51 @@
     android:paddingBottom="@dimen/no_margin"
     android:paddingLeft="@dimen/no_margin"
     android:paddingRight="@dimen/no_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/no_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="nl.visser.joram.mathapp.AdditionActivity"
     tools:showIn="@layout/activity_addition">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="8 + 8 ="
-        android:id="@+id/textViewQuestion"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:inputType="numberSigned"
-        android:id="@+id/textViewAnswer"
-        android:layout_below="@+id/textViewQuestion"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView"
+            android:layout_gravity="left|top"
+            android:src="@drawable/school_board"
+            android:scaleType = "fitStart"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="8 + 8 ="
+            android:textColor="@color/school_board_white"
+            android:id="@+id/textViewQuestion"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="55dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/school_board_white"
+            android:inputType="numberSigned"
+            android:id="@+id/textViewAnswer"
+            android:layout_below="@+id/textViewQuestion"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="120dp" />
+
+    </FrameLayout>
 
     <include layout="@layout/simple_numbers"
         android:layout_width="wrap_content"

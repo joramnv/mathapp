@@ -3,5 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="primary_text_holo_dark">#565c83</color>
+    <color name="primary_text_holo_dark">#565C83</color>
+    <color name="school_board_white">#FFF4FDEF</color>
 </resources>
