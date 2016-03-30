@@ -3,8 +3,10 @@ package nl.visser.joram.mathapp;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,10 +14,18 @@ public class AdditionActivity extends MenuActivity {
 
     private static final String LOG_TAG = "AdditionActivity"; //The log tag can only be 23 characters long.
 
-    private TextView textViewQuestion;
     private RandomAddition randomAddition;
     private TextView textViewAnswer;
-
+    private ImageView imageView1;
+    private ImageView imageView2;
+    private ImageView imageView3;
+    private ImageView imageView4;
+    //is set in content_addition private ImageView imageView5;
+    private ImageView imageView6;
+    private ImageView imageView7;
+    private ImageView imageView8;
+    private ImageView imageView9;
+    //is set in content_addition private ImageView imageView10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +36,19 @@ public class AdditionActivity extends MenuActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //TODO open keyboard on create.
-
-        textViewQuestion = (TextView) findViewById(R.id.textViewQuestion);
         randomAddition = new RandomAddition(Difficulty.INSTANCE.getDifficulty());
-        textViewQuestion.setText(randomAddition.getString());
+
+        imageView1 = (ImageView)findViewById(R.id.imageView1);
+        imageView2 = (ImageView)findViewById(R.id.imageView2);
+        imageView3 = (ImageView)findViewById(R.id.imageView3);
+        imageView4 = (ImageView)findViewById(R.id.imageView4);
+        setImageViewNumber(imageView1, imageView2, imageView3, imageView4, randomAddition.getFirstNumber());
+
+        imageView6 = (ImageView)findViewById(R.id.imageView6);
+        imageView7 = (ImageView)findViewById(R.id.imageView7);
+        imageView8 = (ImageView)findViewById(R.id.imageView8);
+        imageView9 = (ImageView)findViewById(R.id.imageView9);
+        setImageViewNumber(imageView6, imageView7, imageView8, imageView9, randomAddition.getSecondNumber());
 
         textViewAnswer = (TextView) findViewById(R.id.textViewAnswer);
 
@@ -91,23 +109,76 @@ public class AdditionActivity extends MenuActivity {
     public void onClickEquals(View view) {
         String inputNumber = textViewAnswer.getText().toString();
         if (!"".equals(inputNumber) && !"-".equals(inputNumber)) {
-            if(Integer.parseInt(inputNumber) == randomAddition.getInt()) {
-
+            if(Integer.parseInt(inputNumber) == randomAddition.getEquals()) {
                 Context context = getApplicationContext();
                 CharSequence text = "Good!";
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
-                toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 36);
+                toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 36);
                 toast.show();
 
                 randomAddition = new RandomAddition(Difficulty.INSTANCE.getDifficulty());
-                textViewQuestion.setText(randomAddition.getString());
                 textViewAnswer.setText("");
+
+                imageView1 = (ImageView)findViewById(R.id.imageView1);
+                imageView2 = (ImageView)findViewById(R.id.imageView2);
+                imageView3 = (ImageView)findViewById(R.id.imageView3);
+                imageView4 = (ImageView)findViewById(R.id.imageView4);
+                setImageViewNumber(imageView1, imageView2, imageView3, imageView4, randomAddition.getFirstNumber());
+
+                imageView6 = (ImageView)findViewById(R.id.imageView6);
+                imageView7 = (ImageView)findViewById(R.id.imageView7);
+                imageView8 = (ImageView)findViewById(R.id.imageView8);
+                imageView9 = (ImageView)findViewById(R.id.imageView9);
+                setImageViewNumber(imageView6, imageView7, imageView8, imageView9, randomAddition.getSecondNumber());
+
             } else {
-                textViewQuestion.setText(randomAddition.getString() + "\nWrong!");
+                Context context = getApplicationContext();
+                CharSequence text = "Wrong!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 36);
+                toast.show();
             }
         } else {
-            textViewQuestion.setText(randomAddition.getString() + "\nInvalid input");
+            Context context = getApplicationContext();
+            CharSequence text = "Invalid input";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 36);
+            toast.show();
         }
+    }
+
+    public void setImageViewNumber(ImageView imageViewToBeSet1, ImageView imageViewToBeSet2, ImageView imageViewToBeSet3, ImageView imageViewToBeSet4, int number) {
+        imageViewToBeSet1.setImageResource(0);
+        imageViewToBeSet2.setImageResource(0);
+        imageViewToBeSet3.setImageResource(0);
+        imageViewToBeSet4.setImageResource(0);
+        if(number == 0) {
+            imageViewToBeSet1.setImageResource(R.drawable.zero);
+        } else if(number == 1) {
+            imageViewToBeSet1.setImageResource(R.drawable.one);
+        } else if(number == 2) {
+            imageViewToBeSet1.setImageResource(R.drawable.two);
+        } else if(number == 3) {
+            imageViewToBeSet1.setImageResource(R.drawable.three);
+        } else if(number == 4) {
+            imageViewToBeSet1.setImageResource(R.drawable.four);
+        } else if(number == 5) {
+            imageViewToBeSet1.setImageResource(R.drawable.five);
+        } else if(number == 6) {
+            imageViewToBeSet1.setImageResource(R.drawable.six);
+        } else if(number == 7) {
+            imageViewToBeSet1.setImageResource(R.drawable.seven);
+        } else if(number == 8) {
+            imageViewToBeSet1.setImageResource(R.drawable.eight);
+        } else if(number == 9) {
+            imageViewToBeSet1.setImageResource(R.drawable.nine);
+        } else if(number == 10) {
+            imageViewToBeSet1.setImageResource(R.drawable.one);
+            imageViewToBeSet2.setImageResource(R.drawable.zero);
+        }
+        Log.d(LOG_TAG + " bottom", ""+number);
     }
 }

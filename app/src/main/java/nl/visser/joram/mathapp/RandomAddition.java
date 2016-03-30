@@ -2,6 +2,8 @@ package nl.visser.joram.mathapp;
 
 import android.util.Log;
 
+import java.util.Random;
+
 /**
  * Created by Joram on 21-3-2016.
  */
@@ -13,12 +15,13 @@ public class RandomAddition {
     public RandomAddition(int difficulty) {
         int numberOfDigits = 1;
         if (difficulty == 1) {
-            numberOfDigits = 9;
+            numberOfDigits = 10;
         } else if (difficulty == 2) {
-            numberOfDigits = 99;
+            numberOfDigits = 100;
         } else if (difficulty == 3) {
-            numberOfDigits = 999;
+            numberOfDigits = 1000;
         }
+        //TODO maybe this is not the place to perform the generate() method.
         generate(numberOfDigits);
     }
 
@@ -42,19 +45,14 @@ public class RandomAddition {
     }
 
     public void generate(int numberOfDigits) {
-        setFirstNumber((int)(Math.random()*numberOfDigits)+1);
-        setSecondNumber((int)(Math.random()*numberOfDigits)+1);
+        Random random = new Random();
+        setFirstNumber(random.nextInt(numberOfDigits)+1);
+        setSecondNumber(random.nextInt(numberOfDigits)+1);
     }
 
-    public String getString() {
-        String returnString = Integer.toString(getFirstNumber()) + " + " + Integer.toString(getSecondNumber()) + " = ";
-        Log.d(LOG_TAG, "The returnString: " + returnString);
-        return returnString;
-    }
-
-    public int getInt() {
-        int returnInt = getFirstNumber() + getSecondNumber();
-        Log.d(LOG_TAG, "The returnInt: " + Integer.toString(returnInt));
-        return returnInt;
+    public int getEquals() {
+        int equals = getFirstNumber() + getSecondNumber();
+        Log.d(LOG_TAG, "Equals: " + Integer.toString(equals));
+        return equals;
     }
 }
