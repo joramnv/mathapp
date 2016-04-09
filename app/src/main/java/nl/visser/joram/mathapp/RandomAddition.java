@@ -52,7 +52,7 @@ public class RandomAddition {
 
     public int getEquals() {
         int equals = getFirstNumber() + getSecondNumber();
-        Log.d(LOG_TAG, "Equals: " + Integer.toString(equals));
+        Log.v(LOG_TAG, "Equals: " + Integer.toString(equals));
         return equals;
     }
 }
