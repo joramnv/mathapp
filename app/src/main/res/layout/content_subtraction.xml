@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/no_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="nl.visser.joram.mathapp.AdditionActivity"
-    tools:showIn="@layout/activity_addition">
+    tools:showIn="@layout/activity_subtraction">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -70,7 +70,7 @@
         android:layout_toRightOf="@+id/imageView4"
         android:layout_toEndOf="@+id/imageView4"
         android:layout_marginTop="55dp"
-        android:src="@drawable/plus" />
+        android:src="@drawable/minus" />
 
     <ImageView
         android:layout_width="wrap_content"

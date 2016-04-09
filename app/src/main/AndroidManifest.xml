@@ -36,6 +36,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nl.visser.joram.mathapp.MainActivity" />
         </activity>
+        <activity
+            android:name=".SubtractionActivity"
+            android:label="@string/title_activity_subtraction"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.visser.joram.mathapp.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

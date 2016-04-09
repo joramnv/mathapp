@@ -7,12 +7,12 @@ import java.util.Random;
 /**
  * Created by Joram on 21-3-2016.
  */
-public class RandomAddition {
+public class RandomNumberGenerator {
 
-    private static final String LOG_TAG = "RandomAddition"; //The log tag can only be 23 characters long.
+    private static final String LOG_TAG = RandomNumberGenerator.class.getSimpleName();
 
     //Set difficulty via this constructor.
-    public RandomAddition(int difficulty) {
+    public RandomNumberGenerator(int difficulty) {
         int numberOfDigits = 1;
         if (difficulty == 1) {
             numberOfDigits = 10;
@@ -50,8 +50,14 @@ public class RandomAddition {
         setSecondNumber(random.nextInt(numberOfDigits)+1);
     }
 
-    public int getEquals() {
+    public int getAdditionEquals() {
         int equals = getFirstNumber() + getSecondNumber();
+        Log.v(LOG_TAG, "Equals: " + Integer.toString(equals));
+        return equals;
+    }
+
+    public int getSubtractionEquals() {
+        int equals = getFirstNumber() - getSecondNumber();
         Log.v(LOG_TAG, "Equals: " + Integer.toString(equals));
         return equals;
     }

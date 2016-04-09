@@ -31,4 +31,9 @@ public class MainActivity extends MenuActivity {
         Intent intent = new Intent(this, AdditionActivity.class);
         startActivity(intent);
     }
+
+    public void subtractionActivity(View view) {
+        Intent intent = new Intent(this, SubtractionActivity.class);
+        startActivity(intent);
+    }
 }

@@ -10,7 +10,7 @@ import org.honorato.multistatetogglebutton.ToggleButton;
 
 public class SettingsActivity extends MenuActivity {
 
-    private static final String LOG_TAG = "SettingsActivity"; //The log tag can only be 23 characters long.
+    private static final String LOG_TAG = SettingsActivity.class.getSimpleName();
 
     private String settingsInfo = "Here you can set the difficulty.\nThe current difficulty is set to: ";
     private String currentDifficulty = Integer.toString(Difficulty.INSTANCE.getDifficulty());

@@ -2,6 +2,7 @@ package nl.visser.joram.mathapp;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
@@ -10,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AdditionActivity extends MenuActivity {
+public class SubtractionActivity extends MenuActivity {
 
-    private static final String LOG_TAG =  AdditionActivity.class.getSimpleName();
+    private static final String LOG_TAG = SubtractionActivity.class.getSimpleName();
 
     private RandomNumberGenerator randomNumberGenerator;
     private TextView textViewAnswer;
@@ -30,7 +31,7 @@ public class AdditionActivity extends MenuActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addition);
+        setContentView(R.layout.activity_subtraction);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -51,7 +52,6 @@ public class AdditionActivity extends MenuActivity {
         setImageViewNumber(imageView6, imageView7, imageView8, imageView9, randomNumberGenerator.getSecondNumber());
 
         textViewAnswer = (TextView) findViewById(R.id.textViewAnswer);
-
     }
 
     public void onClick1(View view) {
@@ -109,7 +109,7 @@ public class AdditionActivity extends MenuActivity {
     public void onClickEquals(View view) {
         String inputNumber = textViewAnswer.getText().toString();
         if (!"".equals(inputNumber) && !"-".equals(inputNumber)) {
-            if(Integer.parseInt(inputNumber) == randomNumberGenerator.getAdditionEquals()) {
+            if(Integer.parseInt(inputNumber) == randomNumberGenerator.getSubtractionEquals()) {
                 Context context = getApplicationContext();
                 CharSequence text = "Good!";
                 int duration = Toast.LENGTH_SHORT;
@@ -149,7 +149,6 @@ public class AdditionActivity extends MenuActivity {
             toast.show();
         }
     }
-
 
     public void setImageViewNumber(ImageView imageViewToBeSet1, ImageView imageViewToBeSet2, ImageView imageViewToBeSet3, ImageView imageViewToBeSet4, int number) {
         imageViewToBeSet1.setImageResource(0);
