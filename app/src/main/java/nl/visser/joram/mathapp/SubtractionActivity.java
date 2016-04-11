@@ -2,6 +2,7 @@ package nl.visser.joram.mathapp;
 
 import android.os.Bundle;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -20,74 +21,32 @@ public class SubtractionActivity extends MenuActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (savedInstanceState == null) {
-            NumbersFragment numbersFragment = new NumbersFragment();
-            Bundle bundle = new Bundle();
-            bundle.putInt("MODE", 2);
-            numbersFragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction()
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        NumbersFragment numbersFragment = new NumbersFragment();
+        NumpadFragment numpadFragment = new NumpadFragment();
+        if(savedInstanceState == null) {
+            fragmentManager.beginTransaction()
                     .add(R.id.container_numbers_subtraction, numbersFragment)
                     .commit();
-            MathFragmentManager.INSTANCE.setNumbersFragment(numbersFragment);
-
-            NumpadFragment numpadFragment = new NumpadFragment();
-            getSupportFragmentManager().beginTransaction()
+            fragmentManager.beginTransaction()
                     .add(R.id.container_numpad_subtraction, numpadFragment)
                     .commit();
-            numpad = numpadFragment;
+        } else {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container_numbers_subtraction, numbersFragment)
+                    .commit();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container_numpad_subtraction, numpadFragment)
+                    .commit();
         }
+        Bundle bundle = new Bundle();
+        bundle.putInt("MODE", 2);
+        numbersFragment.setArguments(bundle);
+        MathFragmentManager.INSTANCE.setNumbersFragment(numbersFragment);
+        numpad = numpadFragment;
     }
 
-    public void onClick1(View view) {
-        numpad.onClick1(view);
+    public void onClickNumpadButton(View view) {
+        numpad.onClickNumpadButton(view);
     }
-
-    public void onClick2(View view) {
-        numpad.onClick2(view);
-    }
-
-    public void onClick3(View view) {
-        numpad.onClick3(view);
-    }
-
-    public void onClick4(View view) {
-        numpad.onClick4(view);
-    }
-
-    public void onClick5(View view) {
-        numpad.onClick5(view);
-    }
-
-    public void onClick6(View view) {
-        numpad.onClick6(view);
-    }
-
-    public void onClick7(View view) {
-        numpad.onClick7(view);
-    }
-
-    public void onClick8(View view) {
-        numpad.onClick8(view);
-    }
-
-    public void onClick9(View view) {
-        numpad.onClick9(view);
-    }
-
-    public void onClick0(View view) {
-        numpad.onClick0(view);
-    }
-
-    public void onClickMinus(View view) {
-        numpad.onClickMinus(view);
-    }
-
-    public void onClickClear(View view) {
-        numpad.onClickClear(view);
-    }
-
-    public void onClickEquals(View view) {
-        numpad.onClickEquals(view);
-    }
-
 }

@@ -78,62 +78,35 @@ public class NumbersFragment extends Fragment {
         return view;
     }
 
-    public void onClick1() {
-        textViewAnswer.setText(textViewAnswer.getText().toString() + "1");
-    }
-
-    public void onClick2() {
-        textViewAnswer.setText(textViewAnswer.getText().toString() + "2");
-    }
-
-    public void onClick3() {
-        textViewAnswer.setText(textViewAnswer.getText().toString() + "3");
-    }
-
-    public void onClick4() {
-        textViewAnswer.setText(textViewAnswer.getText().toString() + "4");
-    }
-
-    public void onClick5() {
-        textViewAnswer.setText(textViewAnswer.getText().toString() + "5");
-    }
-
-    public void onClick6() {
-        textViewAnswer.setText(textViewAnswer.getText().toString() + "6");
-    }
-
-    public void onClick7() {
-        textViewAnswer.setText(textViewAnswer.getText().toString() + "7");
-    }
-
-    public void onClick8() {
-        textViewAnswer.setText(textViewAnswer.getText().toString() + "8");
-    }
-
-    public void onClick9() {
-        textViewAnswer.setText(textViewAnswer.getText().toString() + "9");
-    }
-
-    public void onClick0() {
-        textViewAnswer.setText(textViewAnswer.getText().toString() + "0");
-    }
-
-    public void onClickMinus() {
-        textViewAnswer.setText("-");
-    }
-
-    public void onClickClear() {
-        String inputNumber = textViewAnswer.getText().toString();
-        if (inputNumber.length() >=1 ) {
-            inputNumber = inputNumber.substring(0, inputNumber.length() - 1);
-            textViewAnswer.setText(inputNumber);
+    public void onClickNumpadButton(String buttonContent) {
+        String textViewAnswerContent = textViewAnswer.getText().toString();
+        if(textViewAnswerContent.length() >= 1) {
+            if("-".equals(buttonContent)) {
+                if (textViewAnswerContent.charAt(0) != '-') {
+                    textViewAnswer.setText("-" + textViewAnswerContent);
+                } else if (textViewAnswerContent.charAt(0) == '-') {
+                    textViewAnswer.setText(textViewAnswerContent.substring(1, textViewAnswerContent.length()));
+                }
+            } else if("c".equals(buttonContent)) {
+                textViewAnswer.setText("");
+            } else if("b".equals(buttonContent)) {
+                textViewAnswerContent = textViewAnswerContent.substring(0, textViewAnswerContent.length() - 1);
+                textViewAnswer.setText(textViewAnswerContent);
+            } else if("=".equals(buttonContent)) {
+                if(!"-".equals(textViewAnswerContent)) {
+                    answerEqualsQuestion(textViewAnswerContent);
+                }
+            } else {
+                textViewAnswer.setText(textViewAnswerContent + buttonContent);
+            }
+        } else if(!"c".equals(buttonContent)&&!"b".equals(buttonContent)&&!"=".equals(buttonContent)) {
+            textViewAnswer.setText(textViewAnswerContent + buttonContent);
         }
     }
 
-    public void onClickEquals() {
+    public void answerEqualsQuestion(String textViewAnswerContent) {
         int result = 0;
-        String inputNumber = textViewAnswer.getText().toString();
-        if (!"".equals(inputNumber) && !"-".equals(inputNumber)) {
+        if (!"".equals(textViewAnswerContent) && !"-".equals(textViewAnswerContent)) {
             if(mode == 1) {
                 result = randomNumberGenerator.getAdditionEquals();
             } else if(mode == 2) {
@@ -143,7 +116,7 @@ public class NumbersFragment extends Fragment {
             } else if(mode == 4) {
                 result = randomNumberGenerator.getAdditionEquals(); //set to getDivisionEquals();
             }
-            if(Integer.parseInt(inputNumber) == result) {
+            if(Integer.parseInt(textViewAnswerContent) == result) {
                 Context context = getContext();
                 CharSequence text = "Good!";
                 int duration = Toast.LENGTH_SHORT;
