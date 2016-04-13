@@ -82,9 +82,9 @@ public class NumbersFragment extends Fragment {
         String textViewAnswerContent = textViewAnswer.getText().toString();
         if(textViewAnswerContent.length() >= 1) {
             if("-".equals(buttonContent)) {
-                if (textViewAnswerContent.charAt(0) != '-') {
+                if (!textViewAnswerContent.startsWith("-")) {
                     textViewAnswer.setText("-" + textViewAnswerContent);
-                } else if (textViewAnswerContent.charAt(0) == '-') {
+                } else if (textViewAnswerContent.startsWith("-")) {
                     textViewAnswer.setText(textViewAnswerContent.substring(1, textViewAnswerContent.length()));
                 }
             } else if("c".equals(buttonContent)) {
