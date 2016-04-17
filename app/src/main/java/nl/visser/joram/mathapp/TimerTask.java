@@ -5,24 +5,26 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 /**
  * Created by Joram on 17-4-2016.
  */
-public class TimerTask extends AsyncTask<Void, Integer, String> {
+public class TimerTask extends AsyncTask<Void, Integer, Boolean> {
 
     private static final String LOG_TAG =  TimerTask.class.getSimpleName();
 
-    private ImageView imageView;
+    private ProgressBar timerBar;
 
-    public TimerTask(ImageView imageView){
-        this.imageView = imageView;
+    public TimerTask(ProgressBar timerBar){
+        this.timerBar = timerBar;
     }
 
     @Override
-    protected String doInBackground(Void... voids) {
+    protected Boolean doInBackground(Void... voids) {
 
-        for(int i = 0; i < 30; i++) {
+        //TODO maybe this should be done using CountDownTimer, see: http://developer.android.com/reference/android/os/CountDownTimer.html
+        for(int i = 1; i <= 60; i++) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ie) {
@@ -31,21 +33,20 @@ public class TimerTask extends AsyncTask<Void, Integer, String> {
             }
             publishProgress(i);
         }
-
-        return "Hij is af";
+        return true;
     }
 
     @Override
-    protected void onPostExecute(String result) {
-
+    protected void onPostExecute(Boolean timerFinished) {
+        //TODO use onPostExecute to 'stop' exercises and show the score and scoreboard.
 
     }
 
     @Override
     protected void onProgressUpdate(Integer... values) {
-        if(values[0] != 4) {
-            imageView.setImageResource(R.drawable.seven);
-
+        for(int i: values) {
+            timerBar.setProgress(i * 100 / 60); //set timer bar to % according to seconds past.
+            //Log.v(LOG_TAG, "" + i);
         }
     }
 

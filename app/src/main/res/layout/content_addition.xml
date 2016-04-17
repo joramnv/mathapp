@@ -37,14 +37,13 @@
             android:src="@drawable/school_board"
             android:scaleType="fitXY"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
-            android:layout_weight="1"
-            android:src="@drawable/one"
-            android:id="@+id/scoreView" />
-
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:id="@+id/timerBar"
+        android:layout_gravity="left|top"
+        android:layout_above="@+id/container_numbers_addition"/>
     </FrameLayout>
 
 </RelativeLayout>

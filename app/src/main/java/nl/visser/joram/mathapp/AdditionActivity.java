@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 public class AdditionActivity extends MenuActivity {
 
@@ -49,17 +50,16 @@ public class AdditionActivity extends MenuActivity {
         MathFragmentManager.INSTANCE.setNumbersFragment(numbersFragment);
         numpad = numpadFragment;
 
-        ImageView scoreView = (ImageView)findViewById(R.id.scoreView);
-        startTimer(scoreView);
+        ProgressBar timerBar = (ProgressBar) findViewById(R.id.timerBar);
+        startTimer(timerBar);
     }
 
     public void onClickNumpadButton(View view) {
         numpad.onClickNumpadButton(view);
     }
 
-    public void startTimer(ImageView imageView) {
-        timerManager = new TimerTask(imageView);
+    public void startTimer(ProgressBar timerBar) {
+        timerManager = new TimerTask(timerBar);
         timerManager.execute();
-
     }
 }
