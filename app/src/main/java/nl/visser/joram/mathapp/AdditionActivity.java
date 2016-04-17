@@ -1,15 +1,20 @@
 package nl.visser.joram.mathapp;
 
+import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 public class AdditionActivity extends MenuActivity {
 
     private static final String LOG_TAG =  AdditionActivity.class.getSimpleName();
 
     private Numpad numpad;
+    private TimerTask timerManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +48,18 @@ public class AdditionActivity extends MenuActivity {
         numbersFragment.setArguments(bundle);
         MathFragmentManager.INSTANCE.setNumbersFragment(numbersFragment);
         numpad = numpadFragment;
+
+        ImageView scoreView = (ImageView)findViewById(R.id.scoreView);
+        startTimer(scoreView);
     }
 
     public void onClickNumpadButton(View view) {
         numpad.onClickNumpadButton(view);
+    }
+
+    public void startTimer(ImageView imageView) {
+        timerManager = new TimerTask(imageView);
+        timerManager.execute();
+
     }
 }
