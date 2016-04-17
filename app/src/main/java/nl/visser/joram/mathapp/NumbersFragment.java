@@ -19,6 +19,8 @@ public class NumbersFragment extends Fragment {
 
     private static final String LOG_TAG = NumbersFragment.class.getSimpleName();
 
+    private StringBuilder textViewAnswerContent = new StringBuilder();      //default (empty constructor) generates room for 16 characters. Maybe set restriction on input to 15 digits and minus sign?
+
     private int mode;
     private RandomNumberGenerator randomNumberGenerator;
     private TextView textViewAnswer;
@@ -79,77 +81,89 @@ public class NumbersFragment extends Fragment {
     }
 
     public void onClickNumpadButton(String buttonContent) {
-        String textViewAnswerContent = textViewAnswer.getText().toString();
-        if(textViewAnswerContent.length() >= 1) {
-            if("-".equals(buttonContent)) {
-                if (textViewAnswerContent.charAt(0) != '-') {
-                    textViewAnswer.setText("-" + textViewAnswerContent);
-                } else if (textViewAnswerContent.charAt(0) == '-') {
-                    textViewAnswer.setText(textViewAnswerContent.substring(1, textViewAnswerContent.length()));
+        textViewAnswerContent.replace(0, textViewAnswer.getText().toString().length(), textViewAnswer.getText().toString());
+        switch(buttonContent) {
+            case "-":
+                if (textViewAnswerContent.length() > 0 && textViewAnswerContent.charAt(0) == '-') {
+                    textViewAnswerContent.deleteCharAt(0);
+                } else {
+                    textViewAnswerContent.insert(0, '-');
                 }
-            } else if("c".equals(buttonContent)) {
-                textViewAnswer.setText("");
-            } else if("b".equals(buttonContent)) {
-                textViewAnswerContent = textViewAnswerContent.substring(0, textViewAnswerContent.length() - 1);
-                textViewAnswer.setText(textViewAnswerContent);
-            } else if("=".equals(buttonContent)) {
-                if(!"-".equals(textViewAnswerContent)) {
-                    answerEqualsQuestion(textViewAnswerContent);
+                break;
+            case "c":
+                textViewAnswerContent.delete(0, textViewAnswerContent.length());
+                break;
+            case "b":
+                if(textViewAnswerContent.length() > 0) {
+                    textViewAnswerContent.deleteCharAt(textViewAnswerContent.length()-1);
                 }
-            } else {
-                textViewAnswer.setText(textViewAnswerContent + buttonContent);
-            }
-        } else if(!"c".equals(buttonContent)&&!"b".equals(buttonContent)&&!"=".equals(buttonContent)) {
-            textViewAnswer.setText(textViewAnswerContent + buttonContent);
+                break;
+            case "=":
+                if(textViewAnswerContent.length() > 0) {
+                    if(!"-".equals(textViewAnswerContent.toString())) {
+                        answerEqualsQuestion(textViewAnswerContent);
+                        textViewAnswerContent.delete(0, textViewAnswerContent.length());
+                    } else {
+                        Context context = getContext();
+                        CharSequence text = "Invalid input";
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 36);
+                        toast.show();
+                    }
+                } else {
+                    Context context = getContext();
+                    CharSequence text = "Invalid input";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 36);
+                    toast.show();
+                }
+                break;
+            default:
+                textViewAnswerContent.append(buttonContent);
+                break;
         }
+        textViewAnswer.setText(textViewAnswerContent);
     }
 
-    public void answerEqualsQuestion(String textViewAnswerContent) {
+    public void answerEqualsQuestion(StringBuilder textViewAnswerContent) {
         int result = 0;
-        if (!"".equals(textViewAnswerContent) && !"-".equals(textViewAnswerContent)) {
-            if(mode == 1) {
-                result = randomNumberGenerator.getAdditionEquals();
-            } else if(mode == 2) {
-                result = randomNumberGenerator.getSubtractionEquals();
-            } else if(mode == 3) {
-                result = randomNumberGenerator.getAdditionEquals(); //set to getMultiplicationEquals();
-            } else if(mode == 4) {
-                result = randomNumberGenerator.getAdditionEquals(); //set to getDivisionEquals();
-            }
-            if(Integer.parseInt(textViewAnswerContent) == result) {
-                Context context = getContext();
-                CharSequence text = "Good!";
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 36);
-                toast.show();
+        if(mode == 1) {
+            result = randomNumberGenerator.getAdditionEquals();
+        } else if(mode == 2) {
+            result = randomNumberGenerator.getSubtractionEquals();
+        } else if(mode == 3) {
+            result = randomNumberGenerator.getAdditionEquals(); //set to getMultiplicationEquals();
+        } else if(mode == 4) {
+            result = randomNumberGenerator.getAdditionEquals(); //set to getDivisionEquals();
+        }
+        if(Integer.parseInt(textViewAnswerContent.toString()) == result) {
+            Context context = getContext();
+            CharSequence text = "Good!";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 36);
+            toast.show();
 
-                randomNumberGenerator = new RandomNumberGenerator(Difficulty.INSTANCE.getDifficulty());
-                textViewAnswer.setText("");
+            randomNumberGenerator = new RandomNumberGenerator(Difficulty.INSTANCE.getDifficulty());
+            textViewAnswer.setText("");
 
-                imageView1 = (ImageView)getView().findViewById(R.id.imageView1);
-                imageView2 = (ImageView)getView().findViewById(R.id.imageView2);
-                imageView3 = (ImageView)getView().findViewById(R.id.imageView3);
-                imageView4 = (ImageView)getView().findViewById(R.id.imageView4);
-                setImageViewNumber(imageView1, imageView2, imageView3, imageView4, randomNumberGenerator.getFirstNumber());
+            imageView1 = (ImageView)getView().findViewById(R.id.imageView1);
+            imageView2 = (ImageView)getView().findViewById(R.id.imageView2);
+            imageView3 = (ImageView)getView().findViewById(R.id.imageView3);
+            imageView4 = (ImageView)getView().findViewById(R.id.imageView4);
+            setImageViewNumber(imageView1, imageView2, imageView3, imageView4, randomNumberGenerator.getFirstNumber());
 
-                imageView6 = (ImageView)getView().findViewById(R.id.imageView6);
-                imageView7 = (ImageView)getView().findViewById(R.id.imageView7);
-                imageView8 = (ImageView)getView().findViewById(R.id.imageView8);
-                imageView9 = (ImageView)getView().findViewById(R.id.imageView9);
-                setImageViewNumber(imageView6, imageView7, imageView8, imageView9, randomNumberGenerator.getSecondNumber());
+            imageView6 = (ImageView)getView().findViewById(R.id.imageView6);
+            imageView7 = (ImageView)getView().findViewById(R.id.imageView7);
+            imageView8 = (ImageView)getView().findViewById(R.id.imageView8);
+            imageView9 = (ImageView)getView().findViewById(R.id.imageView9);
+            setImageViewNumber(imageView6, imageView7, imageView8, imageView9, randomNumberGenerator.getSecondNumber());
 
-            } else {
-                Context context = getContext();
-                CharSequence text = "Wrong!";
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 36);
-                toast.show();
-            }
         } else {
             Context context = getContext();
-            CharSequence text = "Invalid input";
+            CharSequence text = "Wrong!";
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 36);
