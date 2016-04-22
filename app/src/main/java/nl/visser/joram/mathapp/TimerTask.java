@@ -1,10 +1,10 @@
 package nl.visser.joram.mathapp;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 /**
@@ -14,9 +14,11 @@ public class TimerTask extends AsyncTask<Void, Integer, Boolean> {
 
     private static final String LOG_TAG =  TimerTask.class.getSimpleName();
 
+    private Context context;
     private ProgressBar timerBar;
 
-    public TimerTask(ProgressBar timerBar){
+    public TimerTask(Context context, ProgressBar timerBar){
+        this.context = context;
         this.timerBar = timerBar;
     }
 
@@ -38,8 +40,12 @@ public class TimerTask extends AsyncTask<Void, Integer, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean timerFinished) {
-        //TODO use onPostExecute to 'stop' exercises and show the score and scoreboard.
+        if(context instanceof AdditionActivity) {
+            ((AdditionActivity)context).showScoreboard();
 
+        } else {
+            Log.w(LOG_TAG, "context is not an instance of AdditionActivity");
+        }
     }
 
     @Override
@@ -49,5 +55,4 @@ public class TimerTask extends AsyncTask<Void, Integer, Boolean> {
             //Log.v(LOG_TAG, "" + i);
         }
     }
-
 }

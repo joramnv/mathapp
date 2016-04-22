@@ -1,6 +1,7 @@
 package nl.visser.joram.mathapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -59,7 +60,12 @@ public class AdditionActivity extends MenuActivity {
     }
 
     public void startTimer(ProgressBar timerBar) {
-        timerManager = new TimerTask(timerBar);
+        timerManager = new TimerTask(this, timerBar);
         timerManager.execute();
+    }
+
+    public void showScoreboard() {
+        Intent intent = new Intent(this, ScoreboardActivity.class);
+        startActivity(intent);
     }
 }
