@@ -36,4 +36,9 @@ public class MainActivity extends MenuActivity {
         Intent intent = new Intent(this, SubtractionActivity.class);
         startActivity(intent);
     }
+
+    public void timeTrialAdditionActivity(View view) {
+        Intent intent = new Intent(this, TimeTrialAdditionActivity.class);
+        startActivity(intent);
+    }
 }

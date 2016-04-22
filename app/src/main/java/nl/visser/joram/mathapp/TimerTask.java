@@ -40,8 +40,8 @@ public class TimerTask extends AsyncTask<Void, Integer, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean timerFinished) {
-        if(context instanceof AdditionActivity) {
-            ((AdditionActivity)context).showScoreboard();
+        if(context instanceof TimeTrialAdditionActivity) {
+            ((TimeTrialAdditionActivity)context).showScoreboard();
 
         } else {
             Log.w(LOG_TAG, "context is not an instance of AdditionActivity");
