@@ -1,19 +1,34 @@
 package nl.visser.joram.mathapp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ScoreManager {
 
-    private Score score;
+    private Score currentScore;
+    private String testString;
+
+    List<Score> allScores = new ArrayList<>();
 
     public ScoreManager() {
-        this.score = new Score();
+        this.currentScore = new Score();
     }
 
-    public void updateScoreForCurrentSession(int difficulty) {
-
+    public Score getNewScore() {
+        return new Score();
     }
 
-    public int getScoreForCurrentSession() {
-        return score.getScore();
+    public void setScoreForPastSession(Score score) {
+        allScores.add(score);
+    }
+
+    public List<Score> getAllScores() {
+        return allScores;
+    }
+
+
+    private void writeScoresToDisk(Score score) {
+
     }
 }
 

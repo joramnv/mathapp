@@ -11,6 +11,7 @@ public class AdditionActivity extends MenuActivity {
 
     private Numpad numpad;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,11 @@ public class AdditionActivity extends MenuActivity {
         numbersFragment.setArguments(bundle);
         MathFragmentManager.INSTANCE.setNumbersFragment(numbersFragment);
         numpad = numpadFragment;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     public void onClickNumpadButton(View view) {

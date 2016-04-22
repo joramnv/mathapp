@@ -19,6 +19,11 @@ public class NumbersFragment extends Fragment {
 
     private static final String LOG_TAG = NumbersFragment.class.getSimpleName();
 
+    private ScoreManager scoreManager = ScoreManagerCreator.INSTANCE.getScoreManager();
+    private ScoreManager scoreManagerTwo = ScoreManagerCreator.INSTANCE.getScoreManager();
+
+    private Score score = scoreManager.getNewScore();
+
     private int mode;
     private RandomNumberGenerator randomNumberGenerator;
     private TextView textViewAnswer;
@@ -117,10 +122,13 @@ public class NumbersFragment extends Fragment {
                 result = randomNumberGenerator.getAdditionEquals(); //set to getDivisionEquals();
             }
             if(Integer.parseInt(textViewAnswerContent) == result) {
+                score.updateScoreForCurrentSession(true);
+
                 Context context = getContext();
+
                 CharSequence text = "Good!";
                 int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(context, text, duration);
+                Toast toast = Toast.makeText(context, text + " " + String.valueOf(score.getScore()), duration);
                 toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 36);
                 toast.show();
 
@@ -140,9 +148,12 @@ public class NumbersFragment extends Fragment {
                 setImageViewNumber(imageView6, imageView7, imageView8, imageView9, randomNumberGenerator.getSecondNumber());
 
             } else {
+                score.updateScoreForCurrentSession(false);
+
                 Context context = getContext();
                 CharSequence text = "Wrong!";
                 int duration = Toast.LENGTH_SHORT;
+
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 36);
                 toast.show();
@@ -278,4 +289,11 @@ public class NumbersFragment extends Fragment {
     public int lastDigit(int number) {
         return number % 10;
     }
+
+    @Override
+    public void onStop() {
+        scoreManager.setScoreForPastSession(score);
+    }
 }
+
+

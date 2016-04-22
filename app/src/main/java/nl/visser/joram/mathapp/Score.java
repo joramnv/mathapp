@@ -9,7 +9,11 @@ public class Score {
     private double time;
 
     public Score() {
-
+        this.name = " ";
+        this.score = 0;
+        this.wrongAnswers = 0;
+        this.correctAnswers = 0;
+        this.time = 0.0;
     }
 
     public double getTime() {
@@ -44,12 +48,27 @@ public class Score {
         this.correctAnswers = correctAnswers;
     }
 
-    public String getName() {
-
-        return name;
+    public void updateWrongAnswers() {
+        wrongAnswers++;
     }
+
+    public void updateCorrectAnswers() {
+        correctAnswers++;
+    }
+
+    public String getName() { return name; }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void updateScoreForCurrentSession(boolean correctAnswer) {
+
+        if(correctAnswer) {
+            score += 10;
+            updateCorrectAnswers();
+        } else {
+            updateWrongAnswers();
+        }
     }
 }
