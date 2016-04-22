@@ -19,7 +19,7 @@ public class NumbersFragment extends Fragment {
 
     private static final String LOG_TAG = NumbersFragment.class.getSimpleName();
 
-    private StringBuilder textViewAnswerContent = new StringBuilder();      //default (empty constructor) generates room for 16 characters. Maybe set restriction on input to 15 digits and minus sign?
+    private int textViewAnswerContent = 0;
 
     private int mode;
     private RandomNumberGenerator randomNumberGenerator;
@@ -81,53 +81,33 @@ public class NumbersFragment extends Fragment {
     }
 
     public void onClickNumpadButton(String buttonContent) {
-        textViewAnswerContent.replace(0, textViewAnswer.getText().toString().length(), textViewAnswer.getText().toString());
+        //parse to int.... textViewAnswerContent = textViewAnswer.getText().toString();
         switch(buttonContent) {
             case "-":
-                if (textViewAnswerContent.length() > 0 && textViewAnswerContent.charAt(0) == '-') {
-                    textViewAnswerContent.deleteCharAt(0);
-                } else {
-                    textViewAnswerContent.insert(0, '-');
-                }
+                textViewAnswerContent *= -1;
+                textViewAnswer.setText(""+textViewAnswerContent);
                 break;
             case "c":
-                textViewAnswerContent.delete(0, textViewAnswerContent.length());
+                textViewAnswerContent = 0;
+                textViewAnswer.setText("");
                 break;
             case "b":
-                if(textViewAnswerContent.length() > 0) {
-                    textViewAnswerContent.deleteCharAt(textViewAnswerContent.length()-1);
-                }
+                //todo shouldn't be 0 but ' '... empty when result of back is same as clear.
+                textViewAnswerContent /= 10;
+                textViewAnswer.setText(""+textViewAnswerContent);
                 break;
             case "=":
-                if(textViewAnswerContent.length() > 0) {
-                    if(!"-".equals(textViewAnswerContent.toString())) {
-                        answerEqualsQuestion(textViewAnswerContent);
-                        textViewAnswerContent.delete(0, textViewAnswerContent.length());
-                    } else {
-                        Context context = getContext();
-                        CharSequence text = "Invalid input";
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 36);
-                        toast.show();
-                    }
-                } else {
-                    Context context = getContext();
-                    CharSequence text = "Invalid input";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 36);
-                    toast.show();
-                }
-                break;
-            default:
-                textViewAnswerContent.append(buttonContent);
+                answerEqualsQuestion(textViewAnswerContent);
                 break;
         }
-        textViewAnswer.setText(textViewAnswerContent);
     }
 
-    public void answerEqualsQuestion(StringBuilder textViewAnswerContent) {
+    public void onClickNumpadButtonNumber(int buttonNumber) {
+        textViewAnswerContent = textViewAnswerContent * 10 + buttonNumber;
+        textViewAnswer.setText(""+textViewAnswerContent);
+    }
+
+    public void answerEqualsQuestion(int textViewAnswerContent) {
         int result = 0;
         if(mode == 1) {
             result = randomNumberGenerator.getAdditionEquals();
@@ -138,7 +118,7 @@ public class NumbersFragment extends Fragment {
         } else if(mode == 4) {
             result = randomNumberGenerator.getAdditionEquals(); //set to getDivisionEquals();
         }
-        if(Integer.parseInt(textViewAnswerContent.toString()) == result) {
+        if(textViewAnswerContent == result) {
             Context context = getContext();
             CharSequence text = "Good!";
             int duration = Toast.LENGTH_SHORT;
@@ -147,6 +127,7 @@ public class NumbersFragment extends Fragment {
             toast.show();
 
             randomNumberGenerator = new RandomNumberGenerator(Difficulty.INSTANCE.getDifficulty());
+            this.textViewAnswerContent = 0;
             textViewAnswer.setText("");
 
             imageView1 = (ImageView)getView().findViewById(R.id.imageView1);

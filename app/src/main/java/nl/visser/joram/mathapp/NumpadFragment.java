@@ -2,6 +2,7 @@ package nl.visser.joram.mathapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.Button;
  * A simple {@link Fragment} subclass.
  */
 public class NumpadFragment extends Fragment implements Numpad {
+
+    private static final String LOG_TAG =  NumpadFragment.class.getSimpleName();
 
     public NumpadFragment() {
         // Required empty public constructor
@@ -29,7 +32,51 @@ public class NumpadFragment extends Fragment implements Numpad {
 
     public void onClickNumpadButton(View view) {
         Button button = (Button)view;
-        String buttonContent = (String)button.getText();
-        numbersFragment.onClickNumpadButton(buttonContent);
+        int buttonContent = button.getId();
+        Log.v(LOG_TAG, "the R.id of the button = " + buttonContent);
+        switch (buttonContent) {
+            case R.id.button1:
+                numbersFragment.onClickNumpadButtonNumber(1);
+                break;
+            case R.id.button2:
+                numbersFragment.onClickNumpadButtonNumber(2);
+                break;
+            case R.id.button3:
+                numbersFragment.onClickNumpadButtonNumber(3);
+                break;
+            case R.id.button4:
+                numbersFragment.onClickNumpadButtonNumber(4);
+                break;
+            case R.id.button5:
+                numbersFragment.onClickNumpadButtonNumber(5);
+                break;
+            case R.id.button6:
+                numbersFragment.onClickNumpadButtonNumber(6);
+                break;
+            case R.id.button7:
+                numbersFragment.onClickNumpadButtonNumber(7);
+                break;
+            case R.id.button8:
+                numbersFragment.onClickNumpadButtonNumber(8);
+                break;
+            case R.id.button9:
+                numbersFragment.onClickNumpadButtonNumber(9);
+                break;
+            case R.id.button0:
+                numbersFragment.onClickNumpadButtonNumber(0);
+                break;
+            case R.id.button_minus:
+                numbersFragment.onClickNumpadButton("-");
+                break;
+            case R.id.button_clear:
+                numbersFragment.onClickNumpadButton("c");
+                break;
+            case R.id.button_back:
+                numbersFragment.onClickNumpadButton("b");
+                break;
+            case R.id.button_equals:
+                numbersFragment.onClickNumpadButton("=");
+                break;
+        }
     }
 }

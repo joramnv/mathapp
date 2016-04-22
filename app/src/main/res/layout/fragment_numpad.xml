@@ -6,28 +6,32 @@
     android:rowCount="4"
     android:orientation="horizontal">
 
-    <Button android:text="7"
+    <Button android:text="@string/button7"
+        android:id="@+id/button7"
         android:onClick="onClickNumpadButton"
         android:layout_gravity="fill"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         style="@style/Widget.Holo.Button" />
 
-    <Button android:text="8"
+    <Button android:text="@string/button8"
+        android:id="@+id/button8"
         android:onClick="onClickNumpadButton"
         android:layout_gravity="fill"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         style="@style/Widget.Holo.Button" />
 
-    <Button android:text="9"
+    <Button android:text="@string/button9"
+        android:id="@+id/button9"
         android:onClick="onClickNumpadButton"
         android:layout_gravity="fill"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         style="@style/Widget.Holo.Button" />
 
-    <Button android:text="4"
+    <Button android:text="@string/button4"
+        android:id="@+id/button4"
         android:onClick="onClickNumpadButton"
         android:layout_row="1"
         android:layout_column="0"
@@ -36,28 +40,32 @@
         android:layout_rowWeight="1"
         style="@style/Widget.Holo.Button" />
 
-    <Button android:text="5"
+    <Button android:text="@string/button5"
+        android:id="@+id/button5"
         android:onClick="onClickNumpadButton"
         android:layout_gravity="fill"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         style="@style/Widget.Holo.Button" />
 
-    <Button android:text="6"
+    <Button android:text="@string/button6"
+        android:id="@+id/button6"
         android:onClick="onClickNumpadButton"
         android:layout_gravity="fill"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         style="@style/Widget.Holo.Button" />
 
-    <Button android:text="c"
+    <Button android:text="@string/button_clear"
+        android:id="@+id/button_clear"
         android:onClick="onClickNumpadButton"
         android:layout_gravity="fill"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         style="@style/Widget.Holo.Button" />
 
-    <Button android:text="1"
+    <Button android:text="@string/button1"
+        android:id="@+id/button1"
         android:onClick="onClickNumpadButton"
         android:layout_row="2"
         android:layout_column="0"
@@ -66,42 +74,48 @@
         android:layout_rowWeight="1"
         style="@style/Widget.Holo.Button" />
 
-    <Button android:text="2"
+    <Button android:text="@string/button2"
+        android:id="@+id/button2"
         android:onClick="onClickNumpadButton"
         android:layout_gravity="fill"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         style="@style/Widget.Holo.Button" />
 
-    <Button android:text="3"
+    <Button android:text="@string/button3"
+        android:id="@+id/button3"
         android:onClick="onClickNumpadButton"
         android:layout_gravity="fill"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         style="@style/Widget.Holo.Button" />
 
-    <Button android:text="b"
+    <Button android:text="@string/button_back"
+        android:id="@+id/button_back"
         android:onClick="onClickNumpadButton"
         android:layout_gravity="fill"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         style="@style/Widget.Holo.Button" />
 
-    <Button android:text="-"
+    <Button android:text="@string/button_minus"
+        android:id="@+id/button_minus"
         android:onClick="onClickNumpadButton"
         android:layout_gravity="fill"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         style="@style/Widget.Holo.Button" />
 
-    <Button android:text="0"
+    <Button android:text="@string/button0"
+        android:id="@+id/button0"
         android:onClick="onClickNumpadButton"
         android:layout_gravity="fill"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         style="@style/Widget.Holo.Button" />
 
-    <Button android:text="="
+    <Button android:text="@string/button_equals"
+        android:id="@+id/button_equals"
         android:onClick="onClickNumpadButton"
         android:layout_columnSpan="2"
         android:layout_gravity="fill"
