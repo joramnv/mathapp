@@ -5,83 +5,100 @@
     tools:context=".NumbersFragment">
 
     <LinearLayout
+        android:id="@+id/question_frame_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:orientation="horizontal"
+        android:background="@color/primary_text_holo_dark">
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/question_frame"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
         android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp">
+        android:layout_marginEnd="30dp"
+        android:background="@color/primary_text_holo_dark">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
             android:layout_weight="1"
-            android:id="@+id/imageView1" />
+            android:id="@+id/imageView1"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
             android:layout_weight="1"
-            android:id="@+id/imageView2" />
+            android:id="@+id/imageView2"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
             android:layout_weight="1"
-            android:id="@+id/imageView3" />
+            android:id="@+id/imageView3"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
             android:layout_weight="1"
-            android:id="@+id/imageView4" />
+            android:id="@+id/imageView4"
+            android:src="@drawable/six"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
             android:layout_weight="1"
-            android:id="@+id/imageView5" />
+            android:id="@+id/imageView5"
+            android:src="@drawable/plus"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
             android:layout_weight="1"
-            android:id="@+id/imageView6" />
+            android:id="@+id/imageView6"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
             android:layout_weight="1"
-            android:id="@+id/imageView7" />
+            android:id="@+id/imageView7"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
             android:layout_weight="1"
-            android:id="@+id/imageView8" />
+            android:id="@+id/imageView8"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
             android:layout_weight="1"
-            android:id="@+id/imageView9" />
+            android:id="@+id/imageView9"
+            android:src="@drawable/six"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
             android:layout_weight="1"
-            android:id="@+id/imageView10" />
+            android:id="@+id/imageView10"
+            android:src="@drawable/equals"/>
     </LinearLayout>
 
     <TextView

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,6 +75,9 @@ public class NumbersFragment extends Fragment {
         imageView8 = (ImageView)view.findViewById(R.id.imageView8);
         imageView9 = (ImageView)view.findViewById(R.id.imageView9);
         setImageViewNumber(imageView6, imageView7, imageView8, imageView9, randomNumberGenerator.getSecondNumber());
+
+        //cant use setImageViewNumberDynamic() directly from here, because the view must first be created and returned.
+//        setImageViewNumberDynamic(4);
 
         textViewAnswer = (TextView)view.findViewById(R.id.textViewAnswer);
 
@@ -161,6 +165,8 @@ public class NumbersFragment extends Fragment {
             imageView9 = (ImageView)getView().findViewById(R.id.imageView9);
             setImageViewNumber(imageView6, imageView7, imageView8, imageView9, randomNumberGenerator.getSecondNumber());
 
+            setImageViewNumberDynamic(4);
+
         } else {
             Context context = getContext();
             CharSequence text = "Wrong!";
@@ -171,7 +177,19 @@ public class NumbersFragment extends Fragment {
         }
     }
 
+    public void setImageViewNumberDynamic(int numberOfDigits) {
+        LinearLayout layout = (LinearLayout)getView().findViewById(R.id.question_frame_2);
+        for(int i = 0; i < numberOfDigits; i++) {
+            ImageView image = new ImageView(getContext());
+            image.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
+            image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            image.setImageResource(R.drawable.nine);
+            layout.addView(image);
+        }
+    }
+
     public void setImageViewNumber(ImageView imageViewToBeSet1, ImageView imageViewToBeSet2, ImageView imageViewToBeSet3, ImageView imageViewToBeSet4, int number) {
+
         imageViewToBeSet1.setImageResource(0);
         imageViewToBeSet2.setImageResource(0);
         imageViewToBeSet3.setImageResource(0);
