@@ -20,7 +20,6 @@ public class NumbersFragment extends Fragment {
     private static final String LOG_TAG = NumbersFragment.class.getSimpleName();
 
     private ScoreManager scoreManager = ScoreManagerCreator.INSTANCE.getScoreManager();
-    private ScoreManager scoreManagerTwo = ScoreManagerCreator.INSTANCE.getScoreManager();
 
     private Score score = scoreManager.getNewScore();
 
@@ -154,7 +153,7 @@ public class NumbersFragment extends Fragment {
                 CharSequence text = "Wrong!";
                 int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
+                Toast toast = Toast.makeText(context,text + " " + String.valueOf(score.getScore()), duration);
                 toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 36);
                 toast.show();
             }

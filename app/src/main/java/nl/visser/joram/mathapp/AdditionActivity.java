@@ -46,11 +46,6 @@ public class AdditionActivity extends MenuActivity {
         numpad = numpadFragment;
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
     public void onClickNumpadButton(View view) {
         numpad.onClickNumpadButton(view);
     }

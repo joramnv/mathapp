@@ -6,7 +6,6 @@ import java.util.List;
 public class ScoreManager {
 
     private Score currentScore;
-    private String testString;
 
     List<Score> allScores = new ArrayList<>();
 
@@ -28,7 +27,7 @@ public class ScoreManager {
 
 
     private void writeScoresToDisk(Score score) {
-
+        throw new UnsupportedOperationException("nog niet geimplementeerd");
     }
 }
 
