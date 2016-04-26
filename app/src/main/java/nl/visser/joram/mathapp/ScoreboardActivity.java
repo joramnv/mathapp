@@ -1,24 +1,21 @@
 package nl.visser.joram.mathapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class MainActivity extends MenuActivity {
-
-    public final static String EXTRA_MESSAGE = "EXTRA_MESSAGE";
+public class ScoreboardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_scoreboard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //TODO make this a help or skip button?!
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,21 +24,7 @@ public class MainActivity extends MenuActivity {
                         .setAction("Action", null).show();
             }
         });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public void additionActivity(View view) {
-        Intent intent = new Intent(this, AdditionActivity.class);
-        startActivity(intent);
-    }
-
-    public void subtractionActivity(View view) {
-        Intent intent = new Intent(this, SubtractionActivity.class);
-        startActivity(intent);
-    }
-
-    public void timeTrialAdditionActivity(View view) {
-        Intent intent = new Intent(this, AdditionActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, true);
-        startActivity(intent);
-    }
 }

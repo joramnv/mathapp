@@ -1,5 +1,6 @@
 package nl.visser.joram.mathapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v4.app.FragmentManager;
@@ -20,6 +21,23 @@ public class SubtractionActivity extends MenuActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Intent intent = getIntent();
+        boolean showTimer = intent.getBooleanExtra(MainActivity.EXTRA_MESSAGE, false);
+
+        if(showTimer) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            TimerFragment timerFragment = new TimerFragment();
+            if(savedInstanceState == null) {
+                fragmentManager.beginTransaction()
+                        .add(R.id.container_timer_fragment, timerFragment)
+                        .commit();
+            } else {
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container_timer_fragment, timerFragment)
+                        .commit();
+            }
+        }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         NumbersFragment numbersFragment = new NumbersFragment();

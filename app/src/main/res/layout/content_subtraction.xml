@@ -39,4 +39,11 @@
 
     </FrameLayout>
 
+    <FrameLayout
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:id="@+id/container_timer_fragment"
+        android:layout_gravity="left|top"/>
+
 </RelativeLayout>

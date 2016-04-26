@@ -12,28 +12,37 @@
     tools:context="nl.visser.joram.mathapp.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Addition"
-        android:id="@+id/button_addition"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:onClick="additionActivity"/>
+        android:orientation="vertical">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Subtraction"
-        android:id="@+id/button_subtraction"
-        android:layout_below="@id/button_addition"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="subtractionActivity"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Addition"
+            android:id="@+id/button_addition"
+            android:onClick="additionActivity"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Subtraction"
+            android:id="@+id/button_subtraction"
+            android:onClick="subtractionActivity"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Time trial: Addition"
+            android:id="@+id/button_time_trial_addition"
+            android:onClick="timeTrialAdditionActivity"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
