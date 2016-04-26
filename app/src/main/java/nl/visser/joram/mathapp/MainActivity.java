@@ -9,6 +9,8 @@ import android.view.View;
 
 public class MainActivity extends MenuActivity {
 
+    public final static String EXTRA_MESSAGE = "EXTRA_MESSAGE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +40,8 @@ public class MainActivity extends MenuActivity {
     }
 
     public void timeTrialAdditionActivity(View view) {
-        Intent intent = new Intent(this, TimeTrialAdditionActivity.class);
+        Intent intent = new Intent(this, AdditionActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, true);
         startActivity(intent);
     }
 }
