@@ -44,4 +44,10 @@ public class MainActivity extends MenuActivity {
         intent.putExtra(EXTRA_MESSAGE, true);
         startActivity(intent);
     }
+
+    public void timeTrialSubtractionActivity(View view) {
+        Intent intent = new Intent(this, SubtractionActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, true);
+        startActivity(intent);
+    }
 }

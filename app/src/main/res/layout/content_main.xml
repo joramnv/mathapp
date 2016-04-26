@@ -43,6 +43,14 @@
             android:id="@+id/button_time_trial_addition"
             android:onClick="timeTrialAdditionActivity"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Time trial: Subtraction"
+            android:id="@+id/button_time_trial_subtraction"
+            android:onClick="timeTrialSubtractionActivity"/>
+
     </LinearLayout>
 
 </RelativeLayout>
