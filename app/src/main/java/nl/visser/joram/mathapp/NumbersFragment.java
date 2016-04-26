@@ -291,6 +291,7 @@ public class NumbersFragment extends Fragment {
 
     @Override
     public void onStop() {
+        super.onStop();
         scoreManager.setScoreForPastSession(score);
     }
 }
