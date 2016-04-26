@@ -12,6 +12,7 @@ public class AdditionActivity extends MenuActivity {
 
     private Numpad numpad;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

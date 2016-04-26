@@ -22,6 +22,10 @@ public class NumbersFragment extends Fragment {
     private int userAnswer = 0;
     private boolean minusFlag = false;
 
+    private ScoreManager scoreManager = ScoreManagerCreator.INSTANCE.getScoreManager();
+
+    private Score score = scoreManager.getNewScore();
+
     private int mode;
     private RandomNumberGenerator randomNumberGenerator;
     private TextView textViewAnswer;
@@ -142,6 +146,8 @@ public class NumbersFragment extends Fragment {
             result = randomNumberGenerator.getAdditionEquals(); //set to getDivisionEquals();
         }
         if(textViewAnswerContent == result) {
+            score.updateScoreForCurrentSession(true);
+
             Context context = getContext();
             CharSequence text = "Good!";
             int duration = Toast.LENGTH_SHORT;
@@ -166,6 +172,8 @@ public class NumbersFragment extends Fragment {
             setImageViewNumber(imageView6, imageView7, imageView8, imageView9, randomNumberGenerator.getSecondNumber());
 
         } else {
+            score.updateScoreForCurrentSession(false);
+
             Context context = getContext();
             CharSequence text = "Wrong!";
             int duration = Toast.LENGTH_SHORT;
@@ -295,5 +303,11 @@ public class NumbersFragment extends Fragment {
 
     public int lastDigit(int number) {
         return number % 10;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        scoreManager.setScoreForPastSession(score);
     }
 }
