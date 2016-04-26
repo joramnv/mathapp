@@ -32,9 +32,8 @@ public class NumpadFragment extends Fragment implements Numpad {
 
     public void onClickNumpadButton(View view) {
         Button button = (Button)view;
-        int buttonContent = button.getId();
-        Log.v(LOG_TAG, "the R.id of the button = " + buttonContent);
-        switch (buttonContent) {
+        int buttonId = button.getId();
+        switch (buttonId) {
             case R.id.button1:
                 numbersFragment.onClickNumpadButtonNumber(1);
                 break;

@@ -19,7 +19,8 @@ public class NumbersFragment extends Fragment {
 
     private static final String LOG_TAG = NumbersFragment.class.getSimpleName();
 
-    private int textViewAnswerContent = 0;
+    private int userAnswer = 0;
+    private boolean minusFlag = false;
 
     private int mode;
     private RandomNumberGenerator randomNumberGenerator;
@@ -81,33 +82,55 @@ public class NumbersFragment extends Fragment {
     }
 
     public void onClickNumpadButton(String buttonContent) {
-        //parse to int.... textViewAnswerContent = textViewAnswer.getText().toString();
         switch(buttonContent) {
             case "-":
-                textViewAnswerContent *= -1;
-                textViewAnswer.setText(""+textViewAnswerContent);
+                //Minus - make a positive number negative and vice versa.
+                userAnswer *= -1;
+                if(userAnswer == 0) {
+                    minusFlag = true;
+                    textViewAnswer.setText("-");
+                } else {
+                    textViewAnswer.setText(""+ userAnswer);
+                }
                 break;
             case "c":
-                textViewAnswerContent = 0;
+                //Clear - remove all numbers.
+                userAnswer = 0;
                 textViewAnswer.setText("");
                 break;
             case "b":
-                //todo shouldn't be 0 but ' '... empty when result of back is same as clear.
-                textViewAnswerContent /= 10;
-                textViewAnswer.setText(""+textViewAnswerContent);
+                //Backspace - remove most left number.
+                userAnswer /= 10;
+                if(userAnswer == 0) {
+                    textViewAnswer.setText("");
+                } else {
+                    textViewAnswer.setText(""+ userAnswer);
+                }
                 break;
             case "=":
-                answerEqualsQuestion(textViewAnswerContent);
+                //Equals - check if userAnswer is correct.
+                userAnswerEqualsResultQuestion(userAnswer);
                 break;
         }
     }
 
     public void onClickNumpadButtonNumber(int buttonNumber) {
-        textViewAnswerContent = textViewAnswerContent * 10 + buttonNumber;
-        textViewAnswer.setText(""+textViewAnswerContent);
+        if(minusFlag) {
+            userAnswer = buttonNumber * -1;
+            Log.d(LOG_TAG, "userAnswer = " + userAnswer + "buttonNumber = " + buttonNumber);
+            minusFlag = false;
+        }
+        else {
+            if(userAnswer < 0) {
+                userAnswer = userAnswer * 10 - buttonNumber;
+            } else {
+                userAnswer = userAnswer * 10 + buttonNumber;
+            }
+        }
+        textViewAnswer.setText(""+ userAnswer);
     }
 
-    public void answerEqualsQuestion(int textViewAnswerContent) {
+    public void userAnswerEqualsResultQuestion(int textViewAnswerContent) {
         int result = 0;
         if(mode == 1) {
             result = randomNumberGenerator.getAdditionEquals();
@@ -127,7 +150,7 @@ public class NumbersFragment extends Fragment {
             toast.show();
 
             randomNumberGenerator = new RandomNumberGenerator(Difficulty.INSTANCE.getDifficulty());
-            this.textViewAnswerContent = 0;
+            this.userAnswer = 0;
             textViewAnswer.setText("");
 
             imageView1 = (ImageView)getView().findViewById(R.id.imageView1);
