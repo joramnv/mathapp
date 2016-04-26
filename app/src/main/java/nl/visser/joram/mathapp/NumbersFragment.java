@@ -22,9 +22,7 @@ public class NumbersFragment extends Fragment {
     private int userAnswer = 0;
     private boolean minusFlag = false;
 
-    private ScoreManager scoreManager = ScoreManagerCreator.INSTANCE.getScoreManager();
-
-    private Score score = scoreManager.getNewScore();
+    private Score score = Score.INSTANCE;
 
     private int mode;
     private RandomNumberGenerator randomNumberGenerator;
@@ -305,9 +303,4 @@ public class NumbersFragment extends Fragment {
         return number % 10;
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        scoreManager.setScoreForPastSession(score);
-    }
 }

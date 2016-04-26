@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 public class ScoreboardActivity extends AppCompatActivity {
 
@@ -25,6 +26,10 @@ public class ScoreboardActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        TextView textView = (TextView)findViewById(R.id.textview_scoreboard);
+        textView.setText("Your score is: " + String.valueOf(Score.INSTANCE.getScore()));
+
     }
 
 }

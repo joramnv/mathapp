@@ -1,6 +1,7 @@
 package nl.visser.joram.mathapp;
 
-public class Score {
+public enum Score {
+    INSTANCE;
 
     private String name;
     private int score;
@@ -8,7 +9,8 @@ public class Score {
     private int correctAnswers;
     private double time;
 
-    public Score() {
+    //initializer block
+    {
         this.name = " ";
         this.score = 0;
         this.wrongAnswers = 0;
