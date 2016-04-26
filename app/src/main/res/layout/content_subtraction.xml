@@ -44,7 +44,6 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:id="@+id/container_timer_fragment"
-        android:layout_gravity="left|top"
-        android:layout_above="@+id/container_numbers_time_trial_addition"/>
+        android:layout_gravity="left|top"/>
 
 </RelativeLayout>
