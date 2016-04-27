@@ -9,15 +9,6 @@ public enum Score {
     private int correctAnswers;
     private double time;
 
-    //initializer block
-    {
-        this.name = " ";
-        this.score = 0;
-        this.wrongAnswers = 0;
-        this.correctAnswers = 0;
-        this.time = 0.0;
-    }
-
     public double getTime() {
         return time;
     }

@@ -21,7 +21,6 @@ public class TimerTask extends AsyncTask<Void, Integer, Boolean> {
 
     @Override
     protected Boolean doInBackground(Void... voids) {
-
         //TODO maybe this should be done using CountDownTimer, see: http://developer.android.com/reference/android/os/CountDownTimer.html
         for(int i = 1; i <= 60; i++) {
             try {
@@ -30,6 +29,9 @@ public class TimerTask extends AsyncTask<Void, Integer, Boolean> {
                 Thread.interrupted();
                 Log.e(LOG_TAG, "" + ie);
             }
+            if(isCancelled()) {
+                break;
+            }
             publishProgress(i);
         }
         return true;
@@ -37,7 +39,12 @@ public class TimerTask extends AsyncTask<Void, Integer, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean timerFinished) {
-        timerFragment.showScoreboard();
+        //Shady way to determine via this try-catch block if the TimerFragment is still 'active'/'on the screen' or not.
+        try{
+            timerFragment.showScoreboard();
+        } catch(NullPointerException npe) {
+            Log.e(LOG_TAG, "" + npe);
+        }
     }
 
     @Override

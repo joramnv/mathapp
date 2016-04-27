@@ -22,22 +22,11 @@ public class NumbersFragment extends Fragment {
 
     private int userAnswer = 0;
     private boolean minusFlag = false;
-
     private Score score = Score.INSTANCE;
-
     private int mode;
     private RandomNumberGenerator randomNumberGenerator;
+    private LinearLayout layout;
     private TextView textViewAnswer;
-    private ImageView imageView1;
-    private ImageView imageView2;
-    private ImageView imageView3;
-    private ImageView imageView4;
-    private ImageView imageView5;
-    private ImageView imageView6;
-    private ImageView imageView7;
-    private ImageView imageView8;
-    private ImageView imageView9;
-    private ImageView imageView10;
 
     public NumbersFragment() {
     }
@@ -50,37 +39,39 @@ public class NumbersFragment extends Fragment {
 
         Bundle bundle = this.getArguments();
         mode = bundle.getInt("MODE", 1);
-        imageView5 = (ImageView)view.findViewById(R.id.imageView5);
-        if(mode == 1) {
-            imageView5.setImageResource(R.drawable.plus);
-        } else if(mode == 2) {
-            imageView5.setImageResource(R.drawable.minus);
-        } else if(mode == 3) {
-            imageView5.setImageResource(R.drawable.times);
-        } else if(mode == 4) {
-            imageView5.setImageResource(R.drawable.division);
-        }
-        imageView10 = (ImageView)view.findViewById(R.id.imageView10);
-        imageView10.setImageResource(R.drawable.equals);
+        Log.v(LOG_TAG, "Mode = " + mode);
 
-        Log.d(LOG_TAG, "Mode = " + mode);
+        score.setScore(0);
 
         randomNumberGenerator = new RandomNumberGenerator(Difficulty.INSTANCE.getDifficulty());
 
-        imageView1 = (ImageView)view.findViewById(R.id.imageView1);
-        imageView2 = (ImageView)view.findViewById(R.id.imageView2);
-        imageView3 = (ImageView)view.findViewById(R.id.imageView3);
-        imageView4 = (ImageView)view.findViewById(R.id.imageView4);
-        setImageViewNumber(imageView1, imageView2, imageView3, imageView4, randomNumberGenerator.getFirstNumber());
+        layout = (LinearLayout)view.findViewById(R.id.question_frame);
 
-        imageView6 = (ImageView)view.findViewById(R.id.imageView6);
-        imageView7 = (ImageView)view.findViewById(R.id.imageView7);
-        imageView8 = (ImageView)view.findViewById(R.id.imageView8);
-        imageView9 = (ImageView)view.findViewById(R.id.imageView9);
-        setImageViewNumber(imageView6, imageView7, imageView8, imageView9, randomNumberGenerator.getSecondNumber());
+        int firstRandomNumber = randomNumberGenerator.getFirstNumber();
+        setNumber(firstRandomNumber);
 
-        //cant use setImageViewNumberDynamic() directly from here, because the view must first be created and returned.
-//        setImageViewNumberDynamic(4);
+        ImageView imageOperation = new ImageView(getContext());
+        imageOperation.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
+        imageOperation.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        if(mode == 1) {
+            imageOperation.setImageResource(R.drawable.plus);
+        } else if(mode == 2) {
+            imageOperation.setImageResource(R.drawable.minus);
+        } else if(mode == 3) {
+            imageOperation.setImageResource(R.drawable.times);
+        } else if(mode == 4) {
+            imageOperation.setImageResource(R.drawable.division);
+        }
+        layout.addView(imageOperation);
+
+        int secondRandomNumber = randomNumberGenerator.getSecondNumber();
+        setNumber(secondRandomNumber);
+
+        ImageView imageEquals = new ImageView(getContext());
+        imageEquals.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
+        imageEquals.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        imageEquals.setImageResource(R.drawable.equals);
+        layout.addView(imageEquals);
 
         textViewAnswer = (TextView)view.findViewById(R.id.textViewAnswer);
 
@@ -161,19 +152,32 @@ public class NumbersFragment extends Fragment {
             this.userAnswer = 0;
             textViewAnswer.setText("");
 
-            imageView1 = (ImageView)getView().findViewById(R.id.imageView1);
-            imageView2 = (ImageView)getView().findViewById(R.id.imageView2);
-            imageView3 = (ImageView)getView().findViewById(R.id.imageView3);
-            imageView4 = (ImageView)getView().findViewById(R.id.imageView4);
-            setImageViewNumber(imageView1, imageView2, imageView3, imageView4, randomNumberGenerator.getFirstNumber());
+            int firstRandomNumber = randomNumberGenerator.getFirstNumber();
+            layout.removeAllViews();
+            setNumber(firstRandomNumber);
 
-            imageView6 = (ImageView)getView().findViewById(R.id.imageView6);
-            imageView7 = (ImageView)getView().findViewById(R.id.imageView7);
-            imageView8 = (ImageView)getView().findViewById(R.id.imageView8);
-            imageView9 = (ImageView)getView().findViewById(R.id.imageView9);
-            setImageViewNumber(imageView6, imageView7, imageView8, imageView9, randomNumberGenerator.getSecondNumber());
+            ImageView imageOperation = new ImageView(getContext());
+            imageOperation.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
+            imageOperation.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            if(mode == 1) {
+                imageOperation.setImageResource(R.drawable.plus);
+            } else if(mode == 2) {
+                imageOperation.setImageResource(R.drawable.minus);
+            } else if(mode == 3) {
+                imageOperation.setImageResource(R.drawable.times);
+            } else if(mode == 4) {
+                imageOperation.setImageResource(R.drawable.division);
+            }
+            layout.addView(imageOperation);
 
-            setImageViewNumberDynamic(4);
+            int secondRandomNumber = randomNumberGenerator.getSecondNumber();
+            setNumber(secondRandomNumber);
+
+            ImageView imageEquals = new ImageView(getContext());
+            imageEquals.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
+            imageEquals.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imageEquals.setImageResource(R.drawable.equals);
+            layout.addView(imageEquals);
 
         } else {
             score.updateScoreForCurrentSession(false);
@@ -187,138 +191,54 @@ public class NumbersFragment extends Fragment {
         }
     }
 
-    public void setImageViewNumberDynamic(int numberOfDigits) {
-        LinearLayout layout = (LinearLayout)getView().findViewById(R.id.question_frame_2);
-        for(int i = 0; i < numberOfDigits; i++) {
-            ImageView image = new ImageView(getContext());
-            image.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
-            image.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            image.setImageResource(R.drawable.nine);
-            layout.addView(image);
+    public void setNumber(int number) {
+        if(number < 10) {
+            setImageViewDigitDynamic(number);
+        } else if(10 <= number && number < 100) {
+            setImageViewDigitDynamic(lastDigit(number/10));
+            setImageViewDigitDynamic(lastDigit(number));
+        } else if(100 <= number && number < 1000) {
+            setImageViewDigitDynamic(lastDigit(number/100));
+            setImageViewDigitDynamic(lastDigit(number/10));
+            setImageViewDigitDynamic(lastDigit(number));
+        } else if(1000 <= number && number < 10000) {
+            setImageViewDigitDynamic(lastDigit(number/1000));
+            setImageViewDigitDynamic(lastDigit(number/100));
+            setImageViewDigitDynamic(lastDigit(number/10));
+            setImageViewDigitDynamic(lastDigit(number));
         }
     }
 
-    public void setImageViewNumber(ImageView imageViewToBeSet1, ImageView imageViewToBeSet2, ImageView imageViewToBeSet3, ImageView imageViewToBeSet4, int number) {
-
-        imageViewToBeSet1.setImageResource(0);
-        imageViewToBeSet2.setImageResource(0);
-        imageViewToBeSet3.setImageResource(0);
-        imageViewToBeSet4.setImageResource(0);
-
-        int firstDigit = -1;
-        int secondDigit = -1;
-        int thirdDigit = -1;
-        int fourthDigit = -1;
-
-        if(number < 10) {
-            fourthDigit = number;
-        } else if(10 <= number && number < 100) {
-            fourthDigit = lastDigit(number);
-            thirdDigit = lastDigit((number)/10);
-        } else if(100 <= number && number < 1000) {
-            fourthDigit = lastDigit(number);
-            thirdDigit = lastDigit((number)/10);
-            secondDigit = lastDigit(number/100);
-        } else if(1000 <= number && number < 10000) {
-            fourthDigit = lastDigit(number);
-            thirdDigit = lastDigit((number)/10);
-            secondDigit = lastDigit(number/100);
-            firstDigit = lastDigit(number/1000);
+    public void setImageViewDigitDynamic(int digit) {
+        ImageView image = new ImageView(getContext());
+        image.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
+        image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        image.setImageResource(R.drawable.nine);
+        if(digit == 0) {
+            image.setImageResource(R.drawable.zero);
+        } else if(digit == 1) {
+            image.setImageResource(R.drawable.one);
+        } else if(digit == 2) {
+            image.setImageResource(R.drawable.two);
+        } else if(digit == 3) {
+            image.setImageResource(R.drawable.three);
+        } else if(digit == 4) {
+            image.setImageResource(R.drawable.four);
+        } else if(digit == 5) {
+            image.setImageResource(R.drawable.five);
+        } else if(digit == 6) {
+            image.setImageResource(R.drawable.six);
+        } else if(digit == 7) {
+            image.setImageResource(R.drawable.seven);
+        } else if(digit == 8) {
+            image.setImageResource(R.drawable.eight);
+        } else if(digit == 9) {
+            image.setImageResource(R.drawable.nine);
         }
-
-        if(firstDigit == 0) {
-            imageViewToBeSet1.setImageResource(R.drawable.zero);
-        } else if(firstDigit == 1) {
-            imageViewToBeSet1.setImageResource(R.drawable.one);
-        } else if(firstDigit == 2) {
-            imageViewToBeSet1.setImageResource(R.drawable.two);
-        } else if(firstDigit == 3) {
-            imageViewToBeSet1.setImageResource(R.drawable.three);
-        } else if(firstDigit == 4) {
-            imageViewToBeSet1.setImageResource(R.drawable.four);
-        } else if(firstDigit == 5) {
-            imageViewToBeSet1.setImageResource(R.drawable.five);
-        } else if(firstDigit == 6) {
-            imageViewToBeSet1.setImageResource(R.drawable.six);
-        } else if(firstDigit == 7) {
-            imageViewToBeSet1.setImageResource(R.drawable.seven);
-        } else if(firstDigit == 8) {
-            imageViewToBeSet1.setImageResource(R.drawable.eight);
-        } else if(firstDigit == 9) {
-            imageViewToBeSet1.setImageResource(R.drawable.nine);
-        }
-
-        if(secondDigit == 0) {
-            imageViewToBeSet2.setImageResource(R.drawable.zero);
-        } else if(secondDigit == 1) {
-            imageViewToBeSet2.setImageResource(R.drawable.one);
-        } else if(secondDigit == 2) {
-            imageViewToBeSet2.setImageResource(R.drawable.two);
-        } else if(secondDigit == 3) {
-            imageViewToBeSet2.setImageResource(R.drawable.three);
-        } else if(secondDigit == 4) {
-            imageViewToBeSet2.setImageResource(R.drawable.four);
-        } else if(secondDigit == 5) {
-            imageViewToBeSet2.setImageResource(R.drawable.five);
-        } else if(secondDigit == 6) {
-            imageViewToBeSet2.setImageResource(R.drawable.six);
-        } else if(secondDigit == 7) {
-            imageViewToBeSet2.setImageResource(R.drawable.seven);
-        } else if(secondDigit == 8) {
-            imageViewToBeSet2.setImageResource(R.drawable.eight);
-        } else if(secondDigit == 9) {
-            imageViewToBeSet2.setImageResource(R.drawable.nine);
-        }
-
-        if(thirdDigit == 0) {
-            imageViewToBeSet3.setImageResource(R.drawable.zero);
-        } else if(thirdDigit == 1) {
-            imageViewToBeSet3.setImageResource(R.drawable.one);
-        } else if(thirdDigit == 2) {
-            imageViewToBeSet3.setImageResource(R.drawable.two);
-        } else if(thirdDigit == 3) {
-            imageViewToBeSet3.setImageResource(R.drawable.three);
-        } else if(thirdDigit == 4) {
-            imageViewToBeSet3.setImageResource(R.drawable.four);
-        } else if(thirdDigit == 5) {
-            imageViewToBeSet3.setImageResource(R.drawable.five);
-        } else if(thirdDigit == 6) {
-            imageViewToBeSet3.setImageResource(R.drawable.six);
-        } else if(thirdDigit == 7) {
-            imageViewToBeSet3.setImageResource(R.drawable.seven);
-        } else if(thirdDigit == 8) {
-            imageViewToBeSet3.setImageResource(R.drawable.eight);
-        } else if(thirdDigit == 9) {
-            imageViewToBeSet3.setImageResource(R.drawable.nine);
-        }
-
-        if(fourthDigit == 0) {
-            imageViewToBeSet4.setImageResource(R.drawable.zero);
-        } else if(fourthDigit == 1) {
-            imageViewToBeSet4.setImageResource(R.drawable.one);
-        } else if(fourthDigit == 2) {
-            imageViewToBeSet4.setImageResource(R.drawable.two);
-        } else if(fourthDigit == 3) {
-            imageViewToBeSet4.setImageResource(R.drawable.three);
-        } else if(fourthDigit == 4) {
-            imageViewToBeSet4.setImageResource(R.drawable.four);
-        } else if(fourthDigit == 5) {
-            imageViewToBeSet4.setImageResource(R.drawable.five);
-        } else if(fourthDigit == 6) {
-            imageViewToBeSet4.setImageResource(R.drawable.six);
-        } else if(fourthDigit == 7) {
-            imageViewToBeSet4.setImageResource(R.drawable.seven);
-        } else if(fourthDigit == 8) {
-            imageViewToBeSet4.setImageResource(R.drawable.eight);
-        } else if(fourthDigit == 9) {
-            imageViewToBeSet4.setImageResource(R.drawable.nine);
-        }
-
-        Log.v(LOG_TAG + " bottom", ""+number);
+        layout.addView(image);
     }
 
     public int lastDigit(int number) {
         return number % 10;
     }
-
 }
