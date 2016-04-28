@@ -34,48 +34,20 @@ public class NumbersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_numbers, container, false);
+        layout = (LinearLayout)view.findViewById(R.id.question_frame);
+        textViewAnswer = (TextView)view.findViewById(R.id.textViewAnswer);
+        return view;
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
         Bundle bundle = this.getArguments();
         mode = bundle.getInt("MODE", 1);
         Log.v(LOG_TAG, "Mode = " + mode);
-
         score.setScore(0);
-
-        randomNumberGenerator = new RandomNumberGenerator(Difficulty.INSTANCE.getDifficulty());
-
-        layout = (LinearLayout)view.findViewById(R.id.question_frame);
-
-        int firstRandomNumber = randomNumberGenerator.getFirstNumber();
-        setNumber(firstRandomNumber);
-
-        ImageView imageOperation = new ImageView(getContext());
-        imageOperation.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
-        imageOperation.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        if(mode == 1) {
-            imageOperation.setImageResource(R.drawable.plus);
-        } else if(mode == 2) {
-            imageOperation.setImageResource(R.drawable.minus);
-        } else if(mode == 3) {
-            imageOperation.setImageResource(R.drawable.times);
-        } else if(mode == 4) {
-            imageOperation.setImageResource(R.drawable.division);
-        }
-        layout.addView(imageOperation);
-
-        int secondRandomNumber = randomNumberGenerator.getSecondNumber();
-        setNumber(secondRandomNumber);
-
-        ImageView imageEquals = new ImageView(getContext());
-        imageEquals.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
-        imageEquals.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        imageEquals.setImageResource(R.drawable.equals);
-        layout.addView(imageEquals);
-
-        textViewAnswer = (TextView)view.findViewById(R.id.textViewAnswer);
-
-        return view;
+        showRandomNumber();
     }
 
     public void onClickNumpadButton(String buttonContent) {
@@ -148,36 +120,9 @@ public class NumbersFragment extends Fragment {
             toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 36);
             toast.show();
 
-            randomNumberGenerator = new RandomNumberGenerator(Difficulty.INSTANCE.getDifficulty());
-            this.userAnswer = 0;
+            showRandomNumber();
+            userAnswer = 0;
             textViewAnswer.setText("");
-
-            int firstRandomNumber = randomNumberGenerator.getFirstNumber();
-            layout.removeAllViews();
-            setNumber(firstRandomNumber);
-
-            ImageView imageOperation = new ImageView(getContext());
-            imageOperation.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
-            imageOperation.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            if(mode == 1) {
-                imageOperation.setImageResource(R.drawable.plus);
-            } else if(mode == 2) {
-                imageOperation.setImageResource(R.drawable.minus);
-            } else if(mode == 3) {
-                imageOperation.setImageResource(R.drawable.times);
-            } else if(mode == 4) {
-                imageOperation.setImageResource(R.drawable.division);
-            }
-            layout.addView(imageOperation);
-
-            int secondRandomNumber = randomNumberGenerator.getSecondNumber();
-            setNumber(secondRandomNumber);
-
-            ImageView imageEquals = new ImageView(getContext());
-            imageEquals.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
-            imageEquals.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            imageEquals.setImageResource(R.drawable.equals);
-            layout.addView(imageEquals);
 
         } else {
             score.updateScoreForCurrentSession(false);
@@ -189,6 +134,37 @@ public class NumbersFragment extends Fragment {
             toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 36);
             toast.show();
         }
+    }
+
+    public void showRandomNumber() {
+        layout.removeAllViews();
+        randomNumberGenerator = new RandomNumberGenerator(Difficulty.INSTANCE.getDifficulty());
+
+        int firstRandomNumber = randomNumberGenerator.getFirstNumber();
+        setNumber(firstRandomNumber);
+
+        ImageView imageOperation = new ImageView(getContext());
+        imageOperation.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
+        imageOperation.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        if(mode == 1) {
+            imageOperation.setImageResource(R.drawable.plus);
+        } else if(mode == 2) {
+            imageOperation.setImageResource(R.drawable.minus);
+        } else if(mode == 3) {
+            imageOperation.setImageResource(R.drawable.times);
+        } else if(mode == 4) {
+            imageOperation.setImageResource(R.drawable.division);
+        }
+        layout.addView(imageOperation);
+
+        int secondRandomNumber = randomNumberGenerator.getSecondNumber();
+        setNumber(secondRandomNumber);
+
+        ImageView imageEquals = new ImageView(getContext());
+        imageEquals.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
+        imageEquals.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        imageEquals.setImageResource(R.drawable.equals);
+        layout.addView(imageEquals);
     }
 
     public void setNumber(int number) {
@@ -207,6 +183,10 @@ public class NumbersFragment extends Fragment {
             setImageViewDigitDynamic(lastDigit(number/10));
             setImageViewDigitDynamic(lastDigit(number));
         }
+    }
+
+    public int lastDigit(int number) {
+        return number % 10;
     }
 
     public void setImageViewDigitDynamic(int digit) {
@@ -236,9 +216,5 @@ public class NumbersFragment extends Fragment {
             image.setImageResource(R.drawable.nine);
         }
         layout.addView(image);
-    }
-
-    public int lastDigit(int number) {
-        return number % 10;
     }
 }
