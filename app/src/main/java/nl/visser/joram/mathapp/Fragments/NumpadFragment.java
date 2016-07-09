@@ -1,12 +1,14 @@
-package nl.visser.joram.mathapp;
+package nl.visser.joram.mathapp.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import nl.visser.joram.mathapp.Numpad;
+import nl.visser.joram.mathapp.R;
 
 /**
  * A simple {@link Fragment} subclass.

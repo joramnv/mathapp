@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp;
+package nl.visser.joram.mathapp.Activities;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import org.honorato.multistatetogglebutton.MultiStateToggleButton;
 import org.honorato.multistatetogglebutton.ToggleButton;
+
+import nl.visser.joram.mathapp.Difficulty;
+import nl.visser.joram.mathapp.R;
 
 public class SettingsActivity extends MenuActivity {
 

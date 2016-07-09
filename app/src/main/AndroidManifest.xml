@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,49 +19,49 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AdditionActivity"
+            android:name=".Activities.AdditionActivity"
             android:label="@string/title_activity_addition"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="nl.visser.joram.mathapp.MainActivity" />
+                android:value=".Activities.MainActivity" />
         </activity>
         <activity
             android:name=".TimeTrialAdditionActivity"
             android:label="@string/title_activity_time_trial_addition"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="nl.visser.joram.mathapp.MainActivity" />
+                android:value=".Activities.MainActivity" />
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".Activities.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="nl.visser.joram.mathapp.MainActivity" />
+                android:value=".Activities.MainActivity" />
         </activity>
         <activity
-            android:name=".SubtractionActivity"
+            android:name=".Activities.SubtractionActivity"
             android:label="@string/title_activity_subtraction"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="nl.visser.joram.mathapp.MainActivity" />
+                android:value=".Activities.MainActivity" />
         </activity>
         <activity
-            android:name=".ScoreboardActivity"
+            android:name=".Activities.ScoreboardActivity"
             android:label="@string/title_activity_scoreboard"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="nl.visser.joram.mathapp.MainActivity" />
+                android:value=".Activities.MainActivity" />
         </activity>
     </application>
 

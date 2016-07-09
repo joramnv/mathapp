@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ProgressBar;
 
+import nl.visser.joram.mathapp.Fragments.TimerFragment;
+
 /**
  * Created by Joram on 17-4-2016.
  */

@@ -1,9 +1,12 @@
-package nl.visser.joram.mathapp;
+package nl.visser.joram.mathapp.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import nl.visser.joram.mathapp.Activities.SettingsActivity;
+import nl.visser.joram.mathapp.R;
 
 /**
  * Created by Joram on 22-3-2016.

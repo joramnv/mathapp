@@ -1,4 +1,6 @@
-package nl.visser.joram.mathapp;
+package nl.visser.joram.mathapp.Fragments;
+
+import nl.visser.joram.mathapp.Fragments.NumbersFragment;
 
 /**
  * Created by Joram on 9-4-2016.

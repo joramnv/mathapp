@@ -5,6 +5,6 @@
         android:layout_height="match_parent"
         android:id="@+id/fragment_timer_bar"
         android:layout_gravity="left|top"
-        tools:context="nl.visser.joram.mathapp.TimerFragment">
+        tools:context=".Fragments.TimerFragment">
 
 </ProgressBar>

@@ -1,22 +1,29 @@
-package nl.visser.joram.mathapp;
+package nl.visser.joram.mathapp.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class AdditionActivity extends MenuActivity {
+import nl.visser.joram.mathapp.Fragments.MathFragmentManager;
+import nl.visser.joram.mathapp.Fragments.NumbersFragment;
+import nl.visser.joram.mathapp.Numpad;
+import nl.visser.joram.mathapp.Fragments.NumpadFragment;
+import nl.visser.joram.mathapp.R;
+import nl.visser.joram.mathapp.Fragments.TimerFragment;
 
-    private static final String LOG_TAG =  AdditionActivity.class.getSimpleName();
+public class SubtractionActivity extends MenuActivity {
+
+    private static final String LOG_TAG = SubtractionActivity.class.getSimpleName();
 
     private Numpad numpad;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addition);
+        setContentView(R.layout.activity_subtraction);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -44,21 +51,21 @@ public class AdditionActivity extends MenuActivity {
         NumpadFragment numpadFragment = new NumpadFragment();
         if(savedInstanceState == null) {
             fragmentManager.beginTransaction()
-                    .add(R.id.container_numbers_addition, numbersFragment)
+                    .add(R.id.container_numbers_subtraction, numbersFragment)
                     .commit();
             fragmentManager.beginTransaction()
-                    .add(R.id.container_numpad_addition, numpadFragment)
+                    .add(R.id.container_numpad_subtraction, numpadFragment)
                     .commit();
         } else {
             fragmentManager.beginTransaction()
-                    .replace(R.id.container_numbers_addition, numbersFragment)
+                    .replace(R.id.container_numbers_subtraction, numbersFragment)
                     .commit();
             fragmentManager.beginTransaction()
-                    .replace(R.id.container_numpad_addition, numpadFragment)
+                    .replace(R.id.container_numpad_subtraction, numpadFragment)
                     .commit();
         }
         Bundle bundle = new Bundle();
-        bundle.putInt("MODE", 1);
+        bundle.putInt("MODE", 2);
         numbersFragment.setArguments(bundle);
         MathFragmentManager.INSTANCE.setNumbersFragment(numbersFragment);
         numpad = numpadFragment;

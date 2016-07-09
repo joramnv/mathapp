@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp;
+package nl.visser.joram.mathapp.Fragments;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -12,6 +12,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import nl.visser.joram.mathapp.Difficulty;
+import nl.visser.joram.mathapp.R;
+import nl.visser.joram.mathapp.RandomNumberGenerator;
+import nl.visser.joram.mathapp.Score;
 
 /**
  * A placeholder fragment containing a simple view.
