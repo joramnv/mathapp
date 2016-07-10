@@ -7,9 +7,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import nl.visser.joram.mathapp.Fragments.CategoriesFragment;
 import nl.visser.joram.mathapp.Fragments.MathFragmentManager;
 import nl.visser.joram.mathapp.Fragments.NumbersFragment;
-import nl.visser.joram.mathapp.Numpad;
+import nl.visser.joram.mathapp.Fragments.Numpad;
 import nl.visser.joram.mathapp.Fragments.NumpadFragment;
 import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.Fragments.TimerFragment;
@@ -30,7 +31,7 @@ public class SubtractionActivity extends MenuActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        boolean showTimer = intent.getBooleanExtra(MainActivity.EXTRA_MESSAGE, false);
+        boolean showTimer = intent.getBooleanExtra(CategoriesFragment.TIME_TRIAL, false);
 
         if(showTimer) {
             FragmentManager fragmentManager = getSupportFragmentManager();

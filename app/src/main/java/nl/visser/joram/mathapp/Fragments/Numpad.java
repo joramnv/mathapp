@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp;
+package nl.visser.joram.mathapp.Fragments;
 
 import android.view.View;
 

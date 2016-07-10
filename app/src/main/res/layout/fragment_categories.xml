@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="nl.visser.joram.mathapp.Fragments.CategoriesFragment">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Additions"
+        android:id="@+id/button_addition"
+        android:onClick="additions"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Subtractions"
+        android:id="@+id/button_subtraction"
+        android:onClick="subtractions"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Multiplications"
+        android:id="@+id/button_time_trial_addition"
+        android:onClick="multiplications"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Divisions"
+        android:id="@+id/button_time_trial_subtraction"
+        android:onClick="divisions"/>
+
+</LinearLayout>

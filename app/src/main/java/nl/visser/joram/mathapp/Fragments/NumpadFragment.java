@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import nl.visser.joram.mathapp.Numpad;
 import nl.visser.joram.mathapp.R;
 
 /**
