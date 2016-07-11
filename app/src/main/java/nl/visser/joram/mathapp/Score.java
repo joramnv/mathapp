@@ -64,4 +64,9 @@ public enum Score {
             updateWrongAnswers();
         }
     }
+
+    public void writeScoreDataToDb() {
+
+
+    }
 }
