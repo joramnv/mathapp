@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.Score;
+import nl.visser.joram.mathapp.ScoreDbHelper;
+import nl.visser.joram.mathapp.ScoreScheme;
 
 public class ScoreboardActivity extends AppCompatActivity {
 
