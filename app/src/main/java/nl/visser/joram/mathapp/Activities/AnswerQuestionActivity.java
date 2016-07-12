@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import java.util.ArrayList;
+
 import nl.visser.joram.mathapp.Fragments.Category;
 import nl.visser.joram.mathapp.Fragments.MathFragmentManager;
 import nl.visser.joram.mathapp.Fragments.Mode;
@@ -73,17 +75,16 @@ public class AnswerQuestionActivity extends MenuActivity {
         }
 
         Bundle getBundleCategory = intent.getExtras();
-        Category[] category = (Category[]) bundle.get("CATEGORY");
-        Log.v(LOG_TAG, "category contains: " + category[0] + ", " + category[1] + ", "  + category[2] + ", "  + category[3]);
-        //TODO simple randomGenerateCategory for now
 
+        //TODO simple randomGenerateCategory for now
+        ArrayList<Category> categoryArrayList = (ArrayList<Category>) getBundleCategory.get("CATEGORY");
 
         Bundle bundleCategory = new Bundle();
         //TODO get this category from .... somewhere.
-        if(category[0] != null) {
-            bundleCategory.putSerializable("CATEGORY", category[0]);
-        } else if(category[1] != null) {
-            bundleCategory.putSerializable("CATEGORY", category[1]);
+        if(categoryArrayList.contains(Category.ADDITIONS)) {
+            bundleCategory.putSerializable("CATEGORY", Category.ADDITIONS);
+        } else if(categoryArrayList.contains(Category.SUBTRACTIONS)) {
+            bundleCategory.putSerializable("CATEGORY", Category.SUBTRACTIONS);
         }
         numbersFragment.setArguments(bundleCategory);
         MathFragmentManager.INSTANCE.setNumbersFragment(numbersFragment);
