@@ -11,15 +11,15 @@ public class ScoreDbHelper extends SQLiteOpenHelper{
     public static final String DATABASE_NAME = "Math";
 
     private static final String TEXT_TYPE = " TEXT";
-    private static final String COMMA_SEP = ",";
+    private static final String COMMA_SEP = ", ";
 
-    public static final String CREATE_ENTRIES = "CREATE TABLE" + ScoreTable.TABLE_NAME + " (" +
-                                                ScoreTable._ID + "INTEGER PRIMARY KEY," +
+    public static final String CREATE_ENTRIES = "CREATE TABLE " + ScoreTable.TABLE_NAME + " (" +
+                                                ScoreTable._ID + " INTEGER PRIMARY KEY," +
                                                 ScoreTable.PLAYER_NAME_COLUMN + TEXT_TYPE + COMMA_SEP +
                                                 ScoreTable.PLAYER_SCORE_COLUMN + " INTEGER" + COMMA_SEP +
                                                 ScoreTable.PlAYER_CORRECT_ANSWERS + " INTEGER" + COMMA_SEP +
                                                 ScoreTable.PLAYER_WRONG_ANSWERS + " INTEGER" + COMMA_SEP +
-                                                ScoreTable.PLAYER_TIME + " INTEGER" + COMMA_SEP + " )";
+                                                ScoreTable.PLAYER_TIME + " INTEGER" + " )";
 
     public ScoreDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
