@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="primary_text_holo_dark">#565C83</color>
     <color name="school_board_white">#FFF4FDEF</color>
+    <color name="background_grey">#ffffff</color>
+    <color name="light_gray_header_color">#646663</color>
 </resources>

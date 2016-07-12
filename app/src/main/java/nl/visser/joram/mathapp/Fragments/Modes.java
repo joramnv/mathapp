@@ -5,7 +5,8 @@ import android.view.View;
 /**
  * Created by Joram on 10-7-2016.
  */
-public interface Categories {
-    void onCheckboxClicked(View view);
-    void go(View view);
+public interface Modes {
+    void normal(View view);
+    void timeTrial(View view);
+    void endless(View view);
 }

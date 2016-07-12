@@ -1,6 +1,5 @@
 package nl.visser.joram.mathapp.Fragments;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,11 +7,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
-import nl.visser.joram.mathapp.Activities.AdditionActivity;
-import nl.visser.joram.mathapp.Activities.SubtractionActivity;
+import nl.visser.joram.mathapp.Activities.AnswerQuestionActivity;
+import nl.visser.joram.mathapp.Difficulty;
 import nl.visser.joram.mathapp.R;
-import nl.visser.joram.mathapp.Score;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,9 +21,12 @@ import nl.visser.joram.mathapp.Score;
 public class CategoriesFragment extends Fragment implements Categories {
 
     private static final String LOG_TAG = CategoriesFragment.class.getSimpleName();
-    public final static String TIME_TRIAL = "TIME_TRIAL";
 
-    private int mode;       //mode 1 = normal, mode 2 = timeTrial, mode 3 = endless.
+    private Mode mode;
+    private Category[] category = new Category[4];
+    private SeekBar difficultyControl;
+    private TextView difficultyTextView;
+    private int difficultySetByBar;
 
     public CategoriesFragment() {
         // Required empty public constructor
@@ -39,31 +43,94 @@ public class CategoriesFragment extends Fragment implements Categories {
     public void onResume() {
         super.onResume();
         Bundle bundle = this.getArguments();
-        mode = bundle.getInt("MODE");
-        Log.v(LOG_TAG, "Mode = " + mode);
+        mode = (Mode) bundle.get("MODE");
+        Log.v(LOG_TAG, "Modes = " + mode);
+        difficultySetByBar = 1;
+        Difficulty.INSTANCE.setDifficulty(difficultySetByBar);
+        difficultyControl = (SeekBar) getView().findViewById(R.id.difficulty_bar);
+        difficultyTextView = (TextView) getView().findViewById(R.id.difficulty_textview);
+        setIntensityControlListener();
     }
 
-    public void additions(View view) {
-        Intent intent = new Intent(getActivity(), AdditionActivity.class);
-        if(mode == 2) {
-            intent.putExtra(TIME_TRIAL, true);
+    private void setIntensityControlListener() {
+        difficultyControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                difficultySetByBar = progress + 1;
+                difficultyTextView.setText(Integer.toString(difficultySetByBar));
+                Difficulty.INSTANCE.setDifficulty(difficultySetByBar);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+    }
+
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.checkbox_additions:
+                if (checked) {
+                    Log.v(LOG_TAG, "Checked additions");
+                    category[0] = Category.ADDITIONS;
+                } else {
+                    Log.v(LOG_TAG, "Unchecked additions");
+                }
+                break;
+            case R.id.checkbox_subtractions:
+                if (checked) {
+                    Log.v(LOG_TAG, "Checked subtractions");
+                    category[1] = Category.SUBTRACTIONS;
+                } else {
+                    Log.v(LOG_TAG, "Unchecked subtractions");
+                }
+                break;
+            case R.id.checkbox_multiplications:
+                if (checked) {
+                    Log.v(LOG_TAG, "Checked multiplications");
+                    category[2] = Category.MULTIPLICATIONS;
+                } else {
+                    Log.v(LOG_TAG, "Unchecked multiplications");
+                }
+                break;
+            case R.id.checkbox_divisions:
+                if (checked) {
+                    Log.v(LOG_TAG, "Checked divisions");
+                    category[3] = Category.DIVISIONS;
+                } else {
+                    Log.v(LOG_TAG, "Unc hecked divisions");
+                }
+                break;
+        }
+    }
+
+    public void go(View view) {
+        Intent intent = new Intent(getActivity(), AnswerQuestionActivity.class);
+
+        Bundle bundleCategory = new Bundle();
+        bundleCategory.putSerializable("CATEGORY", category);
+        intent.putExtras(bundleCategory);
+        Log.v(LOG_TAG, "category contains: " + category[0] + ", " + category[1] + ", "  + category[2] + ", "  + category[3]);
+
+        if (mode == Mode.NORMAL && intent != null) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("MODE", Mode.NORMAL);
+            intent.putExtras(bundle);
+            Log.v(LOG_TAG, "The mode is set to NORMAL");
+        } else if (mode == Mode.TIME_TRIAL && intent != null) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("MODE", Mode.TIME_TRIAL);
+            intent.putExtras(bundle);
+            Log.v(LOG_TAG, "The mode is set to NORMAL");
+        } else {
+            Log.v(LOG_TAG, "The mode is NOT SET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
         startActivity(intent);
-    }
-
-    public void subtractions(View view) {
-        Intent intent = new Intent(getActivity(), SubtractionActivity.class);
-        if(mode == 2) {
-            intent.putExtra(TIME_TRIAL, true);
-        }
-        startActivity(intent);
-    }
-
-    public void multiplications(View view) {
-        //TODO implement
-    }
-
-    public void divisions(View view) {
-        //TODO implement
     }
 }

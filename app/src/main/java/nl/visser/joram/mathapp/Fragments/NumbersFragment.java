@@ -28,7 +28,7 @@ public class NumbersFragment extends Fragment {
     private int userAnswer = 0;
     private boolean minusFlag = false;
     private Score score = Score.INSTANCE;
-    private int mode;
+    private Category category;
     private RandomNumberGenerator randomNumberGenerator;
     private LinearLayout layout;
     private TextView textViewAnswer;
@@ -49,8 +49,8 @@ public class NumbersFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Bundle bundle = this.getArguments();
-        mode = bundle.getInt("MODE", 1);
-        Log.v(LOG_TAG, "Mode = " + mode);
+        category = (Category) bundle.get("CATEGORY");
+        Log.v(LOG_TAG, "Category = " + category);
         score.setScore(0);
         showRandomNumber();
     }
@@ -106,14 +106,14 @@ public class NumbersFragment extends Fragment {
 
     public void userAnswerEqualsResultQuestion(int textViewAnswerContent) {
         int result = 0;
-        if(mode == 1) {
+        if(category == Category.ADDITIONS) {
             result = randomNumberGenerator.getAdditionEquals();
-        } else if(mode == 2) {
+        } else if(category == Category.SUBTRACTIONS) {
             result = randomNumberGenerator.getSubtractionEquals();
-        } else if(mode == 3) {
-            result = randomNumberGenerator.getAdditionEquals(); //set to getMultiplicationEquals();
-        } else if(mode == 4) {
-            result = randomNumberGenerator.getAdditionEquals(); //set to getDivisionEquals();
+        } else if(category == Category.MULTIPLICATIONS) {
+            result = randomNumberGenerator.getAdditionEquals(); //TODO set to getMultiplicationEquals();
+        } else if(category == Category.DIVISIONS) {
+            result = randomNumberGenerator.getAdditionEquals(); //TODO set to getDivisionEquals();
         }
         if(textViewAnswerContent == result) {
             score.updateScoreForCurrentSession(true);
@@ -151,13 +151,13 @@ public class NumbersFragment extends Fragment {
         ImageView imageOperation = new ImageView(getContext());
         imageOperation.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
         imageOperation.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        if(mode == 1) {
+        if(category == Category.ADDITIONS) {
             imageOperation.setImageResource(R.drawable.plus);
-        } else if(mode == 2) {
+        } else if(category == Category.SUBTRACTIONS) {
             imageOperation.setImageResource(R.drawable.minus);
-        } else if(mode == 3) {
+        } else if(category == Category.MULTIPLICATIONS) {
             imageOperation.setImageResource(R.drawable.times);
-        } else if(mode == 4) {
+        } else if(category == Category.DIVISIONS) {
             imageOperation.setImageResource(R.drawable.division);
         }
         layout.addView(imageOperation);

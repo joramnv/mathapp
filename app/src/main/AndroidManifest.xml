@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.AdditionActivity"
-            android:label="@string/title_activity_addition"
+            android:name=".Activities.AnswerQuestionActivity"
+            android:label="@string/title_activity_answer_question"
             android:parentActivityName=".Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -28,26 +28,8 @@
                 android:value=".Activities.MainActivity" />
         </activity>
         <activity
-            android:name=".TimeTrialAdditionActivity"
-            android:label="@string/title_activity_time_trial_addition"
-            android:parentActivityName=".Activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".Activities.SettingsActivity"
+            android:name=".Activities.AboutActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".Activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".Activities.SubtractionActivity"
-            android:label="@string/title_activity_subtraction"
             android:parentActivityName=".Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

@@ -9,8 +9,8 @@ import android.view.View;
 
 import nl.visser.joram.mathapp.Fragments.Categories;
 import nl.visser.joram.mathapp.Fragments.CategoriesFragment;
+import nl.visser.joram.mathapp.Fragments.ModesFragment;
 import nl.visser.joram.mathapp.Fragments.Mode;
-import nl.visser.joram.mathapp.Fragments.ModeFragment;
 import nl.visser.joram.mathapp.R;
 
 public class MainActivity extends MenuActivity {
@@ -37,14 +37,14 @@ public class MainActivity extends MenuActivity {
         });
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        ModeFragment modeFragment = new ModeFragment();
+        ModesFragment modesFragment = new ModesFragment();
         if(savedInstanceState == null) {
             fragmentManager.beginTransaction()
-                    .add(R.id.container_mode_and_categories, modeFragment)
+                    .add(R.id.container_mode_and_categories, modesFragment)
                     .commit();
         } else {
             fragmentManager.beginTransaction()
-                    .replace(R.id.container_mode_and_categories, modeFragment)
+                    .replace(R.id.container_mode_and_categories, modesFragment)
                     .commit();
         }
 
@@ -58,7 +58,8 @@ public class MainActivity extends MenuActivity {
                 .replace(R.id.container_mode_and_categories, categoriesFragment)
                 .commit();
         Bundle bundle = new Bundle();
-        bundle.putInt("MODE", 1); // mode 1 = normal.
+        bundle.putSerializable("MODE", Mode.NORMAL);
+//        bundle.putInt("MODE", Mode.NORMAL.getValue());
         categoriesFragment.setArguments(bundle);
         categories = categoriesFragment;
     }
@@ -71,7 +72,7 @@ public class MainActivity extends MenuActivity {
                 .replace(R.id.container_mode_and_categories, categoriesFragment)
                 .commit();
         Bundle bundle = new Bundle();
-        bundle.putInt("MODE", 2); // mode 2 = timeTrial.
+        bundle.putSerializable("MODE", Mode.TIME_TRIAL);
         categoriesFragment.setArguments(bundle);
         categories = categoriesFragment;
     }
@@ -84,25 +85,17 @@ public class MainActivity extends MenuActivity {
                 .replace(R.id.container_mode_and_categories, categoriesFragment)
                 .commit();
         Bundle bundle = new Bundle();
-        bundle.putInt("MODE", 3); // mode 3 = endless.
+        bundle.putSerializable("MODE", Mode.ENDLESS);
         categoriesFragment.setArguments(bundle);
         categories = categoriesFragment;
     }
 
-    public void additions(View view) {
-        categories.additions(view);
+    public void onCheckboxClicked(View view) {
+        categories.onCheckboxClicked(view);
     }
 
-    public void subtractions(View view) {
-        categories.subtractions(view);
-    }
-
-    public void multiplications(View view) {
-        categories.multiplications(view);
-    }
-
-    public void divisions(View view) {
-        categories.divisions(view);
+    public void go(View view) {
+        categories.go(view);
     }
 
 }
