@@ -44,19 +44,16 @@ public class AnswerQuestionActivity extends MenuActivity {
         Bundle bundle = intent.getExtras();
         Mode mode = (Mode) bundle.get("MODE");
         showTimer = false;
-        if (mode == Mode.TIME_TRIAL) {
-            showTimer = true;
-            //TODO start countDown()
-        }
         switch (mode) {
-            case NORMAL: { startFragments();
-                         break;
-            }
-            case TIME_TRIAL: countDown();
-            case ENDLESS: break;
+            case NORMAL:
+                startFragments();
+                break;
+            case TIME_TRIAL:
+            case ENDLESS:
+                countDown();
+                showTimer = true;
+                break;
         }
-
-
     }
 
     public void onClickNumpadButton(View view) {
@@ -78,7 +75,7 @@ public class AnswerQuestionActivity extends MenuActivity {
         new CountDownTimer(5000, 1000) {
             public void onTick(long millisUntilFinished) {
                 if (millisUntilFinished / 1000 > 1) {
-                    mTextField.setText("seconds remaining: " + (millisUntilFinished / 1000 - 1));
+                    mTextField.setText("" + (millisUntilFinished / 1000 - 1));
                 } else {
                     mTextField.setVisibility(View.INVISIBLE);
                     startFragments();
