@@ -34,9 +34,4 @@ public class ScoreDbHelper extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-
-    public String getCreateEntriesSql() {
-        return CREATE_ENTRIES;
-    }
-
 }
