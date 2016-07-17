@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -22,13 +23,15 @@ import nl.visser.joram.mathapp.ScoreScheme;
 public class ScoreboardActivity extends AppCompatActivity {
 
     protected ScoreDbHelper scoreDbHelper;
-    TextView textView;
-    TableLayout scoreTable;
+    protected TableLayout scoreTable;
+
+    protected String SAVE_SCORE_STATE = "score_is_saved_state";
+    protected Boolean scoreIsWrittenToDb = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_scoreboard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -36,10 +39,8 @@ public class ScoreboardActivity extends AppCompatActivity {
         scoreTable = (TableLayout) findViewById(R.id.score_table);
 
         scoreDbHelper = new ScoreDbHelper(this);
-
         ScoreToDbTask scoreToDbTask = new ScoreToDbTask();
         scoreToDbTask.execute();
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -87,26 +88,47 @@ public class ScoreboardActivity extends AppCompatActivity {
         scoreFromDbTask.execute();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putBoolean(SAVE_SCORE_STATE, scoreIsWrittenToDb);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        scoreIsWrittenToDb = (Boolean) savedInstanceState.get(SAVE_SCORE_STATE);
+
+    }
+
+
     private class ScoreToDbTask extends AsyncTask<String, Void, Void> {
 
         @Override
         protected Void doInBackground(String... params) {
             SQLiteDatabase db = scoreDbHelper.getWritableDatabase();
 
-            ContentValues values = new ContentValues();
-            values.put(ScoreScheme.ScoreTable.PLAYER_NAME_COLUMN, "Jorrit");
-            values.put(ScoreScheme.ScoreTable.PLAYER_SCORE_COLUMN, Score.INSTANCE.getScore());
-            values.put(ScoreScheme.ScoreTable.PlAYER_CORRECT_ANSWERS, 10);
-            values.put(ScoreScheme.ScoreTable.PLAYER_WRONG_ANSWERS, 15);
-            values.put(ScoreScheme.ScoreTable.PLAYER_TIME, 1000);
 
-            long newRowId;
-            newRowId = db.insert(
-                    ScoreScheme.ScoreTable.TABLE_NAME,
-                    null,
-                    values);
+            if(!scoreIsWrittenToDb) {
+                ContentValues values = new ContentValues();
+                values.put(ScoreScheme.ScoreTable.PLAYER_NAME_COLUMN, "Jorrit");
+                values.put(ScoreScheme.ScoreTable.PLAYER_SCORE_COLUMN, Score.INSTANCE.getScore());
+                values.put(ScoreScheme.ScoreTable.PlAYER_CORRECT_ANSWERS, 10);
+                values.put(ScoreScheme.ScoreTable.PLAYER_WRONG_ANSWERS, 15);
+                values.put(ScoreScheme.ScoreTable.PLAYER_TIME, 1000);
 
-            db.close();
+
+                long newRowId;
+                newRowId = db.insert(
+                        ScoreScheme.ScoreTable.TABLE_NAME,
+                        null,
+                        values);
+
+
+                scoreIsWrittenToDb = true;
+                db.close();
+            }
 
             return null;
         }
@@ -119,9 +141,11 @@ public class ScoreboardActivity extends AppCompatActivity {
 
     private class ScoreFromDbTask extends AsyncTask<String, Void, Cursor> {
 
+        SQLiteDatabase db;
+
         @Override
         protected Cursor doInBackground(String... params) {
-            SQLiteDatabase db = scoreDbHelper.getReadableDatabase();
+            db = scoreDbHelper.getReadableDatabase();
 
             String[] projection = {
                     ScoreScheme.ScoreTable._ID,
@@ -132,6 +156,8 @@ public class ScoreboardActivity extends AppCompatActivity {
                     ScoreScheme.ScoreTable.PLAYER_TIME,
             };
 
+            String sortOrder = ScoreScheme.ScoreTable.PLAYER_SCORE_COLUMN + " DESC";
+
             Cursor c = db.query(
                         ScoreScheme.ScoreTable.TABLE_NAME,
                         projection,
@@ -139,7 +165,7 @@ public class ScoreboardActivity extends AppCompatActivity {
                         null,
                         null,
                         null,
-                        null);
+                        sortOrder);
 
             return c;
 
@@ -147,17 +173,29 @@ public class ScoreboardActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Cursor c) {
+            int lowestScore = 0;
 
             c.moveToFirst();
             while(!c.isAfterLast() && c.getPosition() < 20 ) {
-                int i = 0;
-                addScoreRow(c.getInt(i++),
+                int i = 1;
+                int playerPosition = c.getPosition()+1;
+                addScoreRow(playerPosition,
                         c.getString(i++),
                         c.getInt(i++),
                         c.getInt(i++),
                         c.getInt(i++),
                         c.getInt(i++));
                 c.moveToNext();
+
+                if(c.isLast()) {
+                    lowestScore = c.getInt(3);
+                }
+
+                //Delete scores which are not used from database
+                String selection = ScoreScheme.ScoreTable._ID + " >?";
+                String[] selectionArgs = { String.valueOf(20) };
+
+                db.delete(ScoreScheme.ScoreTable.TABLE_NAME, selection, selectionArgs);
             }
         }
      }
