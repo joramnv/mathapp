@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import nl.visser.joram.mathapp.Activities.ScoreboardActivity;
+import nl.visser.joram.mathapp.CustomTimer;
 import nl.visser.joram.mathapp.R;
 
 /**
@@ -21,7 +22,7 @@ public class TimerFragment extends Fragment {
 
     private ProgressBar timerBar;
     private long millisUntilFinished;
-    CountDownTimer timer;
+    GameTimer timer;
 
     public TimerFragment() {
         // Required empty public constructor
@@ -37,8 +38,13 @@ public class TimerFragment extends Fragment {
     public void onResume() {
         super.onResume();
         timerBar = (ProgressBar) getView().findViewById(R.id.fragment_timer_bar);
-        setTimer(62000L);
+        timer = new GameTimer(62000L, 1000);
+        timer.start();
+    }
 
+    public void incrementTimer(long timeToIncrement) {
+        timer.onIncrement(timeToIncrement);
+        timer.start();
     }
 
     public void showScoreboard() {
@@ -46,51 +52,27 @@ public class TimerFragment extends Fragment {
         startActivity(intent);
     }
 
-    public long getMillisUntilFinished() {
-        return millisUntilFinished;
-    }
+    public class GameTimer extends CustomTimer {
 
-    public void setMillisUntilFinished(long millisUntilFinished) {
-        this.millisUntilFinished = millisUntilFinished;
-    }
-
-    public void setTimer(long millisInFuture) {
-        /**
-         * 60 second count down (set to 62 seconds for reasons explained below).
-         * onTick() and onFinish() will not happen at exact times, but instead in this case
-         * millisUntilFinished parameter will have values like 4995 etc. down to 990.
-         * Furthermore calculation in the onTick method uses integer divisions (remainder is cut
-         * off).
-         * So continuing the example on the last call 990/1000 will be 0, but onFinish will be
-         * called only about 1000ms later. That's why there is about 1 ms delay when onFinish is
-         * used to invoke another method. And that's why the method invocation is placed inside the
-         * onTick method instead.
-         */
-        if(timer !=null) {
-            timer.cancel();
+        public GameTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
         }
-        timer = new CountDownTimer(millisInFuture, 1000) {
-            public void onTick(long millisUntilFinished) {
 
-                setMillisUntilFinished(millisUntilFinished);
-                int secondsUntilFinished;
-                if (millisUntilFinished / 1000 > 1) {
-                    secondsUntilFinished = (int) (long) (millisUntilFinished / 1000);
-                    int timerBarValues = (secondsUntilFinished * -1 + 61)/100*60;
-                    timerBar.setProgress(timerBarValues);
-                } else {
-                    showScoreboard();
-                }
+        @Override
+        public void onTick(long millisUntilFinished) {
+            if (millisUntilFinished / 1000 > 1) {
+                int secondsUntilFinished = (int) (long) (millisUntilFinished / 1000);
+                int timerBarValues = (secondsUntilFinished * -1 + 61)*100/60;
+                timerBar.setProgress(timerBarValues);
+            } else {
+                showScoreboard();
             }
+        }
 
-            public void onFinish() {
-            }
-        }.start();
-    }
+        @Override
+        public void onFinish() {
 
-    public void incrementTimer(long timeToIncrement) {
-        setMillisUntilFinished(getMillisUntilFinished()+timeToIncrement);
-        setTimer(getMillisUntilFinished());
+        }
     }
 }
 
