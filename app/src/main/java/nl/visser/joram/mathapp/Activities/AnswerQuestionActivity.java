@@ -1,11 +1,13 @@
 package nl.visser.joram.mathapp.Activities;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
 
     private static final String LOG_TAG =  AnswerQuestionActivity.class.getSimpleName();
 
+    private ImageView chalksImages;
     private TextView mTextField;
 
     private Numpad numpad;
@@ -41,6 +44,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mTextField = (TextView) findViewById(R.id.textview_123);
+        chalksImages = (ImageView) findViewById(R.id.chalks);
 
         intent = this.getIntent();
         Bundle bundle = intent.getExtras();
@@ -77,9 +81,17 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
          */
         new CountDownTimer(5000, 1000) {
             public void onTick(long millisUntilFinished) {
-                if (millisUntilFinished / 1000 > 1) {
+                if (millisUntilFinished > 4000) {
+                    chalksImages.setImageResource(R.drawable.red_chalks);
                     mTextField.setText("" + (millisUntilFinished / 1000 - 1));
-                } else {
+                } else if (millisUntilFinished > 3000 && millisUntilFinished <= 4000) {
+                    chalksImages.setImageResource(R.drawable.orange_chalks);
+                    mTextField.setText("" + (millisUntilFinished / 1000 - 1));
+                } else if (millisUntilFinished > 2000 && millisUntilFinished <= 3000) {
+                    chalksImages.setImageResource(R.drawable.green_chalk);
+                    mTextField.setText("" + (millisUntilFinished / 1000 - 1));
+                } else if (millisUntilFinished <= 2000){
+                    chalksImages.setVisibility(View.INVISIBLE);
                     mTextField.setVisibility(View.INVISIBLE);
                     startFragments();
                 }
