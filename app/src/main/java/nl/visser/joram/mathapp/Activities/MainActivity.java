@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 
 import nl.visser.joram.mathapp.Fragments.Categories;
 import nl.visser.joram.mathapp.Fragments.CategoriesFragment;
@@ -47,45 +48,36 @@ public class MainActivity extends MenuActivity {
                     .replace(R.id.container_mode_and_categories, modesFragment)
                     .commit();
         }
-
     }
 
-    public void normal(View view) {
-        //TODO variable normal
+    public void onClickMode(View view) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         CategoriesFragment categoriesFragment = new CategoriesFragment();
         fragmentManager.beginTransaction()
                 .replace(R.id.container_mode_and_categories, categoriesFragment)
                 .commit();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("MODE", Mode.NORMAL);
-//        bundle.putInt("MODE", Mode.NORMAL.getValue());
-        categoriesFragment.setArguments(bundle);
-        categories = categoriesFragment;
-    }
 
-    public void timeTrial(View view) {
-        //TODO variable timeTrial
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        CategoriesFragment categoriesFragment = new CategoriesFragment();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container_mode_and_categories, categoriesFragment)
-                .commit();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("MODE", Mode.TIME_TRIAL);
-        categoriesFragment.setArguments(bundle);
-        categories = categoriesFragment;
-    }
+        Enum selectedMode;
+        Button button = (Button)view;
+        int buttonId = button.getId();
 
-    public void endless(View view) {
-        //TODO variable endless
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        CategoriesFragment categoriesFragment = new CategoriesFragment();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container_mode_and_categories, categoriesFragment)
-                .commit();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("MODE", Mode.ENDLESS);
+        switch(buttonId) {
+            case R.id.normal_button:
+                selectedMode = Mode.NORMAL;
+                break;
+            case R.id.time_trail_button:
+                selectedMode = Mode.TIME_TRIAL;
+                break;
+            case R.id.endless_button:
+                selectedMode = Mode.ENDLESS;
+                break;
+            default:
+                selectedMode = Mode.NORMAL;
+                break;
+        }
+
+        bundle.putSerializable("MODE", selectedMode);
         categoriesFragment.setArguments(bundle);
         categories = categoriesFragment;
     }
