@@ -11,6 +11,8 @@ import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import nl.visser.joram.mathapp.Activities.AnswerQuestionActivity;
 import nl.visser.joram.mathapp.Difficulty;
 import nl.visser.joram.mathapp.R;
@@ -23,7 +25,7 @@ public class CategoriesFragment extends Fragment implements Categories {
     private static final String LOG_TAG = CategoriesFragment.class.getSimpleName();
 
     private Mode mode;
-    private Category[] category = new Category[4];
+    private ArrayList<Category> categories = new ArrayList<>();
     private SeekBar difficultyControl;
     private TextView difficultyTextView;
     private int difficultySetByBar;
@@ -72,13 +74,12 @@ public class CategoriesFragment extends Fragment implements Categories {
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-
         // Check which checkbox was clicked
         switch(view.getId()) {
             case R.id.checkbox_additions:
                 if (checked) {
                     Log.v(LOG_TAG, "Checked additions");
-                    category[0] = Category.ADDITIONS;
+                    categories.add(Category.ADDITIONS);
                 } else {
                     Log.v(LOG_TAG, "Unchecked additions");
                 }
@@ -86,7 +87,7 @@ public class CategoriesFragment extends Fragment implements Categories {
             case R.id.checkbox_subtractions:
                 if (checked) {
                     Log.v(LOG_TAG, "Checked subtractions");
-                    category[1] = Category.SUBTRACTIONS;
+                    categories.add(Category.SUBTRACTIONS);
                 } else {
                     Log.v(LOG_TAG, "Unchecked subtractions");
                 }
@@ -94,7 +95,7 @@ public class CategoriesFragment extends Fragment implements Categories {
             case R.id.checkbox_multiplications:
                 if (checked) {
                     Log.v(LOG_TAG, "Checked multiplications");
-                    category[2] = Category.MULTIPLICATIONS;
+                    categories.add(Category.MULTIPLICATIONS);
                 } else {
                     Log.v(LOG_TAG, "Unchecked multiplications");
                 }
@@ -102,7 +103,7 @@ public class CategoriesFragment extends Fragment implements Categories {
             case R.id.checkbox_divisions:
                 if (checked) {
                     Log.v(LOG_TAG, "Checked divisions");
-                    category[3] = Category.DIVISIONS;
+                    categories.add(Category.DIVISIONS);
                 } else {
                     Log.v(LOG_TAG, "Unc hecked divisions");
                 }
@@ -112,12 +113,9 @@ public class CategoriesFragment extends Fragment implements Categories {
 
     public void go(View view) {
         Intent intent = new Intent(getActivity(), AnswerQuestionActivity.class);
-
         Bundle bundleCategory = new Bundle();
-        bundleCategory.putSerializable("CATEGORY", category);
+        bundleCategory.putSerializable("CATEGORY", categories);
         intent.putExtras(bundleCategory);
-        Log.v(LOG_TAG, "category contains: " + category[0] + ", " + category[1] + ", "  + category[2] + ", "  + category[3]);
-
         if (mode == Mode.NORMAL && intent != null) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("MODE", Mode.NORMAL);

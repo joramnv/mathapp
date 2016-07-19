@@ -6,9 +6,6 @@ import android.widget.ProgressBar;
 
 import nl.visser.joram.mathapp.Fragments.TimerFragment;
 
-/**
- * Created by Joram on 17-4-2016.
- */
 public class TimerTask extends AsyncTask<Void, Integer, Boolean> {
 
     private static final String LOG_TAG =  TimerTask.class.getSimpleName();
@@ -24,7 +21,7 @@ public class TimerTask extends AsyncTask<Void, Integer, Boolean> {
     @Override
     protected Boolean doInBackground(Void... voids) {
         //TODO maybe this should be done using CountDownTimer, see: http://developer.android.com/reference/android/os/CountDownTimer.html
-        for(int i = 1; i <= 60; i++) {
+        for(int i = 1; i <= 2; i++) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ie) {
