@@ -12,6 +12,8 @@
     tools:context=".Activities.AnswerQuestionActivity"
     tools:showIn="@layout/activity_answer_question">
 
+
+
     <FrameLayout
         android:id="@+id/container_numpad_addition"
         android:layout_width="match_parent"
@@ -36,6 +38,12 @@
             android:layout_gravity="start|top"
             android:src="@drawable/school_board"
             android:scaleType="fitXY"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/textview_123"
+            android:gravity="center"
+            android:textColor="@color/school_board_white"/>
 
     </FrameLayout>
 
