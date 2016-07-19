@@ -126,6 +126,10 @@ public class CategoriesFragment extends Fragment implements Categories {
             bundle.putSerializable("MODE", Mode.TIME_TRIAL);
             intent.putExtras(bundle);
             Log.v(LOG_TAG, "The mode is set to NORMAL");
+        } else if ( mode == Mode.ENDLESS && intent != null) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("MODE", Mode.ENDLESS);
+            intent.putExtras(bundle);
         } else {
             Log.v(LOG_TAG, "The mode is NOT SET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
