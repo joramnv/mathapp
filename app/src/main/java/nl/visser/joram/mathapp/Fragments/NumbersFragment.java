@@ -75,6 +75,8 @@ public class NumbersFragment extends Fragment {
         category = (Category) bundle.get("CATEGORY");
         Log.v(LOG_TAG, "Category = " + category);
         score.setScore(0);
+        score.setCorrectAnswers(0);
+        score.setWrongAnswers(0);
         showRandomNumber();
     }
 

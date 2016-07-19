@@ -65,8 +65,4 @@ public enum Score {
         }
     }
 
-    public void writeScoreDataToDb() {
-
-
-    }
 }
