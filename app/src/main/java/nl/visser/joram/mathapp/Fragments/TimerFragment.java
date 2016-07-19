@@ -2,7 +2,6 @@ package nl.visser.joram.mathapp.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ public class TimerFragment extends Fragment {
     private static final String LOG_TAG = TimerFragment.class.getSimpleName();
 
     private ProgressBar timerBar;
-    private long millisUntilFinished;
     GameTimer timer;
 
     public TimerFragment() {
