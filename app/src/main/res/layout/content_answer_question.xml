@@ -38,13 +38,17 @@
             android:layout_gravity="start|top"
             android:src="@drawable/school_board"
             android:scaleType="fitXY"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:id="@+id/chalks"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/textview_123"
             android:gravity="center"
             android:textColor="@color/school_board_white"/>
-
     </FrameLayout>
 
     <FrameLayout
