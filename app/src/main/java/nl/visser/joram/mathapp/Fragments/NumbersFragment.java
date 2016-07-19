@@ -1,6 +1,5 @@
 package nl.visser.joram.mathapp.Fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -31,20 +30,18 @@ public class NumbersFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallback = (OnPressEqualsListener) activity;
+            mCallback = (OnPressEqualsListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement OnPressEqualsListener");
         }
     }
-
-
 
     private static final String LOG_TAG = NumbersFragment.class.getSimpleName();
 
@@ -78,6 +75,12 @@ public class NumbersFragment extends Fragment {
         score.setCorrectAnswers(0);
         score.setWrongAnswers(0);
         showRandomNumber();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        layout.removeAllViews();
     }
 
     public void onClickNumpadButton(String buttonContent) {

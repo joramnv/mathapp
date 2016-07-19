@@ -1,14 +1,12 @@
 package nl.visser.joram.mathapp.Activities;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -26,13 +24,14 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
     private static final String LOG_TAG =  AnswerQuestionActivity.class.getSimpleName();
 
     private ImageView chalksImages;
-    private TextView mTextField;
 
     private Numpad numpad;
     private Intent intent;
     private boolean showTimer;
     private boolean endlessMode = false;
     private TimerFragment timerFragment;
+    private NumbersFragment numbersFragment;
+    private NumpadFragment numpadFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +39,13 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
         setContentView(R.layout.activity_answer_question);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
-        mTextField = (TextView) findViewById(R.id.textview_123);
+    @Override
+    public void onResume() {
+        super.onResume();
         chalksImages = (ImageView) findViewById(R.id.chalks);
-
         intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         Mode mode = (Mode) bundle.get("MODE");
@@ -60,6 +60,20 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
                 countDown();
                 showTimer = true;
                 break;
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(timerFragment != null) {
+            timerFragment.onPause();
+        }
+        if(numbersFragment != null) {
+            numbersFragment.onPause();
+        }
+        if(numpadFragment != null) {
+            numpadFragment.onPause();
         }
     }
 
@@ -83,16 +97,12 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
             public void onTick(long millisUntilFinished) {
                 if (millisUntilFinished > 4000) {
                     chalksImages.setImageResource(R.drawable.red_chalks);
-                    mTextField.setText("" + (millisUntilFinished / 1000 - 1));
                 } else if (millisUntilFinished > 3000 && millisUntilFinished <= 4000) {
                     chalksImages.setImageResource(R.drawable.orange_chalks);
-                    mTextField.setText("" + (millisUntilFinished / 1000 - 1));
                 } else if (millisUntilFinished > 2000 && millisUntilFinished <= 3000) {
                     chalksImages.setImageResource(R.drawable.green_chalk);
-                    mTextField.setText("" + (millisUntilFinished / 1000 - 1));
                 } else if (millisUntilFinished <= 2000){
                     chalksImages.setVisibility(View.INVISIBLE);
-                    mTextField.setVisibility(View.INVISIBLE);
                     startFragments();
                 }
             }
@@ -106,18 +116,18 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
             FragmentManager fragmentManager = getSupportFragmentManager();
             timerFragment = new TimerFragment();
             fragmentManager.beginTransaction()
-                    .add(R.id.container_timer_fragment, timerFragment)
+                    .replace(R.id.container_timer_fragment, timerFragment)
                     .commit();
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        NumbersFragment numbersFragment = new NumbersFragment();
-        NumpadFragment numpadFragment = new NumpadFragment();
+        numbersFragment = new NumbersFragment();
+        numpadFragment = new NumpadFragment();
         fragmentManager.beginTransaction()
-                .add(R.id.container_numbers_addition, numbersFragment)
+                .replace(R.id.container_numbers_addition, numbersFragment)
                 .commit();
         fragmentManager.beginTransaction()
-                .add(R.id.container_numpad_addition, numpadFragment)
+                .replace(R.id.container_numpad_addition, numpadFragment)
                 .commit();
 
         Bundle getBundleCategory = intent.getExtras();
