@@ -1,5 +1,6 @@
 package nl.visser.joram.mathapp.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -22,6 +23,28 @@ import nl.visser.joram.mathapp.Score;
  * A placeholder fragment containing a simple view.
  */
 public class NumbersFragment extends Fragment {
+
+    OnPressEqualsListener mCallback;
+
+    public interface OnPressEqualsListener {
+        void onSelectEquals(boolean correctAnswer);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (OnPressEqualsListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnPressEqualsListener");
+        }
+    }
+
+
 
     private static final String LOG_TAG = NumbersFragment.class.getSimpleName();
 
@@ -128,6 +151,7 @@ public class NumbersFragment extends Fragment {
             showRandomNumber();
             userAnswer = 0;
             textViewAnswer.setText("");
+            mCallback.onSelectEquals(true);
 
         } else {
             score.updateScoreForCurrentSession(false);
@@ -138,6 +162,7 @@ public class NumbersFragment extends Fragment {
             Toast toast = Toast.makeText(context, text + " " + String.valueOf(score.getScore()), duration);
             toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 36);
             toast.show();
+            mCallback.onSelectEquals(false);
         }
     }
 

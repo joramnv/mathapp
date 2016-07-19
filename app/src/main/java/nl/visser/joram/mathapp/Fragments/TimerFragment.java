@@ -21,6 +21,7 @@ public class TimerFragment extends Fragment {
 
     private ProgressBar timerBar;
     private long millisUntilFinished;
+    CountDownTimer timer;
 
     public TimerFragment() {
         // Required empty public constructor
@@ -36,7 +37,8 @@ public class TimerFragment extends Fragment {
     public void onResume() {
         super.onResume();
         timerBar = (ProgressBar) getView().findViewById(R.id.fragment_timer_bar);
-        timer(62000L);
+        setTimer(62000L);
+
     }
 
     public void showScoreboard() {
@@ -52,7 +54,7 @@ public class TimerFragment extends Fragment {
         this.millisUntilFinished = millisUntilFinished;
     }
 
-    public void timer(long millisInFuture) {
+    public void setTimer(long millisInFuture) {
         /**
          * 60 second count down (set to 62 seconds for reasons explained below).
          * onTick() and onFinish() will not happen at exact times, but instead in this case
@@ -64,21 +66,31 @@ public class TimerFragment extends Fragment {
          * used to invoke another method. And that's why the method invocation is placed inside the
          * onTick method instead.
          */
-        new CountDownTimer(millisInFuture, 1000) {
+        if(timer !=null) {
+            timer.cancel();
+        }
+        timer = new CountDownTimer(millisInFuture, 1000) {
             public void onTick(long millisUntilFinished) {
+
                 setMillisUntilFinished(millisUntilFinished);
                 int secondsUntilFinished;
                 if (millisUntilFinished / 1000 > 1) {
                     secondsUntilFinished = (int) (long) (millisUntilFinished / 1000);
-                    int timerBarValues = secondsUntilFinished * -1 + 61;
+                    int timerBarValues = (secondsUntilFinished * -1 + 61)/100*60;
                     timerBar.setProgress(timerBarValues);
                 } else {
                     showScoreboard();
                 }
             }
+
             public void onFinish() {
             }
         }.start();
     }
 
+    public void incrementTimer(long timeToIncrement) {
+        setMillisUntilFinished(getMillisUntilFinished()+timeToIncrement);
+        setTimer(getMillisUntilFinished());
+    }
 }
+
