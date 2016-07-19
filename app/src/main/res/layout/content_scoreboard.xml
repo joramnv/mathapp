@@ -42,9 +42,6 @@
             <TextView
                 android:text="Correct"
                 android:textStyle="bold"/>
-            <TextView
-                android:text="Time"
-                android:textStyle="bold"/>
         </TableRow>
 
     </TableLayout>

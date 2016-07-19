@@ -53,7 +53,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    protected void addScoreRow(int position, String name, int score, int correctAnswers, int wrongAnswers, int time) {
+    protected void addScoreRow(int position, String name, int score, int correctAnswers, int wrongAnswers) {
         TableRow row = new TableRow(ScoreboardActivity.this);
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
         row.setLayoutParams(lp);
@@ -63,21 +63,21 @@ public class ScoreboardActivity extends AppCompatActivity {
         TextView scoreColumn = new TextView(this);
         TextView correctAnswersColumn = new TextView(this);
         TextView wrongAnswersColumn = new TextView(this);
-        TextView timeColumn = new TextView(this);
+
 
         idColumn.setText(String.valueOf(position));
         nameColumn.setText(String.valueOf(name));
         scoreColumn.setText(String.valueOf(score));
         correctAnswersColumn.setText(String.valueOf(correctAnswers));
         wrongAnswersColumn.setText(String.valueOf(wrongAnswers));
-        timeColumn.setText(String.valueOf(time));
+
 
         row.addView(idColumn);
         row.addView(nameColumn);
         row.addView(scoreColumn);
         row.addView(correctAnswersColumn);
         row.addView(wrongAnswersColumn);
-        row.addView(timeColumn);
+
 
         int indexForNewRow = scoreTable.getChildCount();
         scoreTable.addView(row, indexForNewRow);
@@ -111,9 +111,9 @@ public class ScoreboardActivity extends AppCompatActivity {
                 ContentValues values = new ContentValues();
                 values.put(ScoreScheme.ScoreTable.PLAYER_NAME_COLUMN, "Jorrit");
                 values.put(ScoreScheme.ScoreTable.PLAYER_SCORE_COLUMN, Score.INSTANCE.getScore());
-                values.put(ScoreScheme.ScoreTable.PlAYER_CORRECT_ANSWERS, 10);
-                values.put(ScoreScheme.ScoreTable.PLAYER_WRONG_ANSWERS, 15);
-                values.put(ScoreScheme.ScoreTable.PLAYER_TIME, 1000);
+                values.put(ScoreScheme.ScoreTable.PlAYER_CORRECT_ANSWERS, Score.INSTANCE.getCorrectAnswers());
+                values.put(ScoreScheme.ScoreTable.PLAYER_WRONG_ANSWERS, Score.INSTANCE.getWrongAnswers());
+
 
                 long newRowId;
                 newRowId = db.insert(
@@ -147,7 +147,7 @@ public class ScoreboardActivity extends AppCompatActivity {
                     ScoreScheme.ScoreTable.PLAYER_SCORE_COLUMN,
                     ScoreScheme.ScoreTable.PlAYER_CORRECT_ANSWERS,
                     ScoreScheme.ScoreTable.PLAYER_WRONG_ANSWERS,
-                    ScoreScheme.ScoreTable.PLAYER_TIME,
+
             };
 
             String sortOrder = ScoreScheme.ScoreTable.PLAYER_SCORE_COLUMN + " DESC";
@@ -166,7 +166,6 @@ public class ScoreboardActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Cursor c) {
-            int lowestScore = 0;
 
             c.moveToFirst();
             while(!c.isAfterLast() && c.getPosition() < 20 ) {
@@ -176,13 +175,8 @@ public class ScoreboardActivity extends AppCompatActivity {
                         c.getString(i++),
                         c.getInt(i++),
                         c.getInt(i++),
-                        c.getInt(i++),
                         c.getInt(i++));
                 c.moveToNext();
-
-                if(c.isLast()) {
-                    lowestScore = c.getInt(3);
-                }
 
                 //Delete scores which are not used from database
                 String selection = ScoreScheme.ScoreTable._ID + " >?";
