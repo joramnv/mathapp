@@ -7,24 +7,27 @@
     tools:context=".Fragments.ModesFragment">
 
     <Button
+        android:id="@+id/normal_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Normal"
-        android:onClick="normal"/>
+        android:onClick="onClickMode"/>
 
     <Button
+        android:id="@+id/time_trail_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Time Trial"
-        android:onClick="timeTrial"/>
+        android:onClick="onClickMode"/>
 
     <Button
+        android:id="@+id/endless_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Endless"
-        android:onClick="endless"/>
+        android:onClick="onClickMode"/>
 
 </LinearLayout>

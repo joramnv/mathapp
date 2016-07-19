@@ -21,7 +21,7 @@ import nl.visser.joram.mathapp.Fragments.NumpadFragment;
 import nl.visser.joram.mathapp.Fragments.TimerFragment;
 import nl.visser.joram.mathapp.R;
 
-public class AnswerQuestionActivity extends MenuActivity {
+public class AnswerQuestionActivity extends MenuActivity implements NumbersFragment.OnPressEqualsListener {
 
     private static final String LOG_TAG =  AnswerQuestionActivity.class.getSimpleName();
 
@@ -31,6 +31,8 @@ public class AnswerQuestionActivity extends MenuActivity {
     private Numpad numpad;
     private Intent intent;
     private boolean showTimer;
+    private boolean endlessMode = false;
+    private TimerFragment timerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +54,9 @@ public class AnswerQuestionActivity extends MenuActivity {
             case NORMAL:
                 startFragments();
                 break;
-            case TIME_TRIAL:
             case ENDLESS:
+                endlessMode = true;
+            case TIME_TRIAL:
                 countDown();
                 showTimer = true;
                 break;
@@ -101,7 +104,7 @@ public class AnswerQuestionActivity extends MenuActivity {
     public void startFragments() {
         if(showTimer) {
             FragmentManager fragmentManager = getSupportFragmentManager();
-            TimerFragment timerFragment = new TimerFragment();
+            timerFragment = new TimerFragment();
             fragmentManager.beginTransaction()
                     .add(R.id.container_timer_fragment, timerFragment)
                     .commit();
@@ -132,5 +135,14 @@ public class AnswerQuestionActivity extends MenuActivity {
         numbersFragment.setArguments(bundleCategory);
         MathFragmentManager.INSTANCE.setNumbersFragment(numbersFragment);
         numpad = numpadFragment;
+    }
+
+    @Override
+    public void onSelectEquals(boolean correctAsnwer) {
+        if(endlessMode) {
+            if (correctAsnwer) {
+                timerFragment.incrementTimer(1000);
+            }
+        }
     }
 }
