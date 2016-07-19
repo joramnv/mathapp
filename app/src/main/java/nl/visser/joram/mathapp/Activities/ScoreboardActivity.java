@@ -97,9 +97,7 @@ public class ScoreboardActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-
         scoreIsWrittenToDb = (Boolean) savedInstanceState.get(SAVE_SCORE_STATE);
-
     }
 
 
@@ -109,7 +107,6 @@ public class ScoreboardActivity extends AppCompatActivity {
         protected Void doInBackground(String... params) {
             SQLiteDatabase db = scoreDbHelper.getWritableDatabase();
 
-
             if(!scoreIsWrittenToDb) {
                 ContentValues values = new ContentValues();
                 values.put(ScoreScheme.ScoreTable.PLAYER_NAME_COLUMN, "Jorrit");
@@ -118,18 +115,15 @@ public class ScoreboardActivity extends AppCompatActivity {
                 values.put(ScoreScheme.ScoreTable.PLAYER_WRONG_ANSWERS, 15);
                 values.put(ScoreScheme.ScoreTable.PLAYER_TIME, 1000);
 
-
                 long newRowId;
                 newRowId = db.insert(
                         ScoreScheme.ScoreTable.TABLE_NAME,
                         null,
                         values);
 
-
                 scoreIsWrittenToDb = true;
                 db.close();
             }
-
             return null;
         }
 
@@ -168,7 +162,6 @@ public class ScoreboardActivity extends AppCompatActivity {
                         sortOrder);
 
             return c;
-
         }
 
         @Override
