@@ -23,6 +23,10 @@ public abstract class CustomTimer {
         cdt.start();
     }
 
+    public void cancel() {
+        cdt.cancel();
+    }
+
     private void setMillisInFuture(long millisInFuture){
         this.millisInFuture = millisInFuture;
     }

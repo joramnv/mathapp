@@ -42,6 +42,12 @@ public class TimerFragment extends Fragment {
         timer.start();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        timer.cancel();
+    }
+
     public void incrementTimer(long timeToIncrement) {
         timer.onIncrement(timeToIncrement);
         timer.start();
