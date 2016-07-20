@@ -139,9 +139,9 @@ public class NumbersFragment extends Fragment {
         } else if(category == Category.SUBTRACTIONS) {
             result = randomNumberGenerator.getSubtractionEquals();
         } else if(category == Category.MULTIPLICATIONS) {
-            result = randomNumberGenerator.getAdditionEquals(); //TODO set to getMultiplicationEquals();
+            result = randomNumberGenerator.getMultiplicationEquals();
         } else if(category == Category.DIVISIONS) {
-            result = randomNumberGenerator.getAdditionEquals(); //TODO set to getDivisionEquals();
+            result = randomNumberGenerator.getDivisionEquals();
         }
         if(textViewAnswerContent == result) {
             score.updateScoreForCurrentSession(true);

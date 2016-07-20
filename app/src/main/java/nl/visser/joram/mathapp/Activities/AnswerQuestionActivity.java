@@ -141,6 +141,10 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
             bundleCategory.putSerializable("CATEGORY", Category.ADDITIONS);
         } else if(categoryArrayList.contains(Category.SUBTRACTIONS)) {
             bundleCategory.putSerializable("CATEGORY", Category.SUBTRACTIONS);
+        } else if(categoryArrayList.contains(Category.MULTIPLICATIONS)) {
+            bundleCategory.putSerializable("CATEGORY", Category.MULTIPLICATIONS);
+        } else if(categoryArrayList.contains(Category.DIVISIONS)) {
+            bundleCategory.putSerializable("CATEGORY", Category.DIVISIONS);
         }
         numbersFragment.setArguments(bundleCategory);
         MathFragmentManager.INSTANCE.setNumbersFragment(numbersFragment);

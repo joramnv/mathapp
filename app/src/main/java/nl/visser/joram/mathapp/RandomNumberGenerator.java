@@ -61,4 +61,16 @@ public class RandomNumberGenerator {
         Log.v(LOG_TAG, "Equals: " + Integer.toString(equals));
         return equals;
     }
+
+    public int getMultiplicationEquals() {
+        int equals = getFirstNumber() * getSecondNumber();
+        Log.v(LOG_TAG, "Equals: " + Integer.toString(equals));
+        return equals;
+    }
+
+    public int getDivisionEquals() {
+        int equals = getFirstNumber() / getSecondNumber();
+        Log.v(LOG_TAG, "Equals: " + Integer.toString(equals));
+        return equals;
+    }
 }
