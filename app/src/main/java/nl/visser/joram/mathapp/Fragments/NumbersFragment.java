@@ -13,35 +13,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import nl.visser.joram.mathapp.Difficulty;
+import nl.visser.joram.mathapp.Digit;
+import nl.visser.joram.mathapp.MathAppNumber;
 import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.RandomNumberGenerator;
 import nl.visser.joram.mathapp.Score;
+import nl.visser.joram.mathapp.Sum;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class NumbersFragment extends Fragment {
-
-    OnPressEqualsListener mCallback;
-
-    public interface OnPressEqualsListener {
-        void onSelectEquals(boolean correctAnswer);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            mCallback = (OnPressEqualsListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnPressEqualsListener");
-        }
-    }
 
     private static final String LOG_TAG = NumbersFragment.class.getSimpleName();
 
@@ -71,10 +57,7 @@ public class NumbersFragment extends Fragment {
         Bundle bundle = this.getArguments();
         category = (Category) bundle.get("CATEGORY");
         Log.v(LOG_TAG, "Category = " + category);
-        score.setScore(0);
-        score.setCorrectAnswers(0);
-        score.setWrongAnswers(0);
-        showRandomNumber();
+        //showRandomNumber();
     }
 
     @Override
@@ -84,93 +67,107 @@ public class NumbersFragment extends Fragment {
     }
 
     public void onClickNumpadButton(String buttonContent) {
-        switch(buttonContent) {
-            case "-":
-                //Minus - make a positive number negative and vice versa.
-                userAnswer *= -1;
-                if(userAnswer == 0) {
-                    minusFlag = true;
-                    textViewAnswer.setText("-");
-                } else {
-                    textViewAnswer.setText(""+ userAnswer);
-                }
-                break;
-            case "c":
-                //Clear - remove all numbers.
-                userAnswer = 0;
-                textViewAnswer.setText("");
-                break;
-            case "b":
-                //Backspace - remove most left number.
-                userAnswer /= 10;
-                if(userAnswer == 0) {
-                    textViewAnswer.setText("");
-                } else {
-                    textViewAnswer.setText(""+ userAnswer);
-                }
-                break;
-            case "=":
-                //Equals - check if userAnswer is correct.
-                userAnswerEqualsResultQuestion(userAnswer);
-                break;
+
+    }
+
+    public void backSpaceUserAnswer() {
+        userAnswer /= 10;
+        if(userAnswer == 0) {
+            textViewAnswer.setText("");
+        } else {
+            textViewAnswer.setText(""+ userAnswer);
         }
     }
 
-    public void onClickNumpadButtonNumber(int buttonNumber) {
+    public void clearUserAnswer() {
+        //Clear - remove all numbers.
+        userAnswer = 0;
+        textViewAnswer.setText("");
+    }
+
+    public void turnUserAnswerToNegative() {
+        userAnswer *= -1;
+        if(userAnswer == 0) {
+            minusFlag = true;
+            textViewAnswer.setText("-");
+        } else {
+            textViewAnswer.setText(""+ userAnswer);
+        }
+    }
+
+    public void onClickNumpadButtonNumber(Digit buttonNumber) {
         if(minusFlag) {
-            userAnswer = buttonNumber * -1;
-            Log.d(LOG_TAG, "userAnswer = " + userAnswer + "buttonNumber = " + buttonNumber);
+            userAnswer = buttonNumber.getValue() * -1;
+            Log.d(LOG_TAG, "userAnswer = " + userAnswer + "buttonNumber = " + buttonNumber.getValue());
             minusFlag = false;
         }
         else {
             if(userAnswer < 0) {
-                userAnswer = userAnswer * 10 - buttonNumber;
+                userAnswer = userAnswer * 10 - buttonNumber.getValue();
             } else {
-                userAnswer = userAnswer * 10 + buttonNumber;
+                userAnswer = userAnswer * 10 + buttonNumber.getValue();
             }
         }
         textViewAnswer.setText(""+ userAnswer);
     }
 
-    public void userAnswerEqualsResultQuestion(int textViewAnswerContent) {
-        int result = 0;
-        if(category == Category.ADDITIONS) {
-            result = randomNumberGenerator.getAdditionEquals();
-        } else if(category == Category.SUBTRACTIONS) {
-            result = randomNumberGenerator.getSubtractionEquals();
-        } else if(category == Category.MULTIPLICATIONS) {
-            result = randomNumberGenerator.getAdditionEquals(); //TODO set to getMultiplicationEquals();
-        } else if(category == Category.DIVISIONS) {
-            result = randomNumberGenerator.getAdditionEquals(); //TODO set to getDivisionEquals();
-        }
-        if(textViewAnswerContent == result) {
-            score.updateScoreForCurrentSession(true);
+    public void showCorrectAnswer() {
+        score.updateScoreForCurrentSession(true);
 
-            Context context = getContext();
-            CharSequence text = "Good!";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text + " " + String.valueOf(score.getScore()), duration);
-            toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 36);
-            toast.show();
+        Context context = getContext();
+        CharSequence text = "Good!";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text + " " + String.valueOf(score.getScore()), duration);
+        toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 36);
+        toast.show();
 
-            showRandomNumber();
-            userAnswer = 0;
-            textViewAnswer.setText("");
-            mCallback.onSelectEquals(true);
-
-        } else {
-            score.updateScoreForCurrentSession(false);
-
-            Context context = getContext();
-            CharSequence text = "Wrong!";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text + " " + String.valueOf(score.getScore()), duration);
-            toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 36);
-            toast.show();
-            mCallback.onSelectEquals(false);
-        }
+        //showRandomNumber();
+        userAnswer = 0;
+        textViewAnswer.setText("");
     }
 
+    public void showWrongAnswer() {
+        score.updateScoreForCurrentSession(false);
+
+        Context context = getContext();
+        CharSequence text = "Wrong!";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text + " " + String.valueOf(score.getScore()), duration);
+        toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 36);
+        toast.show();
+    }
+
+    public void drawSum(Sum sum) {
+
+        layout.removeAllViews();
+
+        List<MathAppNumber> numbers = sum.getNumbersOfSum();
+
+        int amountOfNumbers = sum.getNumbersOfSum().size();
+        int amountOfOperators = sum.getOperatorsOfSum().size();
+
+        for(int i = 0; i < amountOfNumbers; i++) {
+
+            ImageView image = new ImageView(getContext());
+            image.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
+            image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+            LinkedList<Digit> digitsForNumber = numbers.get(i).getDigits();
+            int amountOfDigitsForNumber = digitsForNumber.size();
+
+            for(int j = 0; j < amountOfDigitsForNumber; j++) {
+                image.setImageResource(digitsForNumber.get(j).getDrawable());
+
+            }
+            if(i <= amountOfOperators) {
+                image.setImageResource(sum.getOperatorsOfSum().get(i).getDrawable());
+            }
+            layout.addView(image);
+        }
+
+    }
+
+/*
     public void showRandomNumber() {
         layout.removeAllViews();
         randomNumberGenerator = new RandomNumberGenerator(Difficulty.INSTANCE.getDifficulty());
@@ -251,5 +248,5 @@ public class NumbersFragment extends Fragment {
             image.setImageResource(R.drawable.nine);
         }
         layout.addView(image);
-    }
+    }*/
 }

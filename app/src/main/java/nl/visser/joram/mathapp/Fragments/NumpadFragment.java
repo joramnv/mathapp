@@ -1,5 +1,6 @@
 package nl.visser.joram.mathapp.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import nl.visser.joram.mathapp.Digit;
+import nl.visser.joram.mathapp.Operator;
 import nl.visser.joram.mathapp.R;
 
 /**
@@ -20,13 +23,29 @@ public class NumpadFragment extends Fragment implements Numpad {
         // Required empty public constructor
     }
 
-    NumbersFragment numbersFragment;
+    NumpadListener numpadListener;
+
+    public interface NumpadListener {
+        public void onNumpadButtonPress(Digit digit);
+        public void onOperatorButtonPress(Operator operator);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            numpadListener = (NumpadListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        numbersFragment = MathFragmentManager.INSTANCE.getNumbersFragment();
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_numpad, container, false);
     }
@@ -36,46 +55,46 @@ public class NumpadFragment extends Fragment implements Numpad {
         int buttonId = button.getId();
         switch (buttonId) {
             case R.id.button1:
-                numbersFragment.onClickNumpadButtonNumber(1);
+                numpadListener.onNumpadButtonPress(Digit.ONE);
                 break;
             case R.id.button2:
-                numbersFragment.onClickNumpadButtonNumber(2);
+                numpadListener.onNumpadButtonPress(Digit.TWO);
                 break;
             case R.id.button3:
-                numbersFragment.onClickNumpadButtonNumber(3);
+                numpadListener.onNumpadButtonPress(Digit.THREE);
                 break;
             case R.id.button4:
-                numbersFragment.onClickNumpadButtonNumber(4);
+                numpadListener.onNumpadButtonPress(Digit.FOUR);
                 break;
             case R.id.button5:
-                numbersFragment.onClickNumpadButtonNumber(5);
+                numpadListener.onNumpadButtonPress(Digit.FIVE);
                 break;
             case R.id.button6:
-                numbersFragment.onClickNumpadButtonNumber(6);
+                numpadListener.onNumpadButtonPress(Digit.SIX);
                 break;
             case R.id.button7:
-                numbersFragment.onClickNumpadButtonNumber(7);
+                numpadListener.onNumpadButtonPress(Digit.SEVEN);
                 break;
             case R.id.button8:
-                numbersFragment.onClickNumpadButtonNumber(8);
+                numpadListener.onNumpadButtonPress(Digit.EIGHT);
                 break;
             case R.id.button9:
-                numbersFragment.onClickNumpadButtonNumber(9);
+                numpadListener.onNumpadButtonPress(Digit.NINE);
                 break;
             case R.id.button0:
-                numbersFragment.onClickNumpadButtonNumber(0);
+                numpadListener.onNumpadButtonPress(Digit.ZERO);
                 break;
             case R.id.button_minus:
-                numbersFragment.onClickNumpadButton("-");
+                numpadListener.onOperatorButtonPress(Operator.MINUS);
                 break;
             case R.id.button_clear:
-                numbersFragment.onClickNumpadButton("c");
+                numpadListener.onOperatorButtonPress(Operator.CLEAR);
                 break;
             case R.id.button_back:
-                numbersFragment.onClickNumpadButton("b");
+                numpadListener.onOperatorButtonPress(Operator.BACK);
                 break;
             case R.id.button_equals:
-                numbersFragment.onClickNumpadButton("=");
+                numpadListener.onOperatorButtonPress(Operator.EQUALS);
                 break;
         }
     }
