@@ -5,14 +5,13 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-import nl.visser.joram.mathapp.Calculator;
-import nl.visser.joram.mathapp.Digit;
+import nl.visser.joram.mathapp.CalculationModule.Calculator;
+import nl.visser.joram.mathapp.CalculationModule.Digit;
 import nl.visser.joram.mathapp.Fragments.Category;
 import nl.visser.joram.mathapp.Fragments.MathFragmentManager;
 import nl.visser.joram.mathapp.Fragments.Mode;
@@ -20,11 +19,11 @@ import nl.visser.joram.mathapp.Fragments.NumbersFragment;
 import nl.visser.joram.mathapp.Fragments.Numpad;
 import nl.visser.joram.mathapp.Fragments.NumpadFragment;
 import nl.visser.joram.mathapp.Fragments.TimerFragment;
-import nl.visser.joram.mathapp.MathAppNumber;
-import nl.visser.joram.mathapp.Operator;
+import nl.visser.joram.mathapp.CalculationModule.MathAppNumber;
+import nl.visser.joram.mathapp.CalculationModule.Operator;
 import nl.visser.joram.mathapp.R;
-import nl.visser.joram.mathapp.Sum;
-import nl.visser.joram.mathapp.SumGenerator;
+import nl.visser.joram.mathapp.CalculationModule.Sum;
+import nl.visser.joram.mathapp.CalculationModule.SumGenerator;
 
 public class AnswerQuestionActivity extends MenuActivity implements NumpadFragment.NumpadListener {
 
@@ -44,7 +43,8 @@ public class AnswerQuestionActivity extends MenuActivity implements NumpadFragme
     private MathAppNumber userInputNumber;
     private Calculator calculator;
     private SumGenerator sumGenerator;
-    private Sum experimentSum;
+    private Sum sum;
+    private ArrayList<Category> categoryArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +129,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumpadFragme
         instantiateUserAnswer();
         calculator = new Calculator();
         sumGenerator = new SumGenerator();
-        experimentSum = sumGenerator.generateRandomSum();
+
 
         if(showTimer) {
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -152,22 +152,19 @@ public class AnswerQuestionActivity extends MenuActivity implements NumpadFragme
         Bundle getBundleCategory = intent.getExtras();
 
         //TODO simple randomGenerateCategory for now
-        ArrayList<Category> categoryArrayList = (ArrayList<Category>) getBundleCategory.get("CATEGORY");
+        categoryArrayList = new ArrayList<>();
+        categoryArrayList = (ArrayList<Category>) getBundleCategory.get("CATEGORY");
+        //categoryArrayList.add(Category.ADDITIONS);
+        //categoryArrayList.add(Category.SUBTRACTIONS);
+
+        sum = sumGenerator.generateRandomSum(2, categoryArrayList);
 
         Bundle bundleCategory = new Bundle();
-        //TODO get this category from .... somewhere.
-        if(categoryArrayList.contains(Category.ADDITIONS)) {
-            bundleCategory.putSerializable("CATEGORY", Category.ADDITIONS);
-        } else if(categoryArrayList.contains(Category.SUBTRACTIONS)) {
-            bundleCategory.putSerializable("CATEGORY", Category.SUBTRACTIONS);
-        }
-
+        bundleCategory.putSerializable("FIRST_SUM", sum);
 
         numbersFragment.setArguments(bundleCategory);
         MathFragmentManager.INSTANCE.setNumbersFragment(numbersFragment);
         numpad = numpadFragment;
-
-
     }
 
     public void instantiateUserAnswer() {
@@ -187,16 +184,14 @@ public class AnswerQuestionActivity extends MenuActivity implements NumpadFragme
                 numbersFragment.turnUserAnswerToNegative();
                 break;
             case EQUALS:
-                if (calculator.calculateAnswerIsTrue(experimentSum, userInputNumber)) {
-                    Log.d(LOG_TAG, "waar");
-                    numbersFragment.showCorrectAnswer();
+                if (calculator.calculateAnswerIsTrue(sum, userInputNumber)) {
+                   numbersFragment.showCorrectAnswer();
 
                 } else{
-                    Log.d(LOG_TAG, "niet waar");
                     numbersFragment.showWrongAnswer();
                 }
-                experimentSum = sumGenerator.generateRandomSum();
-                numbersFragment.drawSum(experimentSum);
+                sum = sumGenerator.generateRandomSum(2, categoryArrayList);
+                numbersFragment.drawSum(sum);
 
                 userInputNumber.removeDigits();
                 numbersFragment.clearUserAnswer();

@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import nl.visser.joram.mathapp.Digit;
-import nl.visser.joram.mathapp.Operator;
+import nl.visser.joram.mathapp.CalculationModule.Digit;
+import nl.visser.joram.mathapp.CalculationModule.Operator;
 import nl.visser.joram.mathapp.R;
 
 /**

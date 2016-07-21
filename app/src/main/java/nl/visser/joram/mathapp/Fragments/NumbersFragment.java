@@ -16,14 +16,12 @@ import android.widget.Toast;
 import java.util.LinkedList;
 import java.util.List;
 
-import nl.visser.joram.mathapp.Difficulty;
-import nl.visser.joram.mathapp.Digit;
-import nl.visser.joram.mathapp.MathAppNumber;
+import nl.visser.joram.mathapp.CalculationModule.Digit;
+import nl.visser.joram.mathapp.CalculationModule.MathAppNumber;
+import nl.visser.joram.mathapp.CalculationModule.Operator;
 import nl.visser.joram.mathapp.R;
-import nl.visser.joram.mathapp.RandomNumberGenerator;
 import nl.visser.joram.mathapp.Score;
-import nl.visser.joram.mathapp.Sum;
-import nl.visser.joram.mathapp.SumGenerator;
+import nl.visser.joram.mathapp.CalculationModule.Sum;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -38,7 +36,7 @@ public class NumbersFragment extends Fragment {
     private Category category;
     private LinearLayout layout;
     private TextView textViewAnswer;
-    private SumGenerator sumGenerator;
+    private Sum startingSum;
 
     public NumbersFragment() {
     }
@@ -58,10 +56,9 @@ public class NumbersFragment extends Fragment {
         super.onResume();
         Bundle bundle = this.getArguments();
         category = (Category) bundle.get("CATEGORY");
+        startingSum = (Sum) bundle.get("FIRST_SUM");
         Log.v(LOG_TAG, "Category = " + category);
-        sumGenerator = new SumGenerator();
-        drawSum(sumGenerator.generateRandomSum());
-
+        drawSum(startingSum);
     }
 
     @Override
@@ -148,7 +145,7 @@ public class NumbersFragment extends Fragment {
             LinkedList<Digit> digitsForNumber = numbers.get(i).getDigits();
             int amountOfDigitsForNumber = digitsForNumber.size();
 
-            for(int j = 0; j < amountOfDigitsForNumber; j++) {
+            for(int j = amountOfDigitsForNumber-1; j >= 0; j--) {
                 ImageView digitImage = new ImageView(getContext());
 
                 digitImage.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
@@ -166,5 +163,8 @@ public class NumbersFragment extends Fragment {
                 layout.addView(operationImage);
             }
         }
+        ImageView equalsImage = new ImageView(getContext());
+        equalsImage.setImageResource(Operator.EQUALS.getDrawable());
+        layout.addView(equalsImage);
     }
 }

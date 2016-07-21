@@ -1,9 +1,10 @@
-package nl.visser.joram.mathapp;
+package nl.visser.joram.mathapp.CalculationModule;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sum {
+public class Sum implements Serializable{
     List<MathAppNumber> numbersOfSum;
     List<Operator> operatorsOfSum;
 
