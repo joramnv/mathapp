@@ -1,5 +1,9 @@
 package nl.visser.joram.mathapp;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 /**
  * Created by Jorrit on 20-7-2016.
  */
@@ -21,6 +25,15 @@ public enum Digit {
     Digit(int value, int drawable) {
         this.value = value;
         this.drawable = drawable;
+    }
+
+    private static final List<Digit> VALUES =
+            Arrays.asList(values());
+    private static final int SIZE = VALUES.size();
+    private static final Random RANDOM = new Random();
+
+    public static Digit randomDigit()  {
+        return VALUES.get(RANDOM.nextInt(SIZE));
     }
 
     public int getValue() {

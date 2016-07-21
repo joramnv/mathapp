@@ -15,7 +15,7 @@ import nl.visser.joram.mathapp.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NumpadFragment extends Fragment implements Numpad {
+public class NumpadFragment extends Fragment implements Numpad{
 
     private static final String LOG_TAG =  NumpadFragment.class.getSimpleName();
 
