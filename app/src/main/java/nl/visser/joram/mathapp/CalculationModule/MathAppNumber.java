@@ -1,8 +1,8 @@
-package nl.visser.joram.mathapp;
-
-import android.graphics.drawable.Drawable;
+package nl.visser.joram.mathapp.CalculationModule;
 
 import java.util.LinkedList;
+
+import nl.visser.joram.mathapp.CalculationModule.Digit;
 
 public class MathAppNumber {
 

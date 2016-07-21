@@ -1,8 +1,10 @@
-package nl.visser.joram.mathapp;
+package nl.visser.joram.mathapp.CalculationModule;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import nl.visser.joram.mathapp.R;
 
 /**
  * Created by Jorrit on 20-7-2016.

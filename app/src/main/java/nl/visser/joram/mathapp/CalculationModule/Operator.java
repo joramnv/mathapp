@@ -1,4 +1,6 @@
-package nl.visser.joram.mathapp;
+package nl.visser.joram.mathapp.CalculationModule;
+
+import nl.visser.joram.mathapp.R;
 
 /**
  * Created by Jorrit on 20-7-2016.
