@@ -126,9 +126,9 @@ public class AnswerQuestionActivity extends MenuActivity implements NumpadFragme
 
     public void startFragments() {
 
-        instantiateUserAnswer();
         calculator = new Calculator();
         sumGenerator = new SumGenerator();
+        userInputNumber = new MathAppNumber();
 
 
         if(showTimer) {
@@ -154,8 +154,6 @@ public class AnswerQuestionActivity extends MenuActivity implements NumpadFragme
         //TODO simple randomGenerateCategory for now
         categoryArrayList = new ArrayList<>();
         categoryArrayList = (ArrayList<Category>) getBundleCategory.get("CATEGORY");
-        //categoryArrayList.add(Category.ADDITIONS);
-        //categoryArrayList.add(Category.SUBTRACTIONS);
 
         sum = sumGenerator.generateRandomSum(2, categoryArrayList);
 
@@ -182,22 +180,23 @@ public class AnswerQuestionActivity extends MenuActivity implements NumpadFragme
         switch (operator) {
             case MINUS:
                 numbersFragment.turnUserAnswerToNegative();
+                userInputNumber.turnNegative();
                 break;
             case EQUALS:
                 if (calculator.calculateAnswerIsTrue(sum, userInputNumber)) {
-                   numbersFragment.showCorrectAnswer();
-
+                    numbersFragment.showCorrectAnswer();
                 } else{
                     numbersFragment.showWrongAnswer();
                 }
                 sum = sumGenerator.generateRandomSum(2, categoryArrayList);
                 numbersFragment.drawSum(sum);
 
-                userInputNumber.removeDigits();
+                userInputNumber.initiate();
                 numbersFragment.clearUserAnswer();
                 break;
             case BACK:
-                numbersFragment.backSpaceUserAnswer();
+                numbersFragment.backspaceUserAnswer();
+                userInputNumber.removeLastDigit();
                 break;
             case CLEAR:
                 userInputNumber.removeDigits();
