@@ -24,12 +24,15 @@ import nl.visser.joram.mathapp.MathAppNumber;
 import nl.visser.joram.mathapp.Operator;
 import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.Sum;
+import nl.visser.joram.mathapp.SumGenerator;
 
 public class AnswerQuestionActivity extends MenuActivity implements NumpadFragment.NumpadListener {
 
     private static final String LOG_TAG =  AnswerQuestionActivity.class.getSimpleName();
 
     private ImageView chalksImages;
+
+    private Numpad numpad;
 
     private Intent intent;
     private boolean showTimer;
@@ -40,6 +43,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumpadFragme
 
     private MathAppNumber userInputNumber;
     private Calculator calculator;
+    private SumGenerator sumGenerator;
     private Sum experimentSum;
 
     @Override
@@ -70,6 +74,10 @@ public class AnswerQuestionActivity extends MenuActivity implements NumpadFragme
                 showTimer = true;
                 break;
         }
+    }
+
+    public void onClickNumpadButton(View view) {
+        numpad.onClickNumpadButton(view);
     }
 
     @Override
@@ -120,15 +128,8 @@ public class AnswerQuestionActivity extends MenuActivity implements NumpadFragme
 
         instantiateUserAnswer();
         calculator = new Calculator();
-        experimentSum = new Sum();
-        MathAppNumber n1 = new MathAppNumber();
-        MathAppNumber n2 = new MathAppNumber();
-        n1.pushDigit(Digit.FIVE);
-        n2.pushDigit(Digit.SIX);
-        experimentSum.pushNumber(n1);
-        experimentSum.pushNumber(n2);
-        experimentSum.pushOperator(Operator.PLUS);
-
+        sumGenerator = new SumGenerator();
+        experimentSum = sumGenerator.generateRandomSum();
 
         if(showTimer) {
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -160,8 +161,12 @@ public class AnswerQuestionActivity extends MenuActivity implements NumpadFragme
         } else if(categoryArrayList.contains(Category.SUBTRACTIONS)) {
             bundleCategory.putSerializable("CATEGORY", Category.SUBTRACTIONS);
         }
+
+
         numbersFragment.setArguments(bundleCategory);
         MathFragmentManager.INSTANCE.setNumbersFragment(numbersFragment);
+        numpad = numpadFragment;
+
 
     }
 
@@ -185,10 +190,16 @@ public class AnswerQuestionActivity extends MenuActivity implements NumpadFragme
                 if (calculator.calculateAnswerIsTrue(experimentSum, userInputNumber)) {
                     Log.d(LOG_TAG, "waar");
                     numbersFragment.showCorrectAnswer();
+
                 } else{
                     Log.d(LOG_TAG, "niet waar");
                     numbersFragment.showWrongAnswer();
                 }
+                experimentSum = sumGenerator.generateRandomSum();
+                numbersFragment.drawSum(experimentSum);
+
+                userInputNumber.removeDigits();
+                numbersFragment.clearUserAnswer();
                 break;
             case BACK:
                 numbersFragment.backSpaceUserAnswer();

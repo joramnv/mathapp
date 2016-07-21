@@ -6,13 +6,15 @@ public class SumGenerator {
     MathAppNumber n2;
 
     public SumGenerator() {
-        n1 = new MathAppNumber();
-        n1.pushDigit(Digit.SIX);
-        n2 = new MathAppNumber();
-        n2.pushDigit(Digit.SEVEN);
+
     }
 
     public Sum generateRandomSum() {
+
+        n1 = new MathAppNumber();
+        n1.pushDigit(Digit.randomDigit());
+        n2 = new MathAppNumber();
+        n2.pushDigit(Digit.randomDigit());
 
         Sum newSum = new Sum();
         newSum.pushNumber(n1);
