@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 
+import nl.visser.joram.mathapp.Calculator;
+import nl.visser.joram.mathapp.Digit;
 import nl.visser.joram.mathapp.Fragments.Category;
 import nl.visser.joram.mathapp.Fragments.MathFragmentManager;
 import nl.visser.joram.mathapp.Fragments.Mode;
@@ -17,21 +20,27 @@ import nl.visser.joram.mathapp.Fragments.NumbersFragment;
 import nl.visser.joram.mathapp.Fragments.Numpad;
 import nl.visser.joram.mathapp.Fragments.NumpadFragment;
 import nl.visser.joram.mathapp.Fragments.TimerFragment;
+import nl.visser.joram.mathapp.MathAppNumber;
+import nl.visser.joram.mathapp.Operator;
 import nl.visser.joram.mathapp.R;
+import nl.visser.joram.mathapp.Sum;
 
-public class AnswerQuestionActivity extends MenuActivity implements NumbersFragment.OnPressEqualsListener {
+public class AnswerQuestionActivity extends MenuActivity implements NumpadFragment.NumpadListener {
 
     private static final String LOG_TAG =  AnswerQuestionActivity.class.getSimpleName();
 
     private ImageView chalksImages;
 
-    private Numpad numpad;
     private Intent intent;
     private boolean showTimer;
     private boolean endlessMode = false;
     private TimerFragment timerFragment;
     private NumbersFragment numbersFragment;
     private NumpadFragment numpadFragment;
+
+    private MathAppNumber userInputNumber;
+    private Calculator calculator;
+    private Sum experimentSum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +86,6 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
         }
     }
 
-    public void onClickNumpadButton(View view) {
-        numpad.onClickNumpadButton(view);
-    }
-
     public void countDown() {
         /**
          * 3 second count down (set to 5 seconds for reasons explained below).
@@ -112,6 +117,19 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
     }
 
     public void startFragments() {
+
+        instantiateUserAnswer();
+        calculator = new Calculator();
+        experimentSum = new Sum();
+        MathAppNumber n1 = new MathAppNumber();
+        MathAppNumber n2 = new MathAppNumber();
+        n1.pushDigit(Digit.FIVE);
+        n2.pushDigit(Digit.SIX);
+        experimentSum.pushNumber(n1);
+        experimentSum.pushNumber(n2);
+        experimentSum.pushOperator(Operator.PLUS);
+
+
         if(showTimer) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             timerFragment = new TimerFragment();
@@ -148,15 +166,42 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
         }
         numbersFragment.setArguments(bundleCategory);
         MathFragmentManager.INSTANCE.setNumbersFragment(numbersFragment);
-        numpad = numpadFragment;
+
+    }
+
+    public void instantiateUserAnswer() {
+        userInputNumber = new MathAppNumber();
     }
 
     @Override
-    public void onSelectEquals(boolean correctAsnwer) {
-        if(endlessMode) {
-            if (correctAsnwer) {
-                timerFragment.incrementTimer(1000);
-            }
+    public void onNumpadButtonPress(Digit digit) {
+        userInputNumber.pushDigit(digit);
+        numbersFragment.onClickNumpadButtonNumber(digit);
+    }
+
+    @Override
+    public void onOperatorButtonPress(Operator operator) {
+        switch (operator) {
+            case MINUS:
+                numbersFragment.turnUserAnswerToNegative();
+                break;
+            case EQUALS:
+                if (calculator.calculateAnswerIsTrue(experimentSum, userInputNumber)) {
+                    Log.d(LOG_TAG, "waar");
+                    numbersFragment.showCorrectAnswer();
+                } else{
+                    Log.d(LOG_TAG, "niet waar");
+                    numbersFragment.showWrongAnswer();
+                }
+                break;
+            case BACK:
+                numbersFragment.backSpaceUserAnswer();
+                break;
+            case CLEAR:
+                userInputNumber.removeDigits();
+                numbersFragment.clearUserAnswer();
+                break;
         }
     }
+
 }
