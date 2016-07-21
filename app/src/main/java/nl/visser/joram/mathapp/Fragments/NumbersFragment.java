@@ -67,7 +67,7 @@ public class NumbersFragment extends Fragment {
         layout.removeAllViews();
     }
 
-    public void backSpaceUserAnswer() {
+    public void backspaceUserAnswer() {
         userAnswer /= 10;
         if(userAnswer == 0) {
             textViewAnswer.setText("");

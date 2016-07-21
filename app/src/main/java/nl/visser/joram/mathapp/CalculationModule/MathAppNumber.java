@@ -8,6 +8,12 @@ public class MathAppNumber {
 
     LinkedList<Digit> digits = new LinkedList<>();
     LinkedList<Integer> digitDrawableIds = new LinkedList<>();
+    boolean isNegativeNumber;
+
+    public void initiate() {
+        digits = new LinkedList<>();
+        isNegativeNumber = false;
+    }
 
     public void pushDigit(Digit digit) {
         digits.push(digit);
@@ -15,7 +21,7 @@ public class MathAppNumber {
     }
 
     public void removeLastDigit() {
-
+        digits.removeLast();
     }
 
     public void removeDigits() {
@@ -30,13 +36,22 @@ public class MathAppNumber {
         digitDrawableIds.push(digitDrawableId);
     }
 
+    public void turnNegative() {
+        isNegativeNumber = !isNegativeNumber;
+    }
+
     public int getValueOf() {
         int amountOfDigits = digits.size();
         int totalAmount = 0;
-        for(int i = amountOfDigits-1; i >= 0; i--) {
+        for (int i = amountOfDigits - 1; i >= 0; i--) {
             int digitTens = i;
-            totalAmount +=digits.get(i).getValue()* Math.pow(10, digitTens);
+            totalAmount += digits.get(i).getValue() * Math.pow(10, digitTens);
         }
-        return totalAmount;
+
+        if (isNegativeNumber) {
+            return totalAmount * -1;
+        } else {
+            return totalAmount;
+        }
     }
 }
