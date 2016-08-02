@@ -135,28 +135,22 @@ public class NumbersFragment extends Fragment {
 
     public void drawSum(Sum sum) {
         layout.removeAllViews();
-
         List<MathAppNumber> numbers = sum.getNumbersOfSum();
-
         int amountOfNumbers = sum.getNumbersOfSum().size();
         int amountOfOperators = sum.getOperatorsOfSum().size();
-
         for(int i = 0; i < amountOfNumbers; i++) {
             LinkedList<Digit> digitsForNumber = numbers.get(i).getDigits();
             int amountOfDigitsForNumber = digitsForNumber.size();
 
             for(int j = amountOfDigitsForNumber-1; j >= 0; j--) {
                 ImageView digitImage = new ImageView(getContext());
-
                 digitImage.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
                 digitImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 digitImage.setImageResource(digitsForNumber.get(j).getDrawable());
-
                 layout.addView(digitImage);
             }
             if(i < amountOfOperators) {
                 ImageView operationImage = new ImageView(getContext());
-
                 operationImage.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
                 operationImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 operationImage.setImageResource(sum.getOperatorsOfSum().get(i).getDrawable());
