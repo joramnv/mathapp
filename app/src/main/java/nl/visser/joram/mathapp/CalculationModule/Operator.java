@@ -9,8 +9,8 @@ public enum Operator{
     MINUS (R.drawable.minus),
     PLUS (R.drawable.plus),
     EQUALS(R.drawable.equals),
-    TIMES(0),
-    DIVIDEDBY(0),
+    TIMES(R.drawable.times),
+    DIVIDEDBY(R.drawable.division),
     BACK(0),
     CLEAR(0);
 

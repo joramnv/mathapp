@@ -2,8 +2,6 @@ package nl.visser.joram.mathapp.CalculationModule;
 
 import java.util.LinkedList;
 
-import nl.visser.joram.mathapp.CalculationModule.Digit;
-
 public class MathAppNumber {
 
     LinkedList<Digit> digits = new LinkedList<>();

@@ -26,8 +26,8 @@ public class NumpadFragment extends Fragment implements Numpad{
     NumpadListener numpadListener;
 
     public interface NumpadListener {
-        public void onNumpadButtonPress(Digit digit);
-        public void onOperatorButtonPress(Operator operator);
+        void onNumpadButtonPress(Digit digit);
+        void onOperatorButtonPress(Operator operator);
     }
 
     @Override

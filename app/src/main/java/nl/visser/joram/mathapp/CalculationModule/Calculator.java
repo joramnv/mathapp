@@ -8,7 +8,6 @@ public class Calculator {
 
         if(calculateValueOfSum(sum) == number.getValueOf()) {
             return true;
-
         } else {
             return false;
         }
@@ -19,9 +18,7 @@ public class Calculator {
         List<Operator> operators = sum.getOperatorsOfSum();
         int valueOfSum = 0;
         valueOfSum = numbers.get(0).getValueOf();
-
         for(int i = 0; i< operators.size(); i++) {
-
             if(operators.get(i).equals(Operator.MINUS)) {
                 valueOfSum -= numbers.get(i+1).getValueOf();
             } else if(operators.get(i).equals(Operator.PLUS)) {
