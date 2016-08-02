@@ -42,7 +42,6 @@ public class NumpadFragment extends Fragment implements Numpad{
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -97,5 +96,11 @@ public class NumpadFragment extends Fragment implements Numpad{
                 numpadListener.onOperatorButtonPress(Operator.EQUALS);
                 break;
         }
+    }
+
+    public void onRemove() {
+        getFragmentManager().beginTransaction()
+                .remove(this)
+                .commit();
     }
 }

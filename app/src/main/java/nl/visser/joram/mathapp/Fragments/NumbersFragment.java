@@ -30,13 +30,14 @@ public class NumbersFragment extends Fragment {
 
     private static final String LOG_TAG = NumbersFragment.class.getSimpleName();
 
+    private OnCompleteListener listener;
+
+    private Context context;
     private int userAnswer = 0;
     private boolean minusFlag = false;
     private Score score = Score.INSTANCE;
-    private Category category;
     private LinearLayout layout;
     private TextView textViewAnswer;
-    private Sum startingSum;
 
     public NumbersFragment() {
     }
@@ -54,17 +55,30 @@ public class NumbersFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Bundle bundle = this.getArguments();
-        category = (Category) bundle.get("CATEGORY");
-        startingSum = (Sum) bundle.get("FIRST_SUM");
-        Log.v(LOG_TAG, "Category = " + category);
-        drawSum(startingSum);
+        listener.onComplete();
     }
 
     @Override
     public void onPause() {
         super.onPause();
         layout.removeAllViews();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+        try {
+            this.listener = (OnCompleteListener)context;
+        } catch (final ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnCompleteListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 
     public void backspaceUserAnswer() {
@@ -110,22 +124,17 @@ public class NumbersFragment extends Fragment {
 
     public void showCorrectAnswer() {
         score.updateScoreForCurrentSession(true);
-
-        Context context = getContext();
         CharSequence text = "Good!";
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text + " " + String.valueOf(score.getScore()), duration);
         toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 36);
         toast.show();
-
         userAnswer = 0;
         textViewAnswer.setText("");
     }
 
     public void showWrongAnswer() {
         score.updateScoreForCurrentSession(false);
-
-        Context context = getContext();
         CharSequence text = "Wrong!";
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text + " " + String.valueOf(score.getScore()), duration);
@@ -134,7 +143,9 @@ public class NumbersFragment extends Fragment {
     }
 
     public void drawSum(Sum sum) {
-        layout.removeAllViews();
+        if(layout != null) {
+            layout.removeAllViews();
+        }
         List<MathAppNumber> numbers = sum.getNumbersOfSum();
         int amountOfNumbers = sum.getNumbersOfSum().size();
         int amountOfOperators = sum.getOperatorsOfSum().size();
@@ -143,22 +154,32 @@ public class NumbersFragment extends Fragment {
             int amountOfDigitsForNumber = digitsForNumber.size();
 
             for(int j = amountOfDigitsForNumber-1; j >= 0; j--) {
-                ImageView digitImage = new ImageView(getContext());
+                ImageView digitImage = new ImageView(context);
                 digitImage.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
                 digitImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 digitImage.setImageResource(digitsForNumber.get(j).getDrawable());
                 layout.addView(digitImage);
             }
             if(i < amountOfOperators) {
-                ImageView operationImage = new ImageView(getContext());
+                ImageView operationImage = new ImageView(context);
                 operationImage.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
                 operationImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 operationImage.setImageResource(sum.getOperatorsOfSum().get(i).getDrawable());
                 layout.addView(operationImage);
             }
         }
-        ImageView equalsImage = new ImageView(getContext());
+        ImageView equalsImage = new ImageView(context);
         equalsImage.setImageResource(Operator.EQUALS.getDrawable());
         layout.addView(equalsImage);
+    }
+
+    public void onRemove() {
+        getFragmentManager().beginTransaction()
+                .remove(this)
+                .commit();
+    }
+
+    public interface OnCompleteListener {
+        void onComplete();
     }
 }
