@@ -1,6 +1,6 @@
 package nl.visser.joram.mathapp.Fragments;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import nl.visser.joram.mathapp.Activities.ScoreboardActivity;
 import nl.visser.joram.mathapp.CustomTimer;
 import nl.visser.joram.mathapp.R;
 
@@ -19,8 +18,9 @@ public class TimerFragment extends Fragment {
 
     private static final String LOG_TAG = TimerFragment.class.getSimpleName();
 
+    private OnFragmentInteractionListener listener;
     private ProgressBar timerBar;
-    GameTimer timer;
+    private GameTimer timer;
 
     public TimerFragment() {
         // Required empty public constructor
@@ -46,14 +46,46 @@ public class TimerFragment extends Fragment {
         timer.cancel();
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            listener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
+
     public void incrementTimer(long timeToIncrement) {
         timer.onIncrement(timeToIncrement);
         timer.start();
     }
 
-    public void showScoreboard() {
-        Intent intent = new Intent(getActivity(), ScoreboardActivity.class);
-        startActivity(intent);
+    public void onRemove() {
+        getFragmentManager().beginTransaction()
+                .remove(this)
+                .commit();
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p/>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        void showScoreboard();
     }
 
     public class GameTimer extends CustomTimer {
@@ -69,7 +101,7 @@ public class TimerFragment extends Fragment {
                 int timerBarValues = (secondsUntilFinished * -1 + 61)*100/60;
                 timerBar.setProgress(timerBarValues);
             } else {
-                showScoreboard();
+                listener.showScoreboard();
             }
         }
 

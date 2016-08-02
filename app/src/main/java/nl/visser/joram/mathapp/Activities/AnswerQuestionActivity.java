@@ -25,7 +25,7 @@ import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.CalculationModule.Sum;
 import nl.visser.joram.mathapp.CalculationModule.SumGenerator;
 
-public class AnswerQuestionActivity extends MenuActivity implements NumpadFragment.NumpadListener {
+public class AnswerQuestionActivity extends MenuActivity implements NumbersFragment.OnCompleteListener, NumpadFragment.NumpadListener, TimerFragment.OnFragmentInteractionListener {
 
     private static final String LOG_TAG =  AnswerQuestionActivity.class.getSimpleName();
 
@@ -125,42 +125,28 @@ public class AnswerQuestionActivity extends MenuActivity implements NumpadFragme
     }
 
     public void startFragments() {
-
         calculator = new Calculator();
         sumGenerator = new SumGenerator();
         userInputNumber = new MathAppNumber();
-
-
         if(showTimer) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             timerFragment = new TimerFragment();
             fragmentManager.beginTransaction()
-                    .replace(R.id.container_timer_fragment, timerFragment)
+                    .replace(R.id.container_timer, timerFragment)
                     .commit();
         }
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         numbersFragment = new NumbersFragment();
         numpadFragment = new NumpadFragment();
         fragmentManager.beginTransaction()
-                .replace(R.id.container_numbers_addition, numbersFragment)
+                .replace(R.id.container_numbers, numbersFragment)
                 .commit();
         fragmentManager.beginTransaction()
-                .replace(R.id.container_numpad_addition, numpadFragment)
+                .replace(R.id.container_numpad, numpadFragment)
                 .commit();
-
         Bundle getBundleCategory = intent.getExtras();
-
-        //TODO simple randomGenerateCategory for now
         categoryArrayList = new ArrayList<>();
         categoryArrayList = (ArrayList<Category>) getBundleCategory.get("CATEGORY");
-
-        sum = sumGenerator.generateRandomSum(2, categoryArrayList);
-
-        Bundle bundleCategory = new Bundle();
-        bundleCategory.putSerializable("FIRST_SUM", sum);
-
-        numbersFragment.setArguments(bundleCategory);
         MathFragmentManager.INSTANCE.setNumbersFragment(numbersFragment);
         numpad = numpadFragment;
     }
@@ -183,14 +169,12 @@ public class AnswerQuestionActivity extends MenuActivity implements NumpadFragme
                 userInputNumber.turnNegative();
                 break;
             case EQUALS:
-                if (calculator.calculateAnswerIsTrue(sum, userInputNumber)) {
+                if(calculator.calculateAnswerIsTrue(sum, userInputNumber)) {
                     numbersFragment.showCorrectAnswer();
-                } else{
+                } else {
                     numbersFragment.showWrongAnswer();
                 }
-                sum = sumGenerator.generateRandomSum(2, categoryArrayList);
-                numbersFragment.drawSum(sum);
-
+                getSum();
                 userInputNumber.initiate();
                 numbersFragment.clearUserAnswer();
                 break;
@@ -205,4 +189,21 @@ public class AnswerQuestionActivity extends MenuActivity implements NumpadFragme
         }
     }
 
+    public void showScoreboard() {
+        numbersFragment.onRemove();
+        numpadFragment.onRemove();
+        timerFragment.onRemove();
+        Intent intent = new Intent(this, ScoreboardActivity.class);
+        startActivity(intent);
+    }
+
+    public void getSum() {
+        //TODO difficulty dynamisch zetten.
+        sum = sumGenerator.generateRandomSum(2, categoryArrayList);
+        numbersFragment.drawSum(sum);
+    }
+
+    public void onComplete() {
+        getSum();
+    }
 }
