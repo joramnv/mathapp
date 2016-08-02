@@ -4,9 +4,9 @@ import java.util.LinkedList;
 
 public class MathAppNumber {
 
-    LinkedList<Digit> digits = new LinkedList<>();
-    LinkedList<Integer> digitDrawableIds = new LinkedList<>();
-    boolean isNegativeNumber;
+    private LinkedList<Digit> digits = new LinkedList<>();
+    private LinkedList<Integer> digitDrawableIds = new LinkedList<>();
+    private boolean isNegativeNumber;
 
     public void initiate() {
         digits = new LinkedList<>();

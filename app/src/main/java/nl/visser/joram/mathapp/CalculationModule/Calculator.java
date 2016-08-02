@@ -23,6 +23,10 @@ public class Calculator {
                 valueOfSum -= numbers.get(i+1).getValueOf();
             } else if(operators.get(i).equals(Operator.PLUS)) {
                 valueOfSum += numbers.get(i+1).getValueOf();
+            } else if(operators.get(i).equals(Operator.DIVIDEDBY)) {
+                valueOfSum /= numbers.get(i + 1).getValueOf();
+            } else if(operators.get(i).equals(Operator.TIMES)) {
+                valueOfSum *= numbers.get(i + 1).getValueOf();
             }
         }
         return valueOfSum;
