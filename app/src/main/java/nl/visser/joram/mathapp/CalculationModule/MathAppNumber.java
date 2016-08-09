@@ -7,6 +7,7 @@ public class MathAppNumber {
     private LinkedList<Digit> digits = new LinkedList<>();
     private LinkedList<Integer> digitDrawableIds = new LinkedList<>();
     private boolean isNegativeNumber;
+    private int value;
 
     public void initiate() {
         digits = new LinkedList<>();

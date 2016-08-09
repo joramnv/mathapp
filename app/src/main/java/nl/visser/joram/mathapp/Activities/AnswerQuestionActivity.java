@@ -169,7 +169,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
                 userInputNumber.turnNegative();
                 break;
             case EQUALS:
-                if(calculator.calculateAnswerIsTrue(sum, userInputNumber)) {
+                if(calculator.calculateWhetherAnswerIsTrue(sum, userInputNumber)) {
                     numbersFragment.showCorrectAnswer();
                 } else {
                     numbersFragment.showWrongAnswer();
