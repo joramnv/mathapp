@@ -26,7 +26,14 @@ public class SumGenerator {
             MathAppNumber numberInSum = new MathAppNumber();
             int amountOfDigits = random.nextInt((difficulty - digitMin) + 1) + digitMin;
             for (int j = 0; j < amountOfDigits; j++) {
-                numberInSum.pushDigit(Digit.randomDigit());
+
+                Digit digit = Digit.randomDigit();
+                if(amountOfDigits >1 && j ==0) {
+                    while(digit.equals(Digit.ZERO)) {
+                        digit = Digit.randomDigit();
+                    }
+                }
+                numberInSum.pushDigit(digit);
             }
             newSum.pushNumber(numberInSum);
             if (i < amountOfNumbersInSum - 1) {
