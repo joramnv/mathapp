@@ -1,12 +1,12 @@
 package nl.visser.joram.mathapp.Fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import nl.visser.joram.mathapp.R;
 
@@ -18,11 +18,13 @@ import nl.visser.joram.mathapp.R;
  * Use the {@link NameFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NameFragment extends Fragment {
+public class NameFragment extends Fragment implements Done {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private EditText nameEditText;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -65,14 +67,9 @@ public class NameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_name, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        View view = inflater.inflate(R.layout.fragment_name, container, false);
+        nameEditText = (EditText) view.findViewById(R.id.name_input);
+        return view;
     }
 
     @Override
@@ -92,6 +89,13 @@ public class NameFragment extends Fragment {
         mListener = null;
     }
 
+    public void onClickDone(View view) {
+        String name = nameEditText.getText().toString();
+        if (mListener != null) {
+            mListener.onFragmentInteraction(name);
+        }
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -103,7 +107,6 @@ public class NameFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(String name);
     }
 }

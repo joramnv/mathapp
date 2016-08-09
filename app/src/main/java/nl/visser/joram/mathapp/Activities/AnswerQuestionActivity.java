@@ -193,7 +193,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
         numbersFragment.onRemove();
         numpadFragment.onRemove();
         timerFragment.onRemove();
-        Intent intent = new Intent(this, ScoreboardActivity.class);
+        Intent intent = new Intent(this, NameYourScoreActivity.class);
         startActivity(intent);
     }
 

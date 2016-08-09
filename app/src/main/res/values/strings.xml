@@ -19,6 +19,7 @@
     <string name="button_clear" translatable="false">c</string>
     <string name="button_back" translatable="false">b</string>
     <string name="button_equals" translatable="false">=</string>
-    <string name="input_your_name">Input your name</string>
+    <string name="input_your_name">Insert your name</string>
+    <string name="title_activity_name_your_score">NameYourScoreActivity</string>
 
 </resources>

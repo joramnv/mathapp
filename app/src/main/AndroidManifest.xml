@@ -45,6 +45,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.MainActivity" />
         </activity>
+        <activity
+            android:name=".Activities.NameYourScoreActivity"
+            android:label="@string/title_activity_name_your_score"
+            android:parentActivityName=".Activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.visser.joram.mathapp.Activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
