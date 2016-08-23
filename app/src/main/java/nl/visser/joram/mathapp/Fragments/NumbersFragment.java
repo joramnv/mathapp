@@ -55,7 +55,10 @@ public class NumbersFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        listener.onComplete();
+        if (context == null) {
+            context = getContext();
+        }
+        listener.onFragmentLoaded();
     }
 
     @Override
@@ -154,21 +157,21 @@ public class NumbersFragment extends Fragment {
             int amountOfDigitsForNumber = digitsForNumber.size();
 
             for(int j = amountOfDigitsForNumber-1; j >= 0; j--) {
-                ImageView digitImage = new ImageView(context);
+                ImageView digitImage = new ImageView(getContext());
                 digitImage.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
                 digitImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 digitImage.setImageResource(digitsForNumber.get(j).getDrawable());
                 layout.addView(digitImage);
             }
             if(i < amountOfOperators) {
-                ImageView operationImage = new ImageView(context);
+                ImageView operationImage = new ImageView(getContext());
                 operationImage.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
                 operationImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 operationImage.setImageResource(sum.getOperatorsOfSum().get(i).getDrawable());
                 layout.addView(operationImage);
             }
         }
-        ImageView equalsImage = new ImageView(context);
+        ImageView equalsImage = new ImageView(getContext());
         equalsImage.setImageResource(Operator.EQUALS.getDrawable());
         layout.addView(equalsImage);
     }
@@ -180,6 +183,6 @@ public class NumbersFragment extends Fragment {
     }
 
     public interface OnCompleteListener {
-        void onComplete();
+        void onFragmentLoaded();
     }
 }

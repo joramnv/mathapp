@@ -39,6 +39,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
     private TimerFragment timerFragment;
     private NumbersFragment numbersFragment;
     private NumpadFragment numpadFragment;
+    private boolean gameState;
 
     private MathAppNumber userInputNumber;
     private Calculator calculator;
@@ -49,10 +50,31 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sumGenerator = new SumGenerator();
+        intent = this.getIntent();
+        Bundle getBundleCategory = intent.getExtras();
+        categoryArrayList = new ArrayList<>();
+        categoryArrayList = (ArrayList<Category>) getBundleCategory.get("CATEGORY");
+
+        if(savedInstanceState != null) {
+            sum = (Sum) savedInstanceState.getSerializable("SOM");
+            gameState = savedInstanceState.getBoolean("GAME_STATE");
+        } else {
+            getSum();
+        }
+
         setContentView(R.layout.activity_answer_question);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle state) {
+        state.putSerializable("SOM", sum);
+        state.putBoolean("GAME_STATE", gameState);
+        super.onSaveInstanceState(state);
     }
 
     @Override
@@ -63,6 +85,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
         Bundle bundle = intent.getExtras();
         Mode mode = (Mode) bundle.get("MODE");
         showTimer = false;
+
         switch (mode) {
             case NORMAL:
                 startFragments();
@@ -70,10 +93,15 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
             case ENDLESS:
                 endlessMode = true;
             case TIME_TRIAL:
-                countDown();
-                showTimer = true;
+                if(gameState == false) {
+                    countDown();
+                    showTimer = true;
+                } else {
+                    startFragments();
+                }
                 break;
         }
+        gameState = true;
     }
 
     public void onClickNumpadButton(View view) {
@@ -85,12 +113,15 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
         super.onPause();
         if(timerFragment != null) {
             timerFragment.onPause();
+            timerFragment = null;
         }
         if(numbersFragment != null) {
             numbersFragment.onPause();
+            numbersFragment = null;
         }
         if(numpadFragment != null) {
             numpadFragment.onPause();
+            numpadFragment = null;
         }
     }
 
@@ -126,29 +157,41 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
 
     public void startFragments() {
         calculator = new Calculator();
-        sumGenerator = new SumGenerator();
+
         userInputNumber = new MathAppNumber();
-        if(showTimer) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            timerFragment = new TimerFragment();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container_timer, timerFragment)
-                    .commit();
-        }
         FragmentManager fragmentManager = getSupportFragmentManager();
-        numbersFragment = new NumbersFragment();
+
+        if(showTimer) {
+
+            if(fragmentManager.findFragmentByTag("HenkTimer") == null) {
+                timerFragment = new TimerFragment();
+                fragmentManager.beginTransaction().replace(R.id.container_timer, timerFragment, "HenkTimer").commit();
+            } else {
+                timerFragment = (TimerFragment) fragmentManager.findFragmentByTag("HenkTimer");
+                fragmentManager.beginTransaction().replace(R.id.container_timer, timerFragment);
+            }
+        }
+
+        if(fragmentManager.findFragmentByTag("Jan") == null) {
+            numbersFragment = new NumbersFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container_numbers, numbersFragment, "Jan")
+                    .commit();
+        } else {
+            numbersFragment = (NumbersFragment) fragmentManager.findFragmentByTag("Jan");
+            fragmentManager.beginTransaction().replace(R.id.container_numbers,numbersFragment);
+        }
         numpadFragment = new NumpadFragment();
+
         fragmentManager.beginTransaction()
-                .replace(R.id.container_numbers, numbersFragment)
+                .replace(R.id.container_numpad, numpadFragment, "Henk")
                 .commit();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container_numpad, numpadFragment)
-                .commit();
-        Bundle getBundleCategory = intent.getExtras();
-        categoryArrayList = new ArrayList<>();
-        categoryArrayList = (ArrayList<Category>) getBundleCategory.get("CATEGORY");
-        MathFragmentManager.INSTANCE.setNumbersFragment(numbersFragment);
+
+
+
         numpad = numpadFragment;
+
+
     }
 
     public void instantiateUserAnswer() {
@@ -175,6 +218,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
                     numbersFragment.showWrongAnswer();
                 }
                 getSum();
+                drawSum();
                 userInputNumber.initiate();
                 numbersFragment.clearUserAnswer();
                 break;
@@ -200,10 +244,14 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
     public void getSum() {
         //TODO difficulty dynamisch zetten.
         sum = sumGenerator.generateRandomSum(2, categoryArrayList);
+
+    }
+
+    public void drawSum() {
         numbersFragment.drawSum(sum);
     }
 
-    public void onComplete() {
-        getSum();
+    public void onFragmentLoaded() {
+        drawSum();
     }
 }
