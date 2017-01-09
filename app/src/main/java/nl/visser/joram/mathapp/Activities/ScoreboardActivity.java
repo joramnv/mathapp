@@ -9,7 +9,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -71,13 +70,11 @@ public class ScoreboardActivity extends AppCompatActivity {
         correctAnswersColumn.setText(String.valueOf(correctAnswers));
         wrongAnswersColumn.setText(String.valueOf(wrongAnswers));
 
-
         row.addView(idColumn);
         row.addView(nameColumn);
         row.addView(scoreColumn);
         row.addView(correctAnswersColumn);
         row.addView(wrongAnswersColumn);
-
 
         int indexForNewRow = scoreTable.getChildCount();
         scoreTable.addView(row, indexForNewRow);
@@ -100,7 +97,6 @@ public class ScoreboardActivity extends AppCompatActivity {
         scoreIsWrittenToDb = (Boolean) savedInstanceState.get(SAVE_SCORE_STATE);
     }
 
-
     private class ScoreToDbTask extends AsyncTask<String, Void, Void> {
 
         @Override
@@ -109,7 +105,7 @@ public class ScoreboardActivity extends AppCompatActivity {
 
             if(!scoreIsWrittenToDb) {
                 ContentValues values = new ContentValues();
-                values.put(ScoreScheme.ScoreTable.PLAYER_NAME_COLUMN, "Jorrit");
+                values.put(ScoreScheme.ScoreTable.PLAYER_NAME_COLUMN, Score.INSTANCE.getName());
                 values.put(ScoreScheme.ScoreTable.PLAYER_SCORE_COLUMN, Score.INSTANCE.getScore());
                 values.put(ScoreScheme.ScoreTable.PlAYER_CORRECT_ANSWERS, Score.INSTANCE.getCorrectAnswers());
                 values.put(ScoreScheme.ScoreTable.PLAYER_WRONG_ANSWERS, Score.INSTANCE.getWrongAnswers());
@@ -147,7 +143,6 @@ public class ScoreboardActivity extends AppCompatActivity {
                     ScoreScheme.ScoreTable.PLAYER_SCORE_COLUMN,
                     ScoreScheme.ScoreTable.PlAYER_CORRECT_ANSWERS,
                     ScoreScheme.ScoreTable.PLAYER_WRONG_ANSWERS,
-
             };
 
             String sortOrder = ScoreScheme.ScoreTable.PLAYER_SCORE_COLUMN + " DESC";
@@ -185,5 +180,5 @@ public class ScoreboardActivity extends AppCompatActivity {
                 db.delete(ScoreScheme.ScoreTable.TABLE_NAME, selection, selectionArgs);
             }
         }
-     }
+    }
 }

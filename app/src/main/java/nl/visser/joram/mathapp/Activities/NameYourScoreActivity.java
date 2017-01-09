@@ -13,6 +13,7 @@ import android.view.View;
 import nl.visser.joram.mathapp.Fragments.Done;
 import nl.visser.joram.mathapp.Fragments.NameFragment;
 import nl.visser.joram.mathapp.R;
+import nl.visser.joram.mathapp.Score;
 
 public class NameYourScoreActivity extends AppCompatActivity implements NameFragment.OnFragmentInteractionListener {
 
@@ -56,11 +57,8 @@ public class NameYourScoreActivity extends AppCompatActivity implements NameFrag
     }
 
     public void onFragmentInteraction(String name) {
-        //TODO do something with the name... like putting it in the database..
-        Log.v(LOG_TAG, "My name is not keel; " + name);
+        Score.INSTANCE.setName(name);
         Intent intent = new Intent(this, ScoreboardActivity.class);
         startActivity(intent);
-
     }
-
 }
