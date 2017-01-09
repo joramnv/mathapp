@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp.Activities;
+package nl.visser.joram.mathapp.activities;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -21,11 +21,10 @@ import nl.visser.joram.mathapp.ScoreScheme;
 
 public class ScoreboardActivity extends AppCompatActivity {
 
-    protected ScoreDbHelper scoreDbHelper;
-    protected TableLayout scoreTable;
-
-    protected String SAVE_SCORE_STATE = "score_is_saved_state";
-    protected Boolean scoreIsWrittenToDb = false;
+    private ScoreDbHelper scoreDbHelper;
+    private TableLayout scoreTable;
+    private String SAVE_SCORE_STATE = "score_is_saved_state";
+    private Boolean scoreIsWrittenToDb = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,5 +179,7 @@ public class ScoreboardActivity extends AppCompatActivity {
                 db.delete(ScoreScheme.ScoreTable.TABLE_NAME, selection, selectionArgs);
             }
         }
+
     }
+
 }

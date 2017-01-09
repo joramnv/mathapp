@@ -1,16 +1,18 @@
-package nl.visser.joram.mathapp.Activities;
+package nl.visser.joram.mathapp.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import nl.visser.joram.mathapp.R;
 
-/**
- * Created by Joram on 22-3-2016.
- */
+import static nl.visser.joram.mathapp.util.StringUtils.isBlank;
+
 public abstract class MenuActivity extends AppCompatActivity{
+
+    private static final String LOG_TAG =  MenuActivity.class.getSimpleName();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -35,4 +37,13 @@ public abstract class MenuActivity extends AppCompatActivity{
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void logger(String logTag, String message) {
+        if(isBlank(logTag)) {
+            Log.d(LOG_TAG, message);
+        } else {
+            Log.d(logTag, message);
+        }
+    }
+
 }

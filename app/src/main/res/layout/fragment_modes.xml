@@ -4,30 +4,30 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".Fragments.ModesFragment">
+    tools:context=".fragments.ModesFragment">
 
     <Button
         android:id="@+id/normal_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Normal"
-        android:onClick="onClickMode"/>
+        android:text="@string/button_normal"
+        android:onClick="onClickModeNormal"/>
 
     <Button
         android:id="@+id/time_trail_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Time Trial"
-        android:onClick="onClickMode"/>
+        android:text="@string/button_time_trial"
+        android:onClick="onClickModeTimeTrial"/>
 
     <Button
-        android:id="@+id/endless_button"
+        android:id="@+id/endless_mode_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Endless"
-        android:onClick="onClickMode"/>
+        android:text="@string/button_endless_mode"
+        android:onClick="onClickModeEndlessMode"/>
 
 </LinearLayout>

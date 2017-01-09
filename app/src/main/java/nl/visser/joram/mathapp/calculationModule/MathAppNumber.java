@@ -1,12 +1,14 @@
-package nl.visser.joram.mathapp.CalculationModule;
+package nl.visser.joram.mathapp.calculationModule;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 public class MathAppNumber {
 
-    LinkedList<Digit> digits = new LinkedList<>();
-    LinkedList<Integer> digitDrawableIds = new LinkedList<>();
-    boolean isNegativeNumber;
+    private LinkedList<Digit> digits = new LinkedList<>();
+    private LinkedList<Integer> digitDrawableIds = new LinkedList<>();
+    private boolean isNegativeNumber;
+    private static Random random = new Random();
 
     public void initiate() {
         digits = new LinkedList<>();
@@ -52,4 +54,20 @@ public class MathAppNumber {
             return totalAmount;
         }
     }
+
+    public static MathAppNumber createNewMathAppNumber(int difficulty, int digitMin) {
+        MathAppNumber numberInSum = new MathAppNumber();
+        int amountOfDigits = random.nextInt((difficulty-digitMin)+1)+digitMin;
+        for(int i = 0; i < amountOfDigits; i++) {
+            Digit randomDigit = Digit.randomDigit();
+            if (i == 0) {
+                while (randomDigit == Digit.ZERO) {
+                    randomDigit = Digit.randomDigit();
+                }
+            }
+            numberInSum.pushDigit(randomDigit);
+        }
+        return numberInSum;
+    }
+
 }

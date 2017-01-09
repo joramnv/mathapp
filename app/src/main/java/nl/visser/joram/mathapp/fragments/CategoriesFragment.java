@@ -1,9 +1,8 @@
-package nl.visser.joram.mathapp.Fragments;
+package nl.visser.joram.mathapp.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +12,17 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import nl.visser.joram.mathapp.Activities.AnswerQuestionActivity;
+import nl.visser.joram.mathapp.activities.AnswerQuestionActivity;
 import nl.visser.joram.mathapp.Difficulty;
 import nl.visser.joram.mathapp.R;
+import nl.visser.joram.mathapp.Score;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+import static nl.visser.joram.mathapp.bundles.CategoriesBundle.addCategoriesBundle;
+
 public class CategoriesFragment extends Fragment implements Categories {
 
     private static final String LOG_TAG = CategoriesFragment.class.getSimpleName();
 
-    private Mode mode;
     private ArrayList<Category> categories = new ArrayList<>();
     private SeekBar difficultyControl;
     private TextView difficultyTextView;
@@ -44,9 +42,6 @@ public class CategoriesFragment extends Fragment implements Categories {
     @Override
     public void onResume() {
         super.onResume();
-        Bundle bundle = this.getArguments();
-        mode = (Mode) bundle.get("MODE");
-        Log.v(LOG_TAG, "Modes = " + mode);
         difficultySetByBar = 1;
         Difficulty.INSTANCE.setDifficulty(difficultySetByBar);
         difficultyControl = (SeekBar) getView().findViewById(R.id.difficulty_bar);
@@ -62,9 +57,11 @@ public class CategoriesFragment extends Fragment implements Categories {
                 difficultyTextView.setText(Integer.toString(difficultySetByBar));
                 Difficulty.INSTANCE.setDifficulty(difficultySetByBar);
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
@@ -72,63 +69,56 @@ public class CategoriesFragment extends Fragment implements Categories {
     }
 
     public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-        // Check which checkbox was clicked
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.checkbox_additions:
-                if (checked) {
-                    Log.v(LOG_TAG, "Checked additions");
-                    categories.add(Category.ADDITIONS);
-                } else {
-                    Log.v(LOG_TAG, "Unchecked additions");
-                }
+                reflectChangeInCategories(view, Category.ADDITIONS);
                 break;
             case R.id.checkbox_subtractions:
-                if (checked) {
-                    Log.v(LOG_TAG, "Checked subtractions");
-                    categories.add(Category.SUBTRACTIONS);
-                } else {
-                    Log.v(LOG_TAG, "Unchecked subtractions");
-                }
+                reflectChangeInCategories(view, Category.SUBTRACTIONS);
                 break;
             case R.id.checkbox_multiplications:
-                if (checked) {
-                    Log.v(LOG_TAG, "Checked multiplications");
-                    categories.add(Category.MULTIPLICATIONS);
-                } else {
-                    Log.v(LOG_TAG, "Unchecked multiplications");
-                }
+                reflectChangeInCategories(view, Category.MULTIPLICATIONS);
                 break;
             case R.id.checkbox_divisions:
-                if (checked) {
-                    Log.v(LOG_TAG, "Checked divisions");
-                    categories.add(Category.DIVISIONS);
-                } else {
-                    Log.v(LOG_TAG, "Unchecked divisions");
-                }
+                reflectChangeInCategories(view, Category.DIVISIONS);
                 break;
         }
     }
 
-    public void go(View view) {
-        Intent intent = new Intent(getActivity(), AnswerQuestionActivity.class);
-        Bundle bundleCategory = new Bundle();
-        bundleCategory.putSerializable("CATEGORY", categories);
-        intent.putExtras(bundleCategory);
-        if (mode == Mode.NORMAL && intent != null) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("MODE", Mode.NORMAL);
-            intent.putExtras(bundle);
-        } else if (mode == Mode.TIME_TRIAL && intent != null) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("MODE", Mode.TIME_TRIAL);
-            intent.putExtras(bundle);
-        } else if ( mode == Mode.ENDLESS && intent != null) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("MODE", Mode.ENDLESS);
-            intent.putExtras(bundle);
+    private void reflectChangeInCategories(View view, Category category) {
+        if (isCheckBoxInTheViewChecked(view)) {
+            categories.add(category);
+        } else {
+            categories.remove(category);
         }
-        startActivity(intent);
     }
+
+    private boolean isCheckBoxInTheViewChecked(View view) {
+        return ((CheckBox) view).isChecked();
+    }
+
+    public void go(View view) {
+        resetScoreSingleton();
+        startActivity(createAnswerQuestionActivityIntent());
+    }
+
+    private void resetScoreSingleton() {
+        Score.INSTANCE.setScore(0);
+        Score.INSTANCE.setTime(0D);
+        Score.INSTANCE.setCorrectAnswers(0);
+        Score.INSTANCE.setWrongAnswers(0);
+        Score.INSTANCE.setName(null);
+    }
+
+    private Intent createAnswerQuestionActivityIntent() {
+        Intent intent = new Intent(getActivity(), AnswerQuestionActivity.class);
+        intent.putExtras(addCategoriesBundle(categories));
+        intent.putExtras(getModeBundle());
+        return intent;
+    }
+
+    private Bundle getModeBundle() {
+        return this.getArguments();
+    }
+
 }

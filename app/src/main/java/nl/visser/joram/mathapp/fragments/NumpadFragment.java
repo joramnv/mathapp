@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp.Fragments;
+package nl.visser.joram.mathapp.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,22 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import nl.visser.joram.mathapp.CalculationModule.Digit;
-import nl.visser.joram.mathapp.CalculationModule.Operator;
+import nl.visser.joram.mathapp.calculationModule.Digit;
+import nl.visser.joram.mathapp.calculationModule.Operator;
 import nl.visser.joram.mathapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class NumpadFragment extends Fragment implements Numpad{
 
-    private static final String LOG_TAG =  NumpadFragment.class.getSimpleName();
+    private NumpadListener numpadListener;
 
     public NumpadFragment() {
         // Required empty public constructor
     }
-
-    NumpadListener numpadListener;
 
     public interface NumpadListener {
         void onNumpadButtonPress(Digit digit);
@@ -103,4 +98,5 @@ public class NumpadFragment extends Fragment implements Numpad{
                 .remove(this)
                 .commit();
     }
+
 }
