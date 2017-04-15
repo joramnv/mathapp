@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp.CalculationModule;
+package nl.visser.joram.mathapp.calculationModule;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,9 +6,6 @@ import java.util.Random;
 
 import nl.visser.joram.mathapp.R;
 
-/**
- * Created by Jorrit on 20-7-2016.
- */
 public enum Digit {
     ONE(1, R.drawable.one),
     TWO(2, R.drawable.two),
@@ -29,13 +26,12 @@ public enum Digit {
         this.drawable = drawable;
     }
 
-    private static final List<Digit> VALUES =
-            Arrays.asList(values());
+    private static final List<Digit> VALUES = Arrays.asList(values());
     private static final int SIZE = VALUES.size();
-    private static final Random RANDOM = new Random();
+    private static Random random = new Random();
 
     public static Digit randomDigit()  {
-        return VALUES.get(RANDOM.nextInt(SIZE));
+        return VALUES.get(random.nextInt(SIZE));
     }
 
     public int getValue() {
@@ -45,4 +41,5 @@ public enum Digit {
     public int getDrawable() {
         return drawable;
     }
+
 }

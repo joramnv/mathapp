@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp.Fragments;
+package nl.visser.joram.mathapp.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,12 +11,7 @@ import android.widget.ProgressBar;
 import nl.visser.joram.mathapp.CustomTimer;
 import nl.visser.joram.mathapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class TimerFragment extends Fragment {
-
-    private static final String LOG_TAG = TimerFragment.class.getSimpleName();
 
     private OnFragmentInteractionListener listener;
     private ProgressBar timerBar;
@@ -110,5 +105,6 @@ public class TimerFragment extends Fragment {
 
         }
     }
+
 }
 

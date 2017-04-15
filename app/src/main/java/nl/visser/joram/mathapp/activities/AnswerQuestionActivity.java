@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp.Activities;
+package nl.visser.joram.mathapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,25 +9,23 @@ import android.view.View;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import nl.visser.joram.mathapp.CalculationModule.Calculator;
-import nl.visser.joram.mathapp.CalculationModule.Digit;
-import nl.visser.joram.mathapp.Fragments.Category;
-import nl.visser.joram.mathapp.Fragments.MathFragmentManager;
-import nl.visser.joram.mathapp.Fragments.Mode;
-import nl.visser.joram.mathapp.Fragments.NumbersFragment;
-import nl.visser.joram.mathapp.Fragments.Numpad;
-import nl.visser.joram.mathapp.Fragments.NumpadFragment;
-import nl.visser.joram.mathapp.Fragments.TimerFragment;
-import nl.visser.joram.mathapp.CalculationModule.MathAppNumber;
-import nl.visser.joram.mathapp.CalculationModule.Operator;
+import nl.visser.joram.mathapp.calculationModule.Calculator;
+import nl.visser.joram.mathapp.calculationModule.Digit;
+import nl.visser.joram.mathapp.fragments.Category;
+import nl.visser.joram.mathapp.fragments.Mode;
+import nl.visser.joram.mathapp.fragments.NumbersFragment;
+import nl.visser.joram.mathapp.fragments.Numpad;
+import nl.visser.joram.mathapp.fragments.NumpadFragment;
+import nl.visser.joram.mathapp.fragments.TimerFragment;
+import nl.visser.joram.mathapp.calculationModule.MathAppNumber;
+import nl.visser.joram.mathapp.calculationModule.Operator;
 import nl.visser.joram.mathapp.R;
-import nl.visser.joram.mathapp.CalculationModule.Sum;
-import nl.visser.joram.mathapp.CalculationModule.SumGenerator;
+import nl.visser.joram.mathapp.calculationModule.Sum;
+import nl.visser.joram.mathapp.calculationModule.SumGenerator;
 
 public class AnswerQuestionActivity extends MenuActivity implements NumbersFragment.OnCompleteListener, NumpadFragment.NumpadListener, TimerFragment.OnFragmentInteractionListener {
-
-    private static final String LOG_TAG =  AnswerQuestionActivity.class.getSimpleName();
 
     private ImageView chalksImages;
 
@@ -44,7 +42,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
     private Calculator calculator;
     private SumGenerator sumGenerator;
     private Sum sum;
-    private ArrayList<Category> categoryArrayList;
+    private List<Category> categories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +65,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
             case NORMAL:
                 startFragments();
                 break;
-            case ENDLESS:
+            case ENDLESS_MODE:
                 endlessMode = true;
             case TIME_TRIAL:
                 countDown();
@@ -145,14 +143,9 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
                 .replace(R.id.container_numpad, numpadFragment)
                 .commit();
         Bundle getBundleCategory = intent.getExtras();
-        categoryArrayList = new ArrayList<>();
-        categoryArrayList = (ArrayList<Category>) getBundleCategory.get("CATEGORY");
-        MathFragmentManager.INSTANCE.setNumbersFragment(numbersFragment);
+        categories = new ArrayList<>();
+        categories = (ArrayList<Category>) getBundleCategory.get("CATEGORY");
         numpad = numpadFragment;
-    }
-
-    public void instantiateUserAnswer() {
-        userInputNumber = new MathAppNumber();
     }
 
     @Override
@@ -169,7 +162,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
                 userInputNumber.turnNegative();
                 break;
             case EQUALS:
-                if(calculator.calculateAnswerIsTrue(sum, userInputNumber)) {
+                if(calculator.calculateSumEqualsUserInputNumber(sum, userInputNumber)) {
                     numbersFragment.showCorrectAnswer();
                 } else {
                     numbersFragment.showWrongAnswer();
@@ -197,13 +190,14 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
         startActivity(intent);
     }
 
-    public void getSum() {
+    private void getSum() {
         //TODO difficulty dynamisch zetten.
-        sum = sumGenerator.generateRandomSum(2, categoryArrayList);
+        sum = sumGenerator.generateRandomSum(2, categories);
         numbersFragment.drawSum(sum);
     }
 
     public void onComplete() {
         getSum();
     }
+
 }

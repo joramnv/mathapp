@@ -57,8 +57,8 @@ public abstract class CustomTimer {
                 CustomTimer.this.onFinish();
             }
         };
-
     }
+
 }
 
 

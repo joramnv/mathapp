@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp.Fragments;
+package nl.visser.joram.mathapp.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,15 +10,8 @@ import android.widget.EditText;
 
 import nl.visser.joram.mathapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link NameFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link NameFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class NameFragment extends Fragment implements Done {
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -109,4 +102,5 @@ public class NameFragment extends Fragment implements Done {
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String name);
     }
+
 }

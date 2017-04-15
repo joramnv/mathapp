@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp.Activities;
+package nl.visser.joram.mathapp.activities;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -7,8 +7,6 @@ import android.widget.TextView;
 import nl.visser.joram.mathapp.R;
 
 public class AboutActivity extends MenuActivity {
-
-    private static final String LOG_TAG = AboutActivity.class.getSimpleName();
 
     private String settingsInfo = "This math app is developed for self education purposes.";
 
@@ -22,6 +20,6 @@ public class AboutActivity extends MenuActivity {
 
         TextView textViewSettings = (TextView) findViewById(R.id.textViewSettings);
         textViewSettings.setText(settingsInfo);
-
     }
+
 }

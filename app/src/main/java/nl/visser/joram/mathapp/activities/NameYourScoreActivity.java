@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp.Activities;
+package nl.visser.joram.mathapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,17 +7,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
-import nl.visser.joram.mathapp.Fragments.Done;
-import nl.visser.joram.mathapp.Fragments.NameFragment;
+import nl.visser.joram.mathapp.fragments.Done;
+import nl.visser.joram.mathapp.fragments.NameFragment;
 import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.Score;
 
 public class NameYourScoreActivity extends AppCompatActivity implements NameFragment.OnFragmentInteractionListener {
-
-    private static final String LOG_TAG =  NameYourScoreActivity.class.getSimpleName();
 
     private Done done;
 
@@ -61,4 +58,5 @@ public class NameYourScoreActivity extends AppCompatActivity implements NameFrag
         Intent intent = new Intent(this, ScoreboardActivity.class);
         startActivity(intent);
     }
+
 }

@@ -1,25 +1,31 @@
 <resources>
+
     <string name="app_name">Mathapp</string>
     <string name="action_about">About</string>
     <string name="title_activity_scoreboard">Scoreboard</string>
     <string name="title_activity_answer_question">Answer question</string>
+    <string name="title_activity_name_your_score">NameYourScoreActivity</string>
     <string name="title_activity_settings">About</string>
 
-    <string name="button1" translatable="false">1</string>
-    <string name="button2" translatable="false">2</string>
-    <string name="button3" translatable="false">3</string>
-    <string name="button4" translatable="false">4</string>
-    <string name="button5" translatable="false">5</string>
-    <string name="button6" translatable="false">6</string>
-    <string name="button7" translatable="false">7</string>
-    <string name="button8" translatable="false">8</string>
-    <string name="button9" translatable="false">9</string>
-    <string name="button0" translatable="false">0</string>
+    <string name="button_normal">Normal</string>
+    <string name="button_time_trial">Time Trial</string>
+    <string name="button_endless_mode">Endless Mode</string>
+
+    <string name="button_1" translatable="false">1</string>
+    <string name="button_2" translatable="false">2</string>
+    <string name="button_3" translatable="false">3</string>
+    <string name="button_4" translatable="false">4</string>
+    <string name="button_5" translatable="false">5</string>
+    <string name="button_6" translatable="false">6</string>
+    <string name="button_7" translatable="false">7</string>
+    <string name="button_8" translatable="false">8</string>
+    <string name="button_9" translatable="false">9</string>
+    <string name="button_0" translatable="false">0</string>
     <string name="button_minus" translatable="false">-</string>
     <string name="button_clear" translatable="false">c</string>
     <string name="button_back" translatable="false">b</string>
     <string name="button_equals" translatable="false">=</string>
+
     <string name="input_your_name">Insert your name</string>
-    <string name="title_activity_name_your_score">NameYourScoreActivity</string>
 
 </resources>

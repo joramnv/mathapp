@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp.Activities;
+package nl.visser.joram.mathapp.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -6,18 +6,19 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 
-import nl.visser.joram.mathapp.Fragments.Categories;
-import nl.visser.joram.mathapp.Fragments.CategoriesFragment;
-import nl.visser.joram.mathapp.Fragments.ModesFragment;
-import nl.visser.joram.mathapp.Fragments.Mode;
+import nl.visser.joram.mathapp.fragments.Categories;
+import nl.visser.joram.mathapp.fragments.CategoriesFragment;
+import nl.visser.joram.mathapp.fragments.Mode;
+import nl.visser.joram.mathapp.fragments.Modes;
+import nl.visser.joram.mathapp.fragments.ModesFragment;
 import nl.visser.joram.mathapp.R;
+
+import static nl.visser.joram.mathapp.bundles.ModeBundle.addModeBundle;
 
 public class MainActivity extends MenuActivity {
 
-    public static final String FRAGMENT_TAG = "CATAGORIES_FRAGMENT";
-
+    private Modes modes;
     private Categories categories;
 
     @Override
@@ -48,36 +49,32 @@ public class MainActivity extends MenuActivity {
                     .replace(R.id.container_mode_and_categories, modesFragment)
                     .commit();
         }
+        modes = modesFragment;
     }
 
-    public void onClickMode(View view) {
+    public void onClickModeNormal(View view) {
+        Mode mode = modes.onClickModeNormal(view);
+        addModeToCategories(mode);
+    }
+
+    public void onClickModeTimeTrial(View view) {
+        Mode mode = modes.onClickModeTimeTrial(view);
+        addModeToCategories(mode);
+    }
+
+    public void onClickModeEndlessMode(View view) {
+        Mode mode = modes.onClickModeEndlessMode(view);
+        addModeToCategories(mode);
+    }
+
+    private void addModeToCategories(Mode mode) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         CategoriesFragment categoriesFragment = new CategoriesFragment();
         fragmentManager.beginTransaction()
                 .replace(R.id.container_mode_and_categories, categoriesFragment)
                 .commit();
-        Bundle bundle = new Bundle();
 
-        Enum selectedMode;
-        Button button = (Button)view;
-        int buttonId = button.getId();
-
-        switch(buttonId) {
-            case R.id.normal_button:
-                selectedMode = Mode.NORMAL;
-                break;
-            case R.id.time_trail_button:
-                selectedMode = Mode.TIME_TRIAL;
-                break;
-            case R.id.endless_button:
-                selectedMode = Mode.ENDLESS;
-                break;
-            default:
-                selectedMode = Mode.NORMAL;
-                break;
-        }
-
-        bundle.putSerializable("MODE", selectedMode);
+        Bundle bundle = addModeBundle(mode);
         categoriesFragment.setArguments(bundle);
         categories = categoriesFragment;
     }

@@ -1,9 +1,8 @@
-package nl.visser.joram.mathapp.Fragments;
+package nl.visser.joram.mathapp.fragments;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,19 +15,14 @@ import android.widget.Toast;
 import java.util.LinkedList;
 import java.util.List;
 
-import nl.visser.joram.mathapp.CalculationModule.Digit;
-import nl.visser.joram.mathapp.CalculationModule.MathAppNumber;
-import nl.visser.joram.mathapp.CalculationModule.Operator;
+import nl.visser.joram.mathapp.calculationModule.Digit;
+import nl.visser.joram.mathapp.calculationModule.MathAppNumber;
+import nl.visser.joram.mathapp.calculationModule.Operator;
 import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.Score;
-import nl.visser.joram.mathapp.CalculationModule.Sum;
+import nl.visser.joram.mathapp.calculationModule.Sum;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class NumbersFragment extends Fragment {
-
-    private static final String LOG_TAG = NumbersFragment.class.getSimpleName();
 
     private OnCompleteListener listener;
 
@@ -109,7 +103,6 @@ public class NumbersFragment extends Fragment {
     public void onClickNumpadButtonNumber(Digit buttonNumber) {
         if(minusFlag) {
             userAnswer = buttonNumber.getValue() * -1;
-            Log.d(LOG_TAG, "userAnswer = " + userAnswer + "buttonNumber = " + buttonNumber.getValue());
             minusFlag = false;
         }
         else {
@@ -182,4 +175,5 @@ public class NumbersFragment extends Fragment {
     public interface OnCompleteListener {
         void onComplete();
     }
+
 }

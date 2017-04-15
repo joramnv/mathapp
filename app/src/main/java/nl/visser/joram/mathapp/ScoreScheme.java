@@ -14,4 +14,5 @@ public final class ScoreScheme {
         public static final String PLAYER_WRONG_ANSWERS = "WRONG_ANSWERS";
         public static final String PLAYER_TIME = "PLAYER_TIME";
     }
+
 }
