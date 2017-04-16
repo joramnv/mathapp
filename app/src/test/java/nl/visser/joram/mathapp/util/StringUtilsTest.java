@@ -12,24 +12,24 @@ public class StringUtilsTest {
     private String randomString;
 
     @Before
-    public void before() {
+    public void setUp() throws Exception {
         randomString = createRandomString();
     }
 
     @Test
-    public void givenAnEmptyStringWhenUsingIsBlankThenIsBlankReturnsTrue() {
+    public void givenAnEmptyStringWhenIsBlankIsCalledThenIsBlankReturnsTrue() {
         boolean b = isBlank(EMPTY_STRING);
         assertTrue(b);
     }
 
     @Test
-    public void givenNullWhenUsingIsBlankThenIsBlankReturnsTrue() {
+    public void givenNullWhenIsBlankIsCalledThenIsBlankReturnsTrue() {
         boolean b = isBlank(null);
         assertTrue(b);
     }
 
     @Test
-    public void givenARandomStringWhenUsingIsBlankThenIsBlankReturnsFalse() {
+    public void givenARandomStringWhenIsBlankIsCalledThenIsBlankReturnsFalse() {
         boolean b = isBlank(randomString);
         assertFalse(b);
     }
