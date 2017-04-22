@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
-public class CategoriesBundleTest {
+public class CategoryTest {
 
     @Before
     public void setUp() throws Exception {
@@ -30,7 +30,7 @@ public class CategoriesBundleTest {
         ArrayList<Category> expectedCategories = new ArrayList<>();
         expectedCategories.add(Category.ADDITIONS);
         expectedCategories.add(Category.SUBTRACTIONS);
-        Bundle returnedBundle = CategoriesBundle.addCategoriesBundle(expectedCategories);
+        Bundle returnedBundle = Category.addCategoriesBundle(expectedCategories);
         List<Category> categories = (List<Category>) returnedBundle.get("CATEGORY");
         assertEquals(expectedCategories, categories);
     }

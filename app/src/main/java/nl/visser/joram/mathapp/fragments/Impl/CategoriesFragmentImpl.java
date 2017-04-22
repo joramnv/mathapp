@@ -19,7 +19,7 @@ import nl.visser.joram.mathapp.Score;
 import nl.visser.joram.mathapp.fragments.CategoriesFragment;
 import nl.visser.joram.mathapp.bundles.Category;
 
-import static nl.visser.joram.mathapp.bundles.CategoriesBundle.addCategoriesBundle;
+import static nl.visser.joram.mathapp.bundles.Category.addCategoriesBundle;
 
 public class CategoriesFragmentImpl extends Fragment implements CategoriesFragment {
 

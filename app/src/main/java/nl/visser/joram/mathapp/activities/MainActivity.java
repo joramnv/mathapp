@@ -14,7 +14,7 @@ import nl.visser.joram.mathapp.fragments.ModesFragment;
 import nl.visser.joram.mathapp.fragments.Impl.ModesFragmentImpl;
 import nl.visser.joram.mathapp.R;
 
-import static nl.visser.joram.mathapp.bundles.ModeBundle.addModeBundle;
+import static nl.visser.joram.mathapp.bundles.Mode.addModeBundle;
 
 public class MainActivity extends MenuActivity {
 

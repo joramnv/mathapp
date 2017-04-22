@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import static junit.framework.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
-public class ModeBundleTest {
+public class ModeTest {
 
     @Before
     public void setUp() throws Exception {
@@ -26,7 +26,7 @@ public class ModeBundleTest {
     @Test
     public void givenRandomModeIsProvidedWhenAddModeBundleIsCalledThenAddModeBundleReturnsABundleContainingTheMode() throws Exception {
         Mode expectedMode = Mode.ENDLESS_MODE;
-        Bundle returnedBundle = ModeBundle.addModeBundle(expectedMode);
+        Bundle returnedBundle = Mode.addModeBundle(expectedMode);
         Mode mode = (Mode) returnedBundle.get("MODE");
         assertEquals(expectedMode, mode);
     }
