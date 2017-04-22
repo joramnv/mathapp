@@ -44,7 +44,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void givenGOODGOODWhenCalculateSumEqualsUserInputNumberIsCalledThenCalculateSumEqualsUserInputNumberIsCalledReturnsTrue() throws Exception {
+    public void givenGOODGOODWhenCalculateSumEqualsUserInputNumberIsCalledThenCalculateSumEqualsUserInputNumberReturnsTrue() throws Exception {
         int firstNumber = mathAppNumber1.getValueOf();
         int secondNumber = mathAppNumber2.getValueOf();
         int answer = firstNumber + secondNumber;

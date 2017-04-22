@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import nl.visser.joram.mathapp.R;
-import nl.visser.joram.mathapp.fragments.Category;
+import nl.visser.joram.mathapp.bundles.Category;
 
 public enum Operator{
     MINUS (R.drawable.minus),

@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp.fragments;
+package nl.visser.joram.mathapp.bundles;
 
 public enum Category {
     ADDITIONS, SUBTRACTIONS, MULTIPLICATIONS, DIVISIONS

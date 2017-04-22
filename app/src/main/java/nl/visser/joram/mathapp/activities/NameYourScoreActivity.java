@@ -9,14 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import nl.visser.joram.mathapp.fragments.Done;
 import nl.visser.joram.mathapp.fragments.NameFragment;
+import nl.visser.joram.mathapp.fragments.Impl.NameFragmentImpl;
 import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.Score;
 
-public class NameYourScoreActivity extends AppCompatActivity implements NameFragment.OnFragmentInteractionListener {
+public class NameYourScoreActivity extends AppCompatActivity implements NameFragmentImpl.OnFragmentInteractionListener {
 
-    private Done done;
+    private NameFragment nameFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,21 +36,21 @@ public class NameYourScoreActivity extends AppCompatActivity implements NameFrag
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        NameFragment nameFragment = new NameFragment();
+        NameFragmentImpl nameFragmentImpl = new NameFragmentImpl();
         if(savedInstanceState == null) {
             fragmentManager.beginTransaction()
-                    .add(R.id.container_name_your_score, nameFragment)
+                    .add(R.id.container_name_your_score, nameFragmentImpl)
                     .commit();
         } else {
             fragmentManager.beginTransaction()
-                    .replace(R.id.container_name_your_score, nameFragment)
+                    .replace(R.id.container_name_your_score, nameFragmentImpl)
                     .commit();
         }
-        done = nameFragment;
+        nameFragment = nameFragmentImpl;
     }
 
     public void onClickDone(View view) {
-        done.onClickDone(view);
+        nameFragment.onClickDone(view);
     }
 
     public void onFragmentInteraction(String name) {

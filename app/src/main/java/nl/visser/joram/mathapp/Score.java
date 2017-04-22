@@ -55,6 +55,14 @@ public enum Score {
         this.name = name;
     }
 
+    public void resetScoreSingleton() {
+        score = 0;
+        time = 0D;
+        correctAnswers = 0;
+        wrongAnswers = 0;
+        name = null;
+    }
+
     public void updateScoreForCurrentSession(boolean correctAnswer) {
 
         if(correctAnswer) {

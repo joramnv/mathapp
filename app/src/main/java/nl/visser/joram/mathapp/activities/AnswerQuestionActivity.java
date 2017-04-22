@@ -13,11 +13,11 @@ import java.util.List;
 
 import nl.visser.joram.mathapp.calculationModule.Calculator;
 import nl.visser.joram.mathapp.calculationModule.Digit;
-import nl.visser.joram.mathapp.fragments.Category;
-import nl.visser.joram.mathapp.fragments.Mode;
+import nl.visser.joram.mathapp.bundles.Category;
+import nl.visser.joram.mathapp.bundles.Mode;
 import nl.visser.joram.mathapp.fragments.NumbersFragment;
-import nl.visser.joram.mathapp.fragments.Numpad;
 import nl.visser.joram.mathapp.fragments.NumpadFragment;
+import nl.visser.joram.mathapp.fragments.Impl.NumpadFragmentImpl;
 import nl.visser.joram.mathapp.fragments.TimerFragment;
 import nl.visser.joram.mathapp.calculationModule.MathAppNumber;
 import nl.visser.joram.mathapp.calculationModule.Operator;
@@ -25,18 +25,18 @@ import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.calculationModule.Sum;
 import nl.visser.joram.mathapp.calculationModule.SumGenerator;
 
-public class AnswerQuestionActivity extends MenuActivity implements NumbersFragment.OnCompleteListener, NumpadFragment.NumpadListener, TimerFragment.OnFragmentInteractionListener {
+public class AnswerQuestionActivity extends MenuActivity implements NumbersFragment.OnCompleteListener, NumpadFragmentImpl.NumpadListener, TimerFragment.OnFragmentInteractionListener {
 
     private ImageView chalksImages;
 
-    private Numpad numpad;
+    private NumpadFragment numpadFragment;
 
     private Intent intent;
     private boolean showTimer;
     private boolean endlessMode = false;
     private TimerFragment timerFragment;
     private NumbersFragment numbersFragment;
-    private NumpadFragment numpadFragment;
+    private NumpadFragmentImpl numpadFragmentImpl;
 
     private MathAppNumber userInputNumber;
     private Calculator calculator;
@@ -75,7 +75,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
     }
 
     public void onClickNumpadButton(View view) {
-        numpad.onClickNumpadButton(view);
+        numpadFragment.onClickNumpadButton(view);
     }
 
     @Override
@@ -87,8 +87,8 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
         if(numbersFragment != null) {
             numbersFragment.onPause();
         }
-        if(numpadFragment != null) {
-            numpadFragment.onPause();
+        if(numpadFragmentImpl != null) {
+            numpadFragmentImpl.onPause();
         }
     }
 
@@ -135,17 +135,17 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
         numbersFragment = new NumbersFragment();
-        numpadFragment = new NumpadFragment();
+        numpadFragmentImpl = new NumpadFragmentImpl();
         fragmentManager.beginTransaction()
                 .replace(R.id.container_numbers, numbersFragment)
                 .commit();
         fragmentManager.beginTransaction()
-                .replace(R.id.container_numpad, numpadFragment)
+                .replace(R.id.container_numpad, numpadFragmentImpl)
                 .commit();
         Bundle getBundleCategory = intent.getExtras();
         categories = new ArrayList<>();
         categories = (ArrayList<Category>) getBundleCategory.get("CATEGORY");
-        numpad = numpadFragment;
+        numpadFragment = numpadFragmentImpl;
     }
 
     @Override
@@ -184,7 +184,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
 
     public void showScoreboard() {
         numbersFragment.onRemove();
-        numpadFragment.onRemove();
+        numpadFragmentImpl.onRemove();
         timerFragment.onRemove();
         Intent intent = new Intent(this, NameYourScoreActivity.class);
         startActivity(intent);

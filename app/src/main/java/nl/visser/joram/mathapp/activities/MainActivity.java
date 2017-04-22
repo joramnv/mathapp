@@ -7,19 +7,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import nl.visser.joram.mathapp.fragments.Categories;
 import nl.visser.joram.mathapp.fragments.CategoriesFragment;
-import nl.visser.joram.mathapp.fragments.Mode;
-import nl.visser.joram.mathapp.fragments.Modes;
+import nl.visser.joram.mathapp.fragments.Impl.CategoriesFragmentImpl;
+import nl.visser.joram.mathapp.bundles.Mode;
 import nl.visser.joram.mathapp.fragments.ModesFragment;
+import nl.visser.joram.mathapp.fragments.Impl.ModesFragmentImpl;
 import nl.visser.joram.mathapp.R;
 
 import static nl.visser.joram.mathapp.bundles.ModeBundle.addModeBundle;
 
 public class MainActivity extends MenuActivity {
 
-    private Modes modes;
-    private Categories categories;
+    private ModesFragment modesFragment;
+    private CategoriesFragment categoriesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,52 +39,52 @@ public class MainActivity extends MenuActivity {
         });
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        ModesFragment modesFragment = new ModesFragment();
+        ModesFragmentImpl modesFragmentImpl = new ModesFragmentImpl();
         if(savedInstanceState == null) {
             fragmentManager.beginTransaction()
-                    .add(R.id.container_mode_and_categories, modesFragment)
+                    .add(R.id.container_mode_and_categories, modesFragmentImpl)
                     .commit();
         } else {
             fragmentManager.beginTransaction()
-                    .replace(R.id.container_mode_and_categories, modesFragment)
+                    .replace(R.id.container_mode_and_categories, modesFragmentImpl)
                     .commit();
         }
-        modes = modesFragment;
+        modesFragment = modesFragmentImpl;
     }
 
     public void onClickModeNormal(View view) {
-        Mode mode = modes.onClickModeNormal(view);
+        Mode mode = modesFragment.onClickModeNormal(view);
         addModeToCategories(mode);
     }
 
     public void onClickModeTimeTrial(View view) {
-        Mode mode = modes.onClickModeTimeTrial(view);
+        Mode mode = modesFragment.onClickModeTimeTrial(view);
         addModeToCategories(mode);
     }
 
     public void onClickModeEndlessMode(View view) {
-        Mode mode = modes.onClickModeEndlessMode(view);
+        Mode mode = modesFragment.onClickModeEndlessMode(view);
         addModeToCategories(mode);
     }
 
     private void addModeToCategories(Mode mode) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        CategoriesFragment categoriesFragment = new CategoriesFragment();
+        CategoriesFragmentImpl categoriesFragmentImpl = new CategoriesFragmentImpl();
         fragmentManager.beginTransaction()
-                .replace(R.id.container_mode_and_categories, categoriesFragment)
+                .replace(R.id.container_mode_and_categories, categoriesFragmentImpl)
                 .commit();
 
         Bundle bundle = addModeBundle(mode);
-        categoriesFragment.setArguments(bundle);
-        categories = categoriesFragment;
+        categoriesFragmentImpl.setArguments(bundle);
+        categoriesFragment = categoriesFragmentImpl;
     }
 
     public void onCheckboxClicked(View view) {
-        categories.onCheckboxClicked(view);
+        categoriesFragment.onCheckboxClicked(view);
     }
 
     public void go(View view) {
-        categories.go(view);
+        categoriesFragment.go(view);
     }
 
 }

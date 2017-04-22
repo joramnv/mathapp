@@ -1,6 +1,7 @@
 package nl.visser.joram.mathapp.calculationModule;
 
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class MathAppNumber {
@@ -21,7 +22,11 @@ public class MathAppNumber {
     }
 
     public void removeLastDigit() {
-        digits.removeLast();
+        try {
+            digits.removeLast();
+        } catch (NoSuchElementException e) {
+            //TODO Do nothing?
+        }
     }
 
     public void removeDigits() {

@@ -3,7 +3,7 @@ package nl.visser.joram.mathapp.calculationModule;
 import java.util.List;
 import java.util.Random;
 
-import nl.visser.joram.mathapp.fragments.Category;
+import nl.visser.joram.mathapp.bundles.Category;
 
 import static nl.visser.joram.mathapp.calculationModule.MathAppNumber.createNewMathAppNumber;
 import static nl.visser.joram.mathapp.calculationModule.Operator.getOperator;

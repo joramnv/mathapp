@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="nl.visser.joram.mathapp.fragments.CategoriesFragment">
+    tools:context="nl.visser.joram.mathapp.fragments.Impl.CategoriesFragmentImpl">
 
     <LinearLayout
         android:layout_width="match_parent"

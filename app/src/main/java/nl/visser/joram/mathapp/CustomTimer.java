@@ -4,7 +4,7 @@ import android.os.CountDownTimer;
 
 public abstract class CustomTimer {
 
-    private CountDownTimer cdt;
+    private CountDownTimer countDownTimer;
     private long millisInFuture;
     private long countDownInterval;
 
@@ -20,11 +20,11 @@ public abstract class CustomTimer {
     public abstract void onTick(long millisUntilFinished);
 
     public void start(){
-        cdt.start();
+        countDownTimer.start();
     }
 
     public void cancel() {
-        cdt.cancel();
+        countDownTimer.cancel();
     }
 
     private void setMillisInFuture(long millisInFuture){
@@ -37,14 +37,14 @@ public abstract class CustomTimer {
     }
 
     private void recreateCounter(long millisInFuture, long countDownInterval){
-        if(cdt != null){
+        if(countDownTimer != null){
             try {
-                cdt.cancel();
+                countDownTimer.cancel();
             } catch (Exception e) {
             }
         }
 
-        cdt = new CountDownTimer(millisInFuture, countDownInterval) {
+        countDownTimer = new CountDownTimer(millisInFuture, countDownInterval) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -60,6 +60,3 @@ public abstract class CustomTimer {
     }
 
 }
-
-
-
