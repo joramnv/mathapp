@@ -28,10 +28,10 @@ public enum Digit {
 
     private static final List<Digit> VALUES = Arrays.asList(values());
     private static final int SIZE = VALUES.size();
-    private static Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     public static Digit randomDigit()  {
-        return VALUES.get(random.nextInt(SIZE));
+        return VALUES.get(RANDOM.nextInt(SIZE));
     }
 
     public int getValue() {

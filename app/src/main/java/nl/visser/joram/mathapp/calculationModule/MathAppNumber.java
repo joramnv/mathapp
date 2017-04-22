@@ -9,7 +9,7 @@ public class MathAppNumber {
     private LinkedList<Digit> digits = new LinkedList<>();
     private LinkedList<Integer> digitDrawableIds = new LinkedList<>();
     private boolean isNegativeNumber;
-    private static Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     public void initiate() {
         digits = new LinkedList<>();
@@ -62,7 +62,7 @@ public class MathAppNumber {
 
     public static MathAppNumber createNewMathAppNumber(int difficulty, int digitMin) {
         MathAppNumber numberInSum = new MathAppNumber();
-        int amountOfDigits = random.nextInt((difficulty-digitMin)+1)+digitMin;
+        int amountOfDigits = RANDOM.nextInt((difficulty-digitMin)+1)+digitMin;
         for(int i = 0; i < amountOfDigits; i++) {
             Digit randomDigit = Digit.randomDigit();
             if (i == 0) {

@@ -16,7 +16,7 @@ public enum Operator{
     CLEAR(0);
 
     private int drawable;
-    private static Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     Operator(int drawable) {
         this.drawable = drawable;
@@ -27,7 +27,7 @@ public enum Operator{
     }
 
     public static Operator getOperator(List<Category> categories) {
-        int randomCategoryIndex = random.nextInt(categories.size());
+        int randomCategoryIndex = RANDOM.nextInt(categories.size());
         Category category = categories.get(randomCategoryIndex);
         if (category.equals(Category.ADDITIONS)) {
             return Operator.PLUS;

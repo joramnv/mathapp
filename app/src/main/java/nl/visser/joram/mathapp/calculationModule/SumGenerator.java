@@ -10,7 +10,7 @@ import static nl.visser.joram.mathapp.calculationModule.Operator.getOperator;
 
 public class SumGenerator {
 
-    private static Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     public Sum generateRandomSum(int difficulty, List<Category> categories) {
         Sum newSum = new Sum();
@@ -18,7 +18,7 @@ public class SumGenerator {
         int digitMin = 1;
         int max = difficulty; //TODO use difficulty
         max = 3;
-        int amountOfNumbersInSum = random.nextInt((max-min)+1)+min;
+        int amountOfNumbersInSum = RANDOM.nextInt((max-min)+1)+min;
 
         for(int i = 0; i < amountOfNumbersInSum; i++) {
             MathAppNumber numberInSum = createNewMathAppNumber(difficulty, digitMin);

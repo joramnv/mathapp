@@ -3,6 +3,7 @@ package nl.visser.joram.mathapp.util;
 import org.junit.Before;
 import org.junit.Test;
 
+import static nl.visser.joram.mathapp.testHelpers.RandomValueGenerator.createRandomString;
 import static nl.visser.joram.mathapp.util.StringUtils.isBlank;
 import static org.junit.Assert.*;
 
@@ -32,12 +33,6 @@ public class StringUtilsTest {
     public void givenARandomStringWhenIsBlankIsCalledThenIsBlankReturnsFalse() {
         boolean b = isBlank(randomString);
         assertFalse(b);
-    }
-
-    public static String createRandomString() {
-        //TODO write nice createRandomString method
-        //TODO put the method in some class that would more suit it.
-        return "aaa";
     }
 
 }
