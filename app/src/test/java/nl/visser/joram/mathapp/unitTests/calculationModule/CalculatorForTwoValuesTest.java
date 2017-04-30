@@ -13,29 +13,29 @@ public class CalculatorForTwoValuesTest {
 
     @Test
     public void givenSeventeenPlusFourteenWhenCalculateProductIsCalledThenCalculateProductReturnsThirtyOne() throws Exception {
-        int actual = CalculatorForTwoValues.calculateProduct(17, Operator.PLUS, 14);
-        int expected = 31;
+        double actual = CalculatorForTwoValues.calculateProduct(17, Operator.PLUS, 14);
+        double expected = 31;
         assertThat(actual, is(equalTo(expected)));
     }
 
     @Test
     public void givenSeventeenMinusFourteenWhenCalculateProductIsCalledThenCalculateProductReturnsThirtyOne() throws Exception {
-        int actual = CalculatorForTwoValues.calculateProduct(17, Operator.MINUS, 14);
-        int expected = 3;
+        double actual = CalculatorForTwoValues.calculateProduct(17, Operator.MINUS, 14);
+        double expected = 3;
         assertThat(actual, is(equalTo(expected)));
     }
 
     @Test
     public void givenThirtyOneTimesNinetyNineWhenCalculateProductIsCalledThenCalculateProductReturnsThreeThousandAndSixtyNine() throws Exception {
-        int actual = CalculatorForTwoValues.calculateProduct(31, Operator.TIMES, 99);
-        int expected = 3069;
+        double actual = CalculatorForTwoValues.calculateProduct(31, Operator.TIMES, 99);
+        double expected = 3069;
         assertThat(actual, is(equalTo(expected)));
     }
 
     @Test
-    public void givenThirtyFiveDividedBySixWhenCalculateProductIsCalledThenCalculateProductReturnsFive() throws Exception {
-        int actual = CalculatorForTwoValues.calculateProduct(35, Operator.DIVIDED_BY, 6);
-        int expected = 5;
+    public void givenThirtyFiveDividedBySixWhenCalculateProductIsCalledThenCalculateProductReturnsFiveDotEightThreeThreeEtc() throws Exception {
+        double actual = CalculatorForTwoValues.calculateProduct(35, Operator.DIVIDED_BY, 6);
+        double expected = 5.833333333333333;
         assertThat(actual, is(equalTo(expected)));
     }
 

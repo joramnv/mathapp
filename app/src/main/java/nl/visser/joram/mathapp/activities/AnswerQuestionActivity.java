@@ -8,10 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import nl.visser.joram.mathapp.calculationModule.Calculator;
 import nl.visser.joram.mathapp.calculationModule.Digit;
 import nl.visser.joram.mathapp.bundles.Category;
 import nl.visser.joram.mathapp.bundles.Mode;
@@ -24,6 +22,8 @@ import nl.visser.joram.mathapp.calculationModule.Operator;
 import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.calculationModule.Sum;
 import nl.visser.joram.mathapp.calculationModule.SumGenerator;
+
+import static nl.visser.joram.mathapp.calculationModule.Calculator.calculateSumEqualsUserInputNumber;
 
 public class AnswerQuestionActivity extends MenuActivity implements NumbersFragment.OnCompleteListener, NumpadFragmentImpl.NumpadListener, TimerFragment.OnFragmentInteractionListener {
 
@@ -39,7 +39,6 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
     private NumpadFragmentImpl numpadFragmentImpl;
 
     private MathAppNumber userInputNumber;
-    private Calculator calculator;
     private SumGenerator sumGenerator;
     private Sum sum;
     private List<Category> categories;
@@ -123,7 +122,6 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
     }
 
     public void startFragments() {
-        calculator = new Calculator();
         sumGenerator = new SumGenerator();
         userInputNumber = new MathAppNumber();
         if(showTimer) {
@@ -161,7 +159,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
                 userInputNumber.turnNegative();
                 break;
             case EQUALS:
-                if(calculator.calculateSumEqualsUserInputNumber(sum, userInputNumber)) {
+                if(calculateSumEqualsUserInputNumber(sum, userInputNumber)) {
                     numbersFragment.showCorrectAnswer();
                 } else {
                     numbersFragment.showWrongAnswer();

@@ -1,6 +1,6 @@
 package nl.visser.joram.mathapp.unitTests.calculationModule;
 
-import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import nl.visser.joram.mathapp.calculationModule.Calculator;
@@ -14,38 +14,60 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CalculatorTest {
 
-    private Calculator calculator;
-    private Sum sum;
-    private MathAppNumber mathAppNumber84, mathAppNumber37;
-
-    @Before
-    public void setUp() throws Exception {
-        calculator = new Calculator();
-
-        mathAppNumber84 = new MathAppNumber();
+    @Test
+    public void givenEightyFourPlusThirtySevenWhenCalculateSumEqualsUserInputNumberIsCalledThenCalculateSumEqualsUserInputNumberReturnsTrue() throws Exception {
+        MathAppNumber mathAppNumber84 = new MathAppNumber();
         mathAppNumber84.initiate();
         mathAppNumber84.pushDigit(Digit.EIGHT);
         mathAppNumber84.pushDigit(Digit.FOUR);
 
-        mathAppNumber37 = new MathAppNumber();
+        MathAppNumber mathAppNumber37 = new MathAppNumber();
         mathAppNumber37.initiate();
         mathAppNumber37.pushDigit(Digit.THREE);
         mathAppNumber37.pushDigit(Digit.SEVEN);
 
-        sum = new Sum();
+        Sum sum = new Sum();
         sum.pushNumber(mathAppNumber84);
         sum.pushNumber(mathAppNumber37);
         sum.pushOperator(Operator.PLUS);
 
-    }
-
-    @Test
-    public void givenEightyFourPlusThirtySevenWhenCalculateSumEqualsUserInputNumberIsCalledThenCalculateSumEqualsUserInputNumberReturnsTrue() throws Exception {
         int answer = mathAppNumber84.getValueOf() + mathAppNumber37.getValueOf();
 
         MathAppNumber mathAppNumber = createNewMathAppNumber(answer);
 
-        boolean actual = calculator.calculateSumEqualsUserInputNumber(sum, mathAppNumber);
+        boolean actual = Calculator.calculateSumEqualsUserInputNumber(sum, mathAppNumber);
+        assertThat(actual, is(true));
+    }
+
+    //TODO make this test work so the difference between 4 + 6 * 10 = 64 and (4 + 6) * 10 = 100
+    @Ignore
+    @Test
+    public void givenThisTestThingOke() throws Exception {
+        MathAppNumber mathAppNumber4 = new MathAppNumber();
+        mathAppNumber4.initiate();
+        mathAppNumber4.pushDigit(Digit.FOUR);
+
+        MathAppNumber mathAppNumber6 = new MathAppNumber();
+        mathAppNumber6.initiate();
+        mathAppNumber6.pushDigit(Digit.SIX);
+
+        MathAppNumber mathAppNumber10 = new MathAppNumber();
+        mathAppNumber10.initiate();
+        mathAppNumber10.pushDigit(Digit.ONE);
+        mathAppNumber10.pushDigit(Digit.ZERO);
+
+        Sum sum = new Sum();
+        sum.pushNumber(mathAppNumber4);
+        sum.pushNumber(mathAppNumber6);
+        sum.pushNumber(mathAppNumber10);
+        sum.pushOperator(Operator.PLUS);
+        sum.pushOperator(Operator.TIMES);
+
+        int answer = mathAppNumber4.getValueOf() + mathAppNumber6.getValueOf() * mathAppNumber10.getValueOf();
+
+        MathAppNumber mathAppNumber = createNewMathAppNumber(answer);
+
+        boolean actual = Calculator.calculateSumEqualsUserInputNumber(sum, mathAppNumber);
         assertThat(actual, is(true));
     }
 

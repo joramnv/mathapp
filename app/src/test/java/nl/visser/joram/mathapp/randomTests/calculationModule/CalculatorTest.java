@@ -57,7 +57,7 @@ public class CalculatorTest {
 
         MathAppNumber mathAppNumber = createNewMathAppNumber(answer);
 
-        boolean b = calculator.calculateSumEqualsUserInputNumber(sum, mathAppNumber);
+        boolean b = Calculator.calculateSumEqualsUserInputNumber(sum, mathAppNumber);
         assertTrue(b);
     }
 

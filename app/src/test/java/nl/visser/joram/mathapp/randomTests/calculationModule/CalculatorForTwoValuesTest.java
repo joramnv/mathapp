@@ -47,9 +47,9 @@ public class CalculatorForTwoValuesTest {
     @Test
     public void givenTwoRandomValuesAndARandomOperatorWhenCalculateProductIsCalledThenCalculateProductReturnsTheProduct() throws Exception {
 
-        int expectedAnswer = randomNumber1 + randomNumber2;
+        double expectedAnswer = randomNumber1 + randomNumber2;
 
-        int calculatedAnswer = CalculatorForTwoValues.calculateProduct(randomNumber1, Operator.PLUS, randomNumber2);
+        double calculatedAnswer = CalculatorForTwoValues.calculateProduct(randomNumber1, Operator.PLUS, randomNumber2);
 
         assertEquals(expectedAnswer, calculatedAnswer);
     }
