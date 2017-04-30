@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp.testHelpers;
+package nl.visser.joram.mathapp.randomTests.testHelpers;
 
 public class RandomValueGenerator {
 

@@ -11,6 +11,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import nl.visser.joram.mathapp.activities.AnswerQuestionActivity;
 import nl.visser.joram.mathapp.Difficulty;
@@ -23,9 +24,7 @@ import static nl.visser.joram.mathapp.bundles.Category.addCategoriesBundle;
 
 public class CategoriesFragmentImpl extends Fragment implements CategoriesFragment {
 
-    private static final String LOG_TAG = CategoriesFragmentImpl.class.getSimpleName();
-
-    private ArrayList<Category> categories = new ArrayList<>();
+    private List<Category> categories = new ArrayList<>();
     private SeekBar difficultyControl;
     private TextView difficultyTextView;
     private int difficultySetByBar;

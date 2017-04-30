@@ -1,10 +1,16 @@
-package nl.visser.joram.mathapp.calculationModule;
+package nl.visser.joram.mathapp.randomTests.calculationModule;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import nl.visser.joram.mathapp.calculationModule.Calculator;
+import nl.visser.joram.mathapp.calculationModule.Digit;
+import nl.visser.joram.mathapp.calculationModule.MathAppNumber;
+import nl.visser.joram.mathapp.calculationModule.Operator;
+import nl.visser.joram.mathapp.calculationModule.Sum;
+
+import static org.junit.Assert.assertTrue;
 
 public class CalculatorTest {
 

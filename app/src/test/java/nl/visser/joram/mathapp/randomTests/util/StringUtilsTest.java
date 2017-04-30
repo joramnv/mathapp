@@ -1,11 +1,12 @@
-package nl.visser.joram.mathapp.util;
+package nl.visser.joram.mathapp.randomTests.util;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static nl.visser.joram.mathapp.testHelpers.RandomValueGenerator.createRandomString;
+import static nl.visser.joram.mathapp.randomTests.testHelpers.RandomValueGenerator.createRandomString;
 import static nl.visser.joram.mathapp.util.StringUtils.isBlank;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class StringUtilsTest {
 

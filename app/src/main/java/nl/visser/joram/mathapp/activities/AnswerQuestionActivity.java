@@ -143,8 +143,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
                 .replace(R.id.container_numpad, numpadFragmentImpl)
                 .commit();
         Bundle getBundleCategory = intent.getExtras();
-        categories = new ArrayList<>();
-        categories = (ArrayList<Category>) getBundleCategory.get("CATEGORY");
+        categories = (List<Category>) getBundleCategory.get("CATEGORY");
         numpadFragment = numpadFragmentImpl;
     }
 

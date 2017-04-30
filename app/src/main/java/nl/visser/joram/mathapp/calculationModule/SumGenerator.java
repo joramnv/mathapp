@@ -6,7 +6,7 @@ import java.util.Random;
 import nl.visser.joram.mathapp.bundles.Category;
 
 import static nl.visser.joram.mathapp.calculationModule.MathAppNumber.createNewMathAppNumber;
-import static nl.visser.joram.mathapp.calculationModule.Operator.getOperator;
+import static nl.visser.joram.mathapp.calculationModule.Operator.getRandomOperator;
 
 public class SumGenerator {
 
@@ -24,7 +24,7 @@ public class SumGenerator {
             MathAppNumber numberInSum = createNewMathAppNumber(difficulty, digitMin);
             newSum.pushNumber(numberInSum);
             if(i < amountOfNumbersInSum-1) {
-                Operator operator = getOperator(categories);
+                Operator operator = getRandomOperator(categories);
                 newSum.pushOperator(operator);
             }
         }
