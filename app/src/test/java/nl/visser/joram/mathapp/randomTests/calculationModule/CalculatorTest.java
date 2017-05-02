@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import nl.visser.joram.mathapp.calculationModule.Calculator;
 import nl.visser.joram.mathapp.calculationModule.Digit;
-import nl.visser.joram.mathapp.calculationModule.MathAppNumber;
+import nl.visser.joram.mathapp.calculationModule.MathAppNumberImpl;
 import nl.visser.joram.mathapp.calculationModule.Operator;
 import nl.visser.joram.mathapp.calculationModule.Sum;
 
@@ -16,7 +16,7 @@ public class CalculatorTest {
 
     private Calculator calculator;
     private Sum sum;
-    private MathAppNumber mathAppNumber1, mathAppNumber2;
+    private MathAppNumberImpl mathAppNumberImpl1, mathAppNumberImpl2;
 
     @Before
     public void setUp() throws Exception {
@@ -27,19 +27,19 @@ public class CalculatorTest {
         Digit randomDigit3 = Digit.randomDigit();
         Digit randomDigit4 = Digit.randomDigit();
 
-        mathAppNumber1 = new MathAppNumber();
-        mathAppNumber1.initiate();
-        mathAppNumber1.pushDigit(randomDigit1);
-        mathAppNumber1.pushDigit(randomDigit2);
+        mathAppNumberImpl1 = new MathAppNumberImpl();
+        mathAppNumberImpl1.initiate();
+        mathAppNumberImpl1.pushDigit(randomDigit1);
+        mathAppNumberImpl1.pushDigit(randomDigit2);
 
-        mathAppNumber2 = new MathAppNumber();
-        mathAppNumber2.initiate();
-        mathAppNumber2.pushDigit(randomDigit3);
-        mathAppNumber2.pushDigit(randomDigit4);
+        mathAppNumberImpl2 = new MathAppNumberImpl();
+        mathAppNumberImpl2.initiate();
+        mathAppNumberImpl2.pushDigit(randomDigit3);
+        mathAppNumberImpl2.pushDigit(randomDigit4);
 
         sum = new Sum();
-        sum.pushNumber(mathAppNumber1);
-        sum.pushNumber(mathAppNumber2);
+        sum.pushNumber(mathAppNumberImpl1);
+        sum.pushNumber(mathAppNumberImpl2);
         sum.pushOperator(Operator.PLUS);
 
     }
@@ -51,19 +51,19 @@ public class CalculatorTest {
 
     @Test
     public void givenGOODGOODWhenCalculateSumEqualsUserInputNumberIsCalledThenCalculateSumEqualsUserInputNumberReturnsTrue() throws Exception {
-        int firstNumber = mathAppNumber1.getValueOf();
-        int secondNumber = mathAppNumber2.getValueOf();
-        int answer = firstNumber + secondNumber;
+        double firstNumber = mathAppNumberImpl1.getValueOf();
+        double secondNumber = mathAppNumberImpl2.getValueOf();
+        double answer = firstNumber + secondNumber;
 
-        MathAppNumber mathAppNumber = createNewMathAppNumber(answer);
+        MathAppNumberImpl mathAppNumberImpl = createNewMathAppNumber(answer);
 
-        boolean b = Calculator.calculateSumEqualsUserInputNumber(sum, mathAppNumber);
+        boolean b = Calculator.calculateSumEqualsUserInputNumber(sum, mathAppNumberImpl);
         assertTrue(b);
     }
 
-    private MathAppNumber createNewMathAppNumber(int answer) {
-        MathAppNumber mathAppNumber = new MathAppNumber();
-        mathAppNumber.initiate();
+    private MathAppNumberImpl createNewMathAppNumber(double answer) {
+        MathAppNumberImpl mathAppNumberImpl = new MathAppNumberImpl();
+        mathAppNumberImpl.initiate();
 
         String answerAsString = String.valueOf(answer);
         int amountOfDigits = answerAsString.length();
@@ -78,9 +78,9 @@ public class CalculatorTest {
                     digit = Digit.randomDigit();
                 }
             }
-            mathAppNumber.pushDigit(digit);
+            mathAppNumberImpl.pushDigit(digit);
         }
-        return mathAppNumber;
+        return mathAppNumberImpl;
     }
 
     private Digit getDigitBelongingTo(int i) {

@@ -16,7 +16,8 @@ public enum Digit {
     SEVEN(7, R.drawable.seven),
     EIGHT(8, R.drawable.eight),
     NINE(9, R.drawable.nine),
-    ZERO(0, R.drawable.zero);
+    ZERO(0, R.drawable.zero),
+    COMMA(666, R.drawable.comma);
 
     int value;
     int drawable;

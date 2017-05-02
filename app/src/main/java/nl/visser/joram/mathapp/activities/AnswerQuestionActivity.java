@@ -13,11 +13,12 @@ import java.util.List;
 import nl.visser.joram.mathapp.calculationModule.Digit;
 import nl.visser.joram.mathapp.bundles.Category;
 import nl.visser.joram.mathapp.bundles.Mode;
+import nl.visser.joram.mathapp.calculationModule.MathAppNumber;
+import nl.visser.joram.mathapp.calculationModule.MathAppNumberImpl;
 import nl.visser.joram.mathapp.fragments.NumbersFragment;
 import nl.visser.joram.mathapp.fragments.NumpadFragment;
 import nl.visser.joram.mathapp.fragments.Impl.NumpadFragmentImpl;
 import nl.visser.joram.mathapp.fragments.TimerFragment;
-import nl.visser.joram.mathapp.calculationModule.MathAppNumber;
 import nl.visser.joram.mathapp.calculationModule.Operator;
 import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.calculationModule.Sum;
@@ -123,7 +124,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
 
     public void startFragments() {
         sumGenerator = new SumGenerator();
-        userInputNumber = new MathAppNumber();
+        userInputNumber = new MathAppNumberImpl();
         if(showTimer) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             timerFragment = new TimerFragment();
