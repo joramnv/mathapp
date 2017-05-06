@@ -1,3 +1,4 @@
+/*
 package nl.visser.joram.mathapp.randomTests.util;
 
 import org.junit.Before;
@@ -37,3 +38,4 @@ public class StringUtilsTest {
     }
 
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package nl.visser.joram.mathapp.randomTests.calculationModule;
 
 import org.junit.After;
@@ -55,3 +56,4 @@ public class CalculatorForTwoValuesTest {
     }
 
 }
+*/

@@ -1,5 +1,4 @@
-/*
-package nl.visser.joram.mathapp.unitTests.util;
+package nl.visser.joram.mathapp.util;
 
 import org.junit.Test;
 
@@ -31,4 +30,3 @@ public class StringUtilsTest {
     }
 
 }
-*/

@@ -6,7 +6,7 @@ import java.util.Random;
 import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.bundles.Category;
 
-public enum Operator{
+public enum Operator implements SumComponent {
     MINUS (R.drawable.minus),
     PLUS (R.drawable.plus),
     EQUALS(R.drawable.equals),

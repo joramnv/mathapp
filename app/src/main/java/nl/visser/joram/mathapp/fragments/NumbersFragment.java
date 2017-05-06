@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import nl.visser.joram.mathapp.calculationModule.Digit;
-import nl.visser.joram.mathapp.calculationModule.MathAppNumber;
+import nl.visser.joram.mathapp.calculationModule.MathAppNumberImpl;
 import nl.visser.joram.mathapp.calculationModule.Operator;
 import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.Score;
@@ -139,7 +139,7 @@ public class NumbersFragment extends Fragment {
         if(layout != null) {
             layout.removeAllViews();
         }
-        List<MathAppNumber> numbers = sum.getNumbersOfSum();
+        List<MathAppNumberImpl> numbers = sum.getNumbersOfSum();
         int amountOfNumbers = sum.getNumbersOfSum().size();
         int amountOfOperators = sum.getOperatorsOfSum().size();
         for(int i = 0; i < amountOfNumbers; i++) {

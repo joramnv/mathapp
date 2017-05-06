@@ -21,11 +21,11 @@ public class SumGenerator {
         int amountOfNumbersInSum = RANDOM.nextInt((max-min)+1)+min;
 
         for(int i = 0; i < amountOfNumbersInSum; i++) {
-            MathAppNumber numberInSum = generateRandomMathAppNumber(difficulty, digitMin);
-            newSum.pushNumber(numberInSum);
+            SumComponent numberInSum = generateRandomMathAppNumber(difficulty, digitMin);
+            newSum.add(numberInSum);
             if(i < amountOfNumbersInSum-1) {
-                Operator operator = getRandomOperator(categories);
-                newSum.pushOperator(operator);
+                SumComponent operator = getRandomOperator(categories);
+                newSum.add(operator);
             }
         }
         return newSum;

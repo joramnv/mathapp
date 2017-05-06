@@ -1,60 +1,46 @@
 package nl.visser.joram.mathapp.calculationModule;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 public class Calculator {
 
     public static boolean calculateSumEqualsUserInputNumber(Sum sum, MathAppNumber userInputNumber) {
-        List<MathAppNumber> mathAppNumbers = sum.getNumbersOfSum();
-        List<Double> numbers = new ArrayList<>();
-        for (MathAppNumber mathAppNumber : mathAppNumbers) {
-            numbers.add(mathAppNumber.getValueOf());
-        }
-        List<Operator> operators = sum.getOperatorsOfSum();
-        //TODO clean up and rename method
-        for (int i = 0; i< operators.size(); i++) {
-            if (operators.get(i) == Operator.TIMES) {
-                numbers = calculateSomeThingAndReturnSomething(numbers, i, Operator.TIMES);
-                operators.remove(i);
-            }
-        }
+        LinkedList<SumComponent> sumComponents = sum.getSumComponents();
 
-        for (int i = 0; i< operators.size(); i++) {
-            if (operators.get(i) == Operator.DIVIDED_BY) {
-                numbers = calculateSomeThingAndReturnSomething(numbers, i, Operator.DIVIDED_BY);
-                operators.remove(i);
-            }
-        }
+        sumComponents = lalalalalaLaaa(sumComponents, Operator.TIMES);
+        sumComponents = lalalalalaLaaa(sumComponents, Operator.DIVIDED_BY);
+        sumComponents = lalalalalaLaaa(sumComponents, Operator.PLUS);
+        sumComponents = lalalalalaLaaa(sumComponents, Operator.MINUS);
 
-        for (int i = 0; i< operators.size(); i++) {
-            if (operators.get(i) == Operator.PLUS) {
-                numbers = calculateSomeThingAndReturnSomething(numbers, i, Operator.PLUS);
-                operators.remove(i);
-            }
-        }
+        MathAppNumberImpl mathAppNumber = (MathAppNumberImpl) sumComponents.get(0);
 
-        for (int i = 0; i< operators.size(); i++) {
-            if (operators.get(i) == Operator.MINUS) {
-                numbers = calculateSomeThingAndReturnSomething(numbers, i, Operator.MINUS);
-                operators.remove(i);
-            }
-        }
-
-        double totalNumber = 0;
-
-        for (double number : numbers) {
-            totalNumber += number;
-        }
-
-        return totalNumber == userInputNumber.getValueOf();
+        return mathAppNumber.getValueOf() == userInputNumber.getValueOf();
     }
 
-    public static List<Double> calculateSomeThingAndReturnSomething(List<Double> numbers, int i, Operator operator) {
-        double result = CalculatorForTwoValues.calculateProduct(numbers.get(i), operator, numbers.get(i+1));
-        numbers.set(i, result);
-        numbers.remove(i+1);
-        return numbers;
+    public static LinkedList<SumComponent> lalalalalaLaaa(LinkedList<SumComponent> sumComponents, Operator operator) {
+        for (int i = 0; i < sumComponents.size(); i++) {
+            if (sumComponents.get(i) == operator) {
+                double first = 0;
+                if (sumComponents.get(i-1) instanceof MathAppNumber) {
+                    MathAppNumber mathAppNumber = (MathAppNumber) sumComponents.get(i-1);
+                    first = mathAppNumber.getValueOf();
+                }
+                double second = 0;
+                if (sumComponents.get(i+1) instanceof MathAppNumber) {
+                    MathAppNumber mathAppNumber = (MathAppNumber) sumComponents.get(i+1);
+                    second = mathAppNumber.getValueOf();
+                }
+                if (first != 0 && second != 0) {
+                    double result = CalculatorForTwoValues.calculateProduct(first, operator, second);
+                    SumComponent mathAppNumber = new MathAppNumberImpl(result);
+                    sumComponents.set(i - 1, mathAppNumber);
+                    sumComponents.remove(i);
+                    sumComponents.remove(i);
+                    i--;
+                }
+            }
+        }
+        return sumComponents;
     }
 
 }

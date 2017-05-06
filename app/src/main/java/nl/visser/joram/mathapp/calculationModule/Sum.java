@@ -1,33 +1,42 @@
 package nl.visser.joram.mathapp.calculationModule;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
-public class Sum implements Serializable{
+public class Sum implements Serializable {
 
-    private List<MathAppNumber> numbersOfSum;
-    private List<Operator> operatorsOfSum;
+    private LinkedList<SumComponent> sumComponents;
 
     public Sum() {
-        numbersOfSum = new ArrayList<>();
-        operatorsOfSum = new ArrayList<>();
+        sumComponents = new LinkedList<>();
     }
 
-    public List<MathAppNumber> getNumbersOfSum() {
-        return numbersOfSum;
+    public LinkedList<MathAppNumberImpl> getNumbersOfSum() {
+        LinkedList<MathAppNumberImpl> numbers = new LinkedList<>();
+        for (SumComponent sumComponent : sumComponents) {
+            if (sumComponent instanceof MathAppNumberImpl) {
+                numbers.add((MathAppNumberImpl) sumComponent);
+            }
+        }
+        return numbers;
     }
 
-    public List<Operator> getOperatorsOfSum() {
-        return operatorsOfSum;
+    public LinkedList<Operator> getOperatorsOfSum() {
+        LinkedList<Operator> operators = new LinkedList<>();
+        for (SumComponent sumComponent : sumComponents) {
+            if (sumComponent instanceof Operator) {
+                operators.add((Operator) sumComponent);
+            }
+        }
+        return operators;
     }
 
-    public void pushNumber(MathAppNumber number) {
-        numbersOfSum.add(number);
+    public void add(SumComponent sumComponent) {
+        sumComponents.add(sumComponent);
     }
 
-    public void pushOperator(Operator operator) {
-        operatorsOfSum.add(operator);
+    public LinkedList<SumComponent> getSumComponents() {
+        return sumComponents;
     }
 
 }
