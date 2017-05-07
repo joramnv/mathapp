@@ -22,9 +22,9 @@ import nl.visser.joram.mathapp.fragments.TimerFragment;
 import nl.visser.joram.mathapp.calculationModule.Operator;
 import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.calculationModule.Sum;
-import nl.visser.joram.mathapp.calculationModule.SumGenerator;
 
 import static nl.visser.joram.mathapp.calculationModule.Calculator.calculateSumEqualsUserInputNumber;
+import static nl.visser.joram.mathapp.calculationModule.generators.SumGenerator.generateRandomSum;
 
 public class AnswerQuestionActivity extends MenuActivity implements NumbersFragment.OnCompleteListener, NumpadFragmentImpl.NumpadListener, TimerFragment.OnFragmentInteractionListener {
 
@@ -40,7 +40,6 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
     private NumpadFragmentImpl numpadFragmentImpl;
 
     private MathAppNumber userInputNumber;
-    private SumGenerator sumGenerator;
     private Sum sum;
     private List<Category> categories;
 
@@ -123,7 +122,6 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
     }
 
     public void startFragments() {
-        sumGenerator = new SumGenerator();
         userInputNumber = new MathAppNumberImpl();
         if(showTimer) {
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -190,7 +188,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
 
     private void getSum() {
         //TODO difficulty dynamisch zetten.
-        sum = sumGenerator.generateRandomSum(2, categories);
+        sum = generateRandomSum(2, categories);
         numbersFragment.drawSum(sum);
     }
 

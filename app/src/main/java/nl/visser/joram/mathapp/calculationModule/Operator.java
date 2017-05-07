@@ -1,10 +1,6 @@
 package nl.visser.joram.mathapp.calculationModule;
 
-import java.util.List;
-import java.util.Random;
-
 import nl.visser.joram.mathapp.R;
-import nl.visser.joram.mathapp.bundles.Category;
 
 public enum Operator implements SumComponent {
     MINUS (R.drawable.minus),
@@ -16,7 +12,6 @@ public enum Operator implements SumComponent {
     CLEAR(0);
 
     private int drawable;
-    private static final Random RANDOM = new Random();
 
     Operator(int drawable) {
         this.drawable = drawable;
@@ -24,21 +19,6 @@ public enum Operator implements SumComponent {
 
     public int getDrawable() {
         return drawable;
-    }
-
-    public static Operator getRandomOperator(List<Category> categories) {
-        int randomCategoryIndex = RANDOM.nextInt(categories.size());
-        Category category = categories.get(randomCategoryIndex);
-        if (category.equals(Category.ADDITIONS)) {
-            return Operator.PLUS;
-        } else if(category.equals(Category.SUBTRACTIONS)) {
-            return Operator.MINUS;
-        } else if (category.equals(Category.MULTIPLICATIONS)) {
-            return Operator.TIMES;
-        } else if(category.equals(Category.DIVISIONS)) {
-            return Operator.DIVIDED_BY;
-        }
-        return Operator.PLUS;
     }
 
 }

@@ -8,7 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class CalculatorTest {
 
     @Test
-    public void givenEightyFourPlusThirtySevenWhenCalculateSumEqualsUserInputNumberIsCalledThenCalculateSumEqualsUserInputNumberReturnsTrue() throws Exception {
+    public void given84Plus37WhenCalculateSumEqualsUserInputNumberIsCalledThenCalculateSumEqualsUserInputNumberReturnsTrue() throws Exception {
         MathAppNumberImpl mathAppNumber84 = new MathAppNumberImpl(84);
         MathAppNumberImpl mathAppNumber37 = new MathAppNumberImpl(37);
         MathAppNumberImpl mathAppNumber121 = new MathAppNumberImpl(121);
@@ -23,7 +23,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void givenFourPlusSixTimesTenWhenCalculateSumEqualsUserInputNumberIsCalledThenCalculateSumEqualsUserInputNumberReturnsTrue() throws Exception {
+    public void given4Plus6Times10WhenCalculateSumEqualsUserInputNumberIsCalledThenCalculateSumEqualsUserInputNumberReturnsTrue() throws Exception {
         MathAppNumberImpl mathAppNumber4 = new MathAppNumberImpl(4);
         MathAppNumberImpl mathAppNumber6 = new MathAppNumberImpl(6);
         MathAppNumberImpl mathAppNumber10 = new MathAppNumberImpl(10);
@@ -41,7 +41,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void givenFourPlusSixDividedByTenWhenCalculateSumEqualsUserInputNumberIsCalledThenCalculateSumEqualsUserInputNumberReturnsTrue() throws Exception {
+    public void given4Plus6DividedBy10WhenCalculateSumEqualsUserInputNumberIsCalledThenCalculateSumEqualsUserInputNumberReturnsTrue() throws Exception {
         MathAppNumberImpl mathAppNumber4 = new MathAppNumberImpl(4);
         MathAppNumberImpl mathAppNumber6 = new MathAppNumberImpl(6);
         MathAppNumberImpl mathAppNumber10 = new MathAppNumberImpl(10);
