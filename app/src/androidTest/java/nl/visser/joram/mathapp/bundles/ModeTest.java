@@ -1,12 +1,10 @@
-package nl.visser.joram.mathapp.unitTests.bundles;
+package nl.visser.joram.mathapp.bundles;
 
 import android.os.Bundle;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import nl.visser.joram.mathapp.bundles.Mode;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
