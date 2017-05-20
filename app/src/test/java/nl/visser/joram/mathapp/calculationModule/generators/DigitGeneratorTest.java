@@ -5,19 +5,19 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import nl.visser.joram.mathapp.calculationModule.Digit;
+import nl.visser.joram.mathapp.calculationModule.generators.Impl.DigitGeneratorImpl;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 public class DigitGeneratorTest {
 
-    private static final Digit[] DIGITS = new Digit[]{Digit.ZERO, Digit.ONE, Digit.TWO, Digit.THREE,
-            Digit.FOUR, Digit.FIVE, Digit.SIX, Digit.SEVEN, Digit.SEVEN, Digit.EIGHT, Digit.NINE};
+    private DigitGenerator digitGenerator = new DigitGeneratorImpl();
 
     @Test
     public void whenGenerateRandomDigitIsCalledThenGenerateRandomDigitReturnsAValidDigit() throws Exception {
-        Digit randomDigit = DigitGenerator.generateRandomDigit();
-        boolean actual = Arrays.asList(DIGITS).contains(randomDigit);
+        Digit randomDigit = digitGenerator.generateRandomDigit();
+        boolean actual = Arrays.asList(DigitGenerator.DIGITS).contains(randomDigit);
         assertThat(actual, is(true));
     }
 

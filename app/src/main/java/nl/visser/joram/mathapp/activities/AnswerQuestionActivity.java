@@ -15,6 +15,8 @@ import nl.visser.joram.mathapp.bundles.Category;
 import nl.visser.joram.mathapp.bundles.Mode;
 import nl.visser.joram.mathapp.calculationModule.MathAppNumber;
 import nl.visser.joram.mathapp.calculationModule.MathAppNumberImpl;
+import nl.visser.joram.mathapp.calculationModule.generators.Impl.SumGeneratorImpl;
+import nl.visser.joram.mathapp.calculationModule.generators.SumGenerator;
 import nl.visser.joram.mathapp.fragments.NumbersFragment;
 import nl.visser.joram.mathapp.fragments.NumpadFragment;
 import nl.visser.joram.mathapp.fragments.Impl.NumpadFragmentImpl;
@@ -24,24 +26,21 @@ import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.calculationModule.Sum;
 
 import static nl.visser.joram.mathapp.calculationModule.Calculator.calculateSumEqualsUserInputNumber;
-import static nl.visser.joram.mathapp.calculationModule.generators.SumGenerator.generateRandomSum;
 
 public class AnswerQuestionActivity extends MenuActivity implements NumbersFragment.OnCompleteListener, NumpadFragmentImpl.NumpadListener, TimerFragment.OnFragmentInteractionListener {
 
     private ImageView chalksImages;
-
     private NumpadFragment numpadFragment;
-
     private Intent intent;
     private boolean showTimer;
-    private boolean endlessMode = false;
+    private boolean endlessMode;
     private TimerFragment timerFragment;
     private NumbersFragment numbersFragment;
     private NumpadFragmentImpl numpadFragmentImpl;
-
     private MathAppNumber userInputNumber;
     private Sum sum;
     private List<Category> categories;
+    private SumGenerator sumGenerator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,14 +185,17 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
         startActivity(intent);
     }
 
-    private void getSum() {
-        //TODO difficulty dynamisch zetten.
-        sum = generateRandomSum(2, categories);
-        numbersFragment.drawSum(sum);
-    }
-
     public void onComplete() {
         getSum();
+    }
+
+    private void getSum() {
+        if (sumGenerator == null) {
+            sumGenerator = new SumGeneratorImpl();
+        }
+        //TODO difficulty dynamisch zetten.
+        sum = sumGenerator.generateRandomSum(2, categories);
+        numbersFragment.drawSum(sum);
     }
 
 }
