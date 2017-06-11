@@ -25,6 +25,8 @@ import nl.visser.joram.mathapp.calculationModule.Operator;
 import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.calculationModule.Sum;
 
+import static nl.visser.joram.mathapp.bundles.Category.CATEGORY_BUNDLE;
+import static nl.visser.joram.mathapp.bundles.Mode.MODE_BUNDLE;
 import static nl.visser.joram.mathapp.calculationModule.Calculator.calculateSumEqualsUserInputNumber;
 
 public class AnswerQuestionActivity extends MenuActivity implements NumbersFragment.OnCompleteListener, NumpadFragmentImpl.NumpadListener, TimerFragment.OnFragmentInteractionListener {
@@ -57,7 +59,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
         chalksImages = (ImageView) findViewById(R.id.chalks);
         intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        Mode mode = (Mode) bundle.get("MODE");
+        Mode mode = (Mode) bundle.get(MODE_BUNDLE);
         showTimer = false;
         switch (mode) {
             case NORMAL:
@@ -139,7 +141,7 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
                 .replace(R.id.container_numpad, numpadFragmentImpl)
                 .commit();
         Bundle getBundleCategory = intent.getExtras();
-        categories = (List<Category>) getBundleCategory.get("CATEGORY");
+        categories = (List<Category>) getBundleCategory.get(CATEGORY_BUNDLE);
         numpadFragment = numpadFragmentImpl;
     }
 

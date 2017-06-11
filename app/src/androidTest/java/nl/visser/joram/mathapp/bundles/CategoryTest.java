@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.List;
 
+import static nl.visser.joram.mathapp.bundles.Category.CATEGORY_BUNDLE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -22,7 +23,7 @@ public class CategoryTest {
         expected.add(Category.ADDITIONS);
         expected.add(Category.SUBTRACTIONS);
         Bundle returnedBundle = Category.addCategoriesBundle(expected);
-        List<Category> actual = (List<Category>) returnedBundle.get("CATEGORY");
+        List<Category> actual = (List<Category>) returnedBundle.get(CATEGORY_BUNDLE);
         assertThat(actual, is(equalTo(expected)));
         assertThat(actual.contains(Category.ADDITIONS), is(true));
         assertThat(actual.contains(Category.SUBTRACTIONS), is(true));
