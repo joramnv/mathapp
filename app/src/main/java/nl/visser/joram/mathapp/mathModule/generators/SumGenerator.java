@@ -1,9 +1,9 @@
-package nl.visser.joram.mathapp.calculationModule.generators;
+package nl.visser.joram.mathapp.mathModule.generators;
 
 import java.util.List;
 
 import nl.visser.joram.mathapp.bundles.Category;
-import nl.visser.joram.mathapp.calculationModule.Sum;
+import nl.visser.joram.mathapp.mathModule.sumComponents.Sum;
 
 public interface SumGenerator extends RandomGenerator {
 

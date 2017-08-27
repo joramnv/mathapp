@@ -1,8 +1,10 @@
-package nl.visser.joram.mathapp.calculationModule;
+package nl.visser.joram.mathapp.mathModule.calculators;
+
+import nl.visser.joram.mathapp.mathModule.sumComponents.Operator;
 
 public class CalculatorForTwoValues {
 
-    public static double calculateProduct(double valueOne, Operator operator, double valueTwo) {
+    public double calculateProduct(double valueOne, Operator operator, double valueTwo) {
         if(Operator.PLUS.equals(operator)) {
             valueOne += valueTwo;
         } else if(Operator.MINUS.equals(operator)) {

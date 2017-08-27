@@ -7,7 +7,7 @@ public enum Mode {
 
     public static final String MODE_BUNDLE = "nl.visser.joram.mathapp.bundles.Mode.MODE_BUNDLE";
 
-    public static Bundle addModeBundle(Mode mode) {
+    public static Bundle addModeBundle(Mode mode) { //TODO make non-static.
         Bundle modeBundle = new Bundle();
         modeBundle.putSerializable(MODE_BUNDLE, mode);
         return modeBundle;

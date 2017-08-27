@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp.calculationModule.generators.Impl;
+package nl.visser.joram.mathapp.mathModule.generators.Impl;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.visser.joram.mathapp.bundles.Category;
-import nl.visser.joram.mathapp.calculationModule.MathAppNumberImpl;
-import nl.visser.joram.mathapp.calculationModule.Operator;
-import nl.visser.joram.mathapp.calculationModule.Sum;
-import nl.visser.joram.mathapp.calculationModule.generators.MathAppNumberGenerator;
-import nl.visser.joram.mathapp.calculationModule.generators.OperatorGenerator;
+import nl.visser.joram.mathapp.mathModule.generators.MathAppNumberGenerator;
+import nl.visser.joram.mathapp.mathModule.generators.OperatorGenerator;
+import nl.visser.joram.mathapp.mathModule.sumComponents.MathAppNumberImpl;
+import nl.visser.joram.mathapp.mathModule.sumComponents.Operator;
+import nl.visser.joram.mathapp.mathModule.sumComponents.Sum;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -27,7 +27,6 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class SumGeneratorImplTest {
 
-    //TODO uitzoeken wat beter/logischer/'de industrie standaard' is; de Impl testen, de interface testen of beiden.
     private SumGeneratorImpl sumGeneratorImpl = new SumGeneratorImpl();
 
     @Mock

@@ -1,11 +1,18 @@
-package nl.visser.joram.mathapp.calculationModule;
+package nl.visser.joram.mathapp.mathModule;
 
 import org.junit.Test;
+
+import nl.visser.joram.mathapp.mathModule.calculators.Calculator;
+import nl.visser.joram.mathapp.mathModule.sumComponents.MathAppNumberImpl;
+import nl.visser.joram.mathapp.mathModule.sumComponents.Operator;
+import nl.visser.joram.mathapp.mathModule.sumComponents.Sum;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CalculatorTest {
+
+    private Calculator calculator = new Calculator();
 
     @Test
     public void given84Plus37WhenCalculateSumEqualsUserInputNumberIsCalledThenCalculateSumEqualsUserInputNumberReturnsTrue() throws Exception {
@@ -18,7 +25,7 @@ public class CalculatorTest {
         sum.add(Operator.PLUS);
         sum.add(mathAppNumber37);
 
-        boolean actual = Calculator.calculateSumEqualsUserInputNumber(sum, mathAppNumber121);
+        boolean actual = calculator.evaluateSumEqualsUserInputNumber(sum, mathAppNumber121);
         assertThat(actual, is(true));
     }
 
@@ -36,7 +43,7 @@ public class CalculatorTest {
         sum.add(Operator.TIMES);
         sum.add(mathAppNumber10);
 
-        boolean actual = Calculator.calculateSumEqualsUserInputNumber(sum, mathAppNumber64);
+        boolean actual = calculator.evaluateSumEqualsUserInputNumber(sum, mathAppNumber64);
         assertThat(actual, is(true));
     }
 
@@ -54,7 +61,7 @@ public class CalculatorTest {
         sum.add(Operator.DIVIDED_BY);
         sum.add(mathAppNumber10);
 
-        boolean actual = Calculator.calculateSumEqualsUserInputNumber(sum, mathAppNumber4Dot6);
+        boolean actual = calculator.evaluateSumEqualsUserInputNumber(sum, mathAppNumber4Dot6);
         assertThat(actual, is(true));
     }
 
@@ -72,7 +79,7 @@ public class CalculatorTest {
         sum.add(Operator.MINUS);
         sum.add(mathAppNumber10);
 
-        boolean actual = Calculator.calculateSumEqualsUserInputNumber(sum, mathAppNumberMinus12);
+        boolean actual = calculator.evaluateSumEqualsUserInputNumber(sum, mathAppNumberMinus12);
         assertThat(actual, is(true));
     }
 

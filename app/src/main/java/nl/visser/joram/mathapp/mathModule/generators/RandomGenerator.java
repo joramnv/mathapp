@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp.calculationModule.generators;
+package nl.visser.joram.mathapp.mathModule.generators;
 
 import java.util.Random;
 

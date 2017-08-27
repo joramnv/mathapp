@@ -7,12 +7,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import nl.visser.joram.mathapp.R;
-
-import static nl.visser.joram.mathapp.util.StringUtils.isBlank;
+import nl.visser.joram.mathapp.util.StringUtils;
 
 public abstract class MenuActivity extends AppCompatActivity{
 
     private static final String LOG_TAG =  MenuActivity.class.getSimpleName();
+
+    private StringUtils stringUtils = new StringUtils();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -39,7 +40,7 @@ public abstract class MenuActivity extends AppCompatActivity{
     }
 
     public void logger(String logTag, String message) {
-        if(isBlank(logTag)) {
+        if(stringUtils.isBlank(logTag)) {
             Log.d(LOG_TAG, message);
         } else {
             Log.d(logTag, message);

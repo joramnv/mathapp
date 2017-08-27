@@ -1,6 +1,6 @@
-package nl.visser.joram.mathapp.calculationModule.generators;
+package nl.visser.joram.mathapp.mathModule.generators;
 
-import nl.visser.joram.mathapp.calculationModule.Digit;
+import nl.visser.joram.mathapp.mathModule.sumComponents.Digit;
 
 public interface DigitGenerator extends RandomGenerator {
 

@@ -1,4 +1,4 @@
-package nl.visser.joram.mathapp.calculationModule;
+package nl.visser.joram.mathapp.mathModule.sumComponents;
 
 import java.util.LinkedList;
 

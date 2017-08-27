@@ -10,7 +10,7 @@ public enum Category {
 
     public static final String CATEGORY_BUNDLE = "nl.visser.joram.mathapp.bundles.Category.CATEGORY_BUNDLE";
 
-    public static Bundle addCategoriesBundle(List<Category> categories) {
+    public static Bundle addCategoriesBundle(List<Category> categories) { //TODO make non-static.
         ArrayList<Category> serializableListOfCategories = new ArrayList<>(categories);
         Bundle bundleCategories = new Bundle();
         bundleCategories.putSerializable(CATEGORY_BUNDLE, serializableListOfCategories);

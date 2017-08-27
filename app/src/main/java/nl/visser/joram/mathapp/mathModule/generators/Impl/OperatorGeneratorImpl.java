@@ -1,10 +1,10 @@
-package nl.visser.joram.mathapp.calculationModule.generators.Impl;
+package nl.visser.joram.mathapp.mathModule.generators.Impl;
 
 import java.util.List;
 
 import nl.visser.joram.mathapp.bundles.Category;
-import nl.visser.joram.mathapp.calculationModule.Operator;
-import nl.visser.joram.mathapp.calculationModule.generators.OperatorGenerator;
+import nl.visser.joram.mathapp.mathModule.sumComponents.Operator;
+import nl.visser.joram.mathapp.mathModule.generators.OperatorGenerator;
 
 public class OperatorGeneratorImpl implements OperatorGenerator {
 

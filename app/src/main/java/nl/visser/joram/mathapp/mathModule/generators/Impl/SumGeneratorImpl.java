@@ -1,13 +1,13 @@
-package nl.visser.joram.mathapp.calculationModule.generators.Impl;
+package nl.visser.joram.mathapp.mathModule.generators.Impl;
 
 import java.util.List;
 
 import nl.visser.joram.mathapp.bundles.Category;
-import nl.visser.joram.mathapp.calculationModule.Sum;
-import nl.visser.joram.mathapp.calculationModule.SumComponent;
-import nl.visser.joram.mathapp.calculationModule.generators.MathAppNumberGenerator;
-import nl.visser.joram.mathapp.calculationModule.generators.OperatorGenerator;
-import nl.visser.joram.mathapp.calculationModule.generators.SumGenerator;
+import nl.visser.joram.mathapp.mathModule.sumComponents.Sum;
+import nl.visser.joram.mathapp.mathModule.sumComponents.SumComponent;
+import nl.visser.joram.mathapp.mathModule.generators.MathAppNumberGenerator;
+import nl.visser.joram.mathapp.mathModule.generators.OperatorGenerator;
+import nl.visser.joram.mathapp.mathModule.generators.SumGenerator;
 
 public class SumGeneratorImpl implements SumGenerator{
 

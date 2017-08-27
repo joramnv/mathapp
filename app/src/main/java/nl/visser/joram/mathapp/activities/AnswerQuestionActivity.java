@@ -10,27 +10,28 @@ import android.widget.ImageView;
 
 import java.util.List;
 
-import nl.visser.joram.mathapp.calculationModule.Digit;
+import nl.visser.joram.mathapp.mathModule.calculators.Calculator;
+import nl.visser.joram.mathapp.mathModule.sumComponents.Digit;
 import nl.visser.joram.mathapp.bundles.Category;
 import nl.visser.joram.mathapp.bundles.Mode;
-import nl.visser.joram.mathapp.calculationModule.MathAppNumber;
-import nl.visser.joram.mathapp.calculationModule.MathAppNumberImpl;
-import nl.visser.joram.mathapp.calculationModule.generators.Impl.SumGeneratorImpl;
-import nl.visser.joram.mathapp.calculationModule.generators.SumGenerator;
+import nl.visser.joram.mathapp.mathModule.sumComponents.MathAppNumber;
+import nl.visser.joram.mathapp.mathModule.sumComponents.MathAppNumberImpl;
+import nl.visser.joram.mathapp.mathModule.generators.Impl.SumGeneratorImpl;
+import nl.visser.joram.mathapp.mathModule.generators.SumGenerator;
 import nl.visser.joram.mathapp.fragments.NumbersFragment;
 import nl.visser.joram.mathapp.fragments.NumpadFragment;
 import nl.visser.joram.mathapp.fragments.Impl.NumpadFragmentImpl;
 import nl.visser.joram.mathapp.fragments.TimerFragment;
-import nl.visser.joram.mathapp.calculationModule.Operator;
+import nl.visser.joram.mathapp.mathModule.sumComponents.Operator;
 import nl.visser.joram.mathapp.R;
-import nl.visser.joram.mathapp.calculationModule.Sum;
+import nl.visser.joram.mathapp.mathModule.sumComponents.Sum;
 
 import static nl.visser.joram.mathapp.bundles.Category.CATEGORY_BUNDLE;
 import static nl.visser.joram.mathapp.bundles.Mode.MODE_BUNDLE;
-import static nl.visser.joram.mathapp.calculationModule.Calculator.calculateSumEqualsUserInputNumber;
 
 public class AnswerQuestionActivity extends MenuActivity implements NumbersFragment.OnCompleteListener, NumpadFragmentImpl.NumpadListener, TimerFragment.OnFragmentInteractionListener {
 
+    private Calculator calculator = new Calculator();
     private ImageView chalksImages;
     private NumpadFragment numpadFragment;
     private Intent intent;
@@ -159,11 +160,8 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
                 userInputNumber.turnNegative();
                 break;
             case EQUALS:
-                if(calculateSumEqualsUserInputNumber(sum, userInputNumber)) {
-                    numbersFragment.showCorrectAnswer();
-                } else {
-                    numbersFragment.showWrongAnswer();
-                }
+                boolean b = calculator.evaluateSumEqualsUserInputNumber(sum, userInputNumber);
+                giveUserFeedbackRegardingTheEvaluationOfTheSum(b);
                 getSum();
                 userInputNumber.initiate();
                 numbersFragment.clearUserAnswer();
@@ -191,7 +189,17 @@ public class AnswerQuestionActivity extends MenuActivity implements NumbersFragm
         getSum();
     }
 
+    private void giveUserFeedbackRegardingTheEvaluationOfTheSum(boolean correctAnswer) {
+        //TODO make own delegate
+        if(correctAnswer) {
+            numbersFragment.showCorrectAnswer();
+        } else {
+            numbersFragment.showWrongAnswer();
+        }
+    }
+
     private void getSum() {
+        //TODO make own delegate
         if (sumGenerator == null) {
             sumGenerator = new SumGeneratorImpl();
         }

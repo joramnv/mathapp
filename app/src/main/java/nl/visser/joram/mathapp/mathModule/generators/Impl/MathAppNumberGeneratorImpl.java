@@ -1,9 +1,9 @@
-package nl.visser.joram.mathapp.calculationModule.generators.Impl;
+package nl.visser.joram.mathapp.mathModule.generators.Impl;
 
-import nl.visser.joram.mathapp.calculationModule.Digit;
-import nl.visser.joram.mathapp.calculationModule.MathAppNumberImpl;
-import nl.visser.joram.mathapp.calculationModule.generators.DigitGenerator;
-import nl.visser.joram.mathapp.calculationModule.generators.MathAppNumberGenerator;
+import nl.visser.joram.mathapp.mathModule.sumComponents.Digit;
+import nl.visser.joram.mathapp.mathModule.sumComponents.MathAppNumberImpl;
+import nl.visser.joram.mathapp.mathModule.generators.DigitGenerator;
+import nl.visser.joram.mathapp.mathModule.generators.MathAppNumberGenerator;
 
 public class MathAppNumberGeneratorImpl implements MathAppNumberGenerator {
 

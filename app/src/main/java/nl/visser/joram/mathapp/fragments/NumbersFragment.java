@@ -1,8 +1,8 @@
 package nl.visser.joram.mathapp.fragments;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,14 +15,16 @@ import android.widget.Toast;
 import java.util.LinkedList;
 import java.util.List;
 
-import nl.visser.joram.mathapp.calculationModule.Digit;
-import nl.visser.joram.mathapp.calculationModule.MathAppNumberImpl;
-import nl.visser.joram.mathapp.calculationModule.Operator;
 import nl.visser.joram.mathapp.R;
 import nl.visser.joram.mathapp.Score;
-import nl.visser.joram.mathapp.calculationModule.Sum;
+import nl.visser.joram.mathapp.mathModule.sumComponents.Digit;
+import nl.visser.joram.mathapp.mathModule.sumComponents.MathAppNumberImpl;
+import nl.visser.joram.mathapp.mathModule.sumComponents.Operator;
+import nl.visser.joram.mathapp.mathModule.sumComponents.Sum;
 
 public class NumbersFragment extends Fragment {
+
+    private static Toast toast;
 
     private OnCompleteListener listener;
 
@@ -119,9 +121,13 @@ public class NumbersFragment extends Fragment {
         score.updateScoreForCurrentSession(true);
         CharSequence text = "Good!";
         int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text + " " + String.valueOf(score.getScore()), duration);
+        if (toast != null) {
+            toast.cancel();
+        }
+        toast = Toast.makeText(context, text + " " + String.valueOf(score.getScore()), duration);
         toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 36);
         toast.show();
+        //TODO this does two things.
         userAnswer = 0;
         textViewAnswer.setText("");
     }
@@ -130,7 +136,10 @@ public class NumbersFragment extends Fragment {
         score.updateScoreForCurrentSession(false);
         CharSequence text = "Wrong!";
         int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text + " " + String.valueOf(score.getScore()), duration);
+        if (toast != null) {
+            toast.cancel();
+        }
+        toast = Toast.makeText(context, text + " " + String.valueOf(score.getScore()), duration);
         toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 36);
         toast.show();
     }
